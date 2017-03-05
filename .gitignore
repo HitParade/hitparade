@@ -87,3 +87,8 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Project specific ignores
+mysql-data
+hitparade/entrypoint.sh
+hitparade/requirements.txt
