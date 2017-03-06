@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "pinax.eventlog",
     "pinax.webanalytics",
     "social_django",
+    'django_extensions',
 
     # project
     "hitparade",
@@ -183,3 +184,22 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
+
+# VERRRRY temporary
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+ACCOUNT_OPEN_SIGNUP = True
+ACCOUNT_EMAIL_UNIQUE = True
+ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = False
+ACCOUNT_LOGIN_REDIRECT_URL = LOGIN_REDIRECT_URL = "home"
+ACCOUNT_LOGOUT_REDIRECT_URL = "home"
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
+ACCOUNT_USE_AUTH_AUTHENTICATE = True
+
+AUTHENTICATION_BACKENDS = [
+    "social_core.backends.twitter.TwitterOAuth",
+    "account.auth_backends.UsernameAuthenticationBackend",
+]
+
+SOCIAL_AUTH_TWITTER_KEY = ""
+SOCIAL_AUTH_TWITTER_SECRET = ""
