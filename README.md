@@ -13,3 +13,5 @@ pip install -r requirements.txt
 ./manage.py loaddata sites
 ./manage.py runserver
 ```
+
+#TODO: Figure out mail configuration
