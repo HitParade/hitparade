@@ -90,5 +90,5 @@ ENV/
 
 # Project specific ignores
 mysql-data
-hitparade/entrypoint.sh
-hitparade/requirements.txt
+sa-auth/entrypoint.sh
+sa-auth/requirements.txt

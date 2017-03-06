@@ -9,10 +9,9 @@ RUN apt-get update && \
 RUN mkdir -p /code/requirements && mkdir -p /etc/uwsgi/
 WORKDIR /code
 
-ADD requirements.txt /code/
+ADD hitparade/ /code/
 RUN pip install -r /code/requirements.txt
 
-ADD hitparade/ /code/
 ADD docker/entrypoint.sh /code/
 ADD docker/hitparade-nginx.conf /etc/nginx/sites-enabled/
 ADD docker/hitparade-uwsgi-params /etc/nginx/
