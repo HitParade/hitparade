@@ -72,6 +72,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.SessionAuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "social_django.middleware.SocialAuthExceptionMiddleware"
 ]
 
 ROOT_URLCONF = 'hitparade.urls'
@@ -96,6 +97,8 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "account.context_processors.account",
                 "pinax_theme_bootstrap.context_processors.theme",
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect",
             ],
         },
     },
@@ -197,9 +200,17 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
 ACCOUNT_USE_AUTH_AUTHENTICATE = True
 
 AUTHENTICATION_BACKENDS = [
-    "social_core.backends.twitter.TwitterOAuth",
-    "account.auth_backends.UsernameAuthenticationBackend",
+    'social_core.backends.open_id.OpenIdAuth',
+    'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.google.GoogleOAuth',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.yahoo.YahooOpenId',
+    'django.contrib.auth.backends.ModelBackend',
+    'account.auth_backends.UsernameAuthenticationBackend',
 ]
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 SOCIAL_AUTH_TWITTER_KEY = ""
 SOCIAL_AUTH_TWITTER_SECRET = ""
