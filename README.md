@@ -16,3 +16,5 @@ pip install -r requirements.txt
 ./manage.py loaddata sites
 ./manage.py runserver
 ```
+
+To build assets, run `npm run build`
