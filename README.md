@@ -1,6 +1,9 @@
-# hit-parade
+# Hit Parade
 
-The HitParade front end
+This repo contains all the services to run HitParade.
+
+
+## The HitParade front end
 
 ## Getting Started
 
@@ -13,5 +16,3 @@ pip install -r requirements.txt
 ./manage.py loaddata sites
 ./manage.py runserver
 ```
-
-#TODO: Figure out mail configuration
