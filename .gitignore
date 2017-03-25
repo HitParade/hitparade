@@ -90,4 +90,4 @@ ENV/
 
 # Project specific ignores
 mysql-data
-hitparade/entrypoint.sh
+web/hitparade/entrypoint.sh
