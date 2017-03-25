@@ -89,5 +89,5 @@ ENV/
 .ropeproject
 
 # Project specific ignores
-mysql-data
+web/mysql-data
 web/hitparade/entrypoint.sh
