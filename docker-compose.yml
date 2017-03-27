@@ -25,6 +25,9 @@ services:
   data-web:
     build:
       context: ./data/
+    env_file: ./data/.env
+    environment:
+      POSTGRES_HOST: data-db
     volumes:
       - ./data/app/:/app/
     ports:
