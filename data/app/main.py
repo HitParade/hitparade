@@ -6,8 +6,6 @@ app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
 db = SQLAlchemy(app)
 
-from models import Result
-
 @app.route("/")
 def hello():
 
