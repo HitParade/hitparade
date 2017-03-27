@@ -1,0 +1,13 @@
+.git
+.gitignore
+LICENSE
+VERSION
+README.md
+DEPLOY.md
+Changelog.md
+Makefile
+docker-compose.yml
+docs
+node_modules
+postgres-data
+mysql-data
