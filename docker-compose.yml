@@ -1,25 +1,45 @@
 version: '2'
 services:
-  db:
+  web-db:
     image: mysql:latest
-    env_file: .env
+    env_file: ./web/.env
     ports:
       - "3306:3306"
     volumes:
-      - ./mysql-data/:/var/lib/mysql/
+      - ./web/mysql-data/:/var/lib/mysql/
   web:
     build:
-      context: .
-      dockerfile: Dockerfile
-    env_file: .env
+      context: ./web/
+    env_file: ./web/.env
     environment:
-      MYSQL_HOST: db
+      MYSQL_HOST: web-db
     volumes:
-      - ./hitparade/:/code/
-      - ./docker/entrypoint.sh:/code/entrypoint.sh
+      - ./web/hitparade/:/code/
+      - ./web/docker/entrypoint.sh:/code/entrypoint.sh
     ports:
       - "80:80"
     depends_on:
-      - db
+      - web-db
     links:
-      - db:db
+      - web-db:web-db
+  data-web:
+    build:
+      context: ./data/
+    env_file: ./data/.env
+    environment:
+      POSTGRES_HOST: data-db
+    volumes:
+      - ./data/app/:/app/
+    ports:
+      - "81:81"
+    depends_on:
+      - data-db
+    links:
+      - data-db:data-db
+  data-db:
+    image: postgres:9.6.2
+    env_file: ./data/.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/postgres-data/:/var/lib/postgresql/data

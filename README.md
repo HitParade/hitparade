@@ -1,6 +1,9 @@
-# hit-parade
+# Hit Parade
 
-The HitParade front end
+This repo contains all the services to run HitParade.
+
+
+## The HitParade front end
 
 ## Getting Started
 
@@ -14,4 +17,4 @@ pip install -r requirements.txt
 ./manage.py runserver
 ```
 
-#TODO: Figure out mail configuration
+To build assets, run `npm run build`
