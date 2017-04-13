@@ -4,7 +4,9 @@ from sqlalchemy.dialects.postgresql import JSON
 
 class Team(db.Model):
     __tablename__ = 'team'
+    __table_args__ = {'extend_existing': True}
     __name__ = 'Team'
+
 
     id = db.Column(db.Integer, primary_key=True)
     abbreviation = db.Column(db.String(3), unique=True, index=True)
@@ -17,6 +19,11 @@ class Team(db.Model):
     city = db.Column(db.String(64))
     state = db.Column(db.String(32))
     full_name = db.Column(db.String(64))
+
+
+    def __init__(self, **kwargs):
+        super(Team, self).__init__(**kwargs)
+
 
     def __repr__(self):
         return '<{} {}>'.format(self.__name__, self.abbreviation)

@@ -38,3 +38,8 @@ script of the data-web container.)
 ```bash
 docker-compose exec data-web ./manage.py db upgrade
 ```
+
+Load Teams
+```bash
+docker-compose exec data-web ./manage.py load-teams
+```
