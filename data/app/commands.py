@@ -1,36 +1,64 @@
 import requests
+
 from flask_script import Command
 
 from main import db
-from Models import Team
+from utils import get_stattleship_client
+from models import Conference, Division, Team
 
 class LoadTeams(Command):
     "Loads teams"
 
     def run(self):
 
-        teams_url = "https://erikberg.com/mlb/teams.json"
+        s = get_stattleship_client()
+        result = s.ss_get_results(sport='baseball',
+                                league='mlb',
+                                per_page=40
+                                )
 
-        teams = requests.get(teams_url).json()
+        # import pprint
+        # pp = pprint.PrettyPrinter(indent=2)
+        # pp.pprint(result[0]['divisions'])
 
-        for team in teams:
+        # Load conferences
+        for c in result[0]['conferences']:
+            if not Conference.query.filter_by(ss_id=c['id']).first():
+                conf = Conference(
+                        ss_id=c['id'],
+                        name=c['name']
+                    ).save()
 
-            t = Team.query.filter_by(abbreviation=team['abbreviation']).first()
+        # Load divisions
+        for d in result[0]['divisions']:
+            if not Division.query.filter_by(ss_id=d['id']).first():
 
-            if not t:
+                conf = Conference.query.filter_by(ss_id=d['conference_id']).first()
 
-                t = Team(
-                    abbreviation=team['abbreviation'],
-                    active=team['active'],
-                    first_name=team['first_name'],
-                    last_name=team['last_name'],
-                    conference=team['conference'],
-                    division=team['division'],
-                    site_name=team['site_name'],
-                    city=team['city'],
-                    state=team['state'],
-                    full_name=team['full_name'],
-                )
-                db.session.add(t)
-                db.session.commit()
+                div = Division(
+                        ss_id=d['id'],
+                        name=d['name'],
+                        conference_id=conf.id
+                    ).save()
 
+                conf.divisions.append(div)
+
+
+
+
+class LoadPlayers(Command):
+    "Loads players"
+
+    def run(self):
+
+        print "LoadPlayers"
+
+        s = get_stattleship_client()
+        result = s.ss_get_results(sport='baseball',
+                                league='mlb',
+                                per_page=1
+                                )
+
+        import pprint
+        pp = pprint.PrettyPrinter(indent=2)
+        pp.pprint(result[0])
