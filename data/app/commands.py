@@ -17,9 +17,9 @@ class LoadTeams(Command):
                                 per_page=40
                                 )
 
-        # import pprint
-        # pp = pprint.PrettyPrinter(indent=2)
-        # pp.pprint(result[0]['divisions'])
+        import pprint
+        pp = pprint.PrettyPrinter(indent=2)
+        # pp.pprint(result[0]['teams'])
 
         # Load conferences
         for c in result[0]['conferences']:
@@ -43,6 +43,24 @@ class LoadTeams(Command):
 
                 conf.divisions.append(div)
 
+        # Load teams
+        for t in result[0]['teams']:
+            if not Team.query.filter_by(ss_id=t['id']).first():
+
+                div = Division.query.filter_by(ss_id=t['division_id']).first()
+
+                team = Team(
+                        ss_id=t['id'],
+                        name=t['name'],
+                        slug=t['slug'],
+                        division_id=div.id,
+                        location=t['location'],
+                        nickname=t['nickname'],
+                        colors=t['colors'],
+                        hashtags=t['hashtags'],
+                        latitude=t['latitude'],
+                        longitude=t['longitude'],
+                    ).save()
 
 
 

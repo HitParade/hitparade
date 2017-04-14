@@ -54,6 +54,7 @@ class Team(HitparadeModel):
 
 
     id = db.Column(db.Integer, primary_key=True)
+    ss_id = db.Column(db.String(36), unique=True, index=True)
     name = db.Column(db.String(64))
     slug = db.Column(db.String(7), unique=True, index=True)
     division_id = db.Column(db.Integer, db.ForeignKey('division.id'))
