@@ -12,7 +12,7 @@ class HitparadeModel(db.Model):
 
 
     def __repr__(self):
-        return '<{} {}>'.format(self.__name__, self.abbreviation)
+        return '<{} {}>'.format(self.__name__, self.id)
 
 
     def save(self):
@@ -66,3 +66,47 @@ class Team(HitparadeModel):
     longitude = db.Column(db.Numeric(precision=8, asdecimal=False, decimal_return_scale=None))
 
 
+class Player(HitparadeModel):
+    __tablename__ = 'player'
+    __name__ = "Player"
+
+    id = db.Column(db.Integer, primary_key=True)
+    ss_id = db.Column(db.String(36), unique=True, index=True)
+    slug = db.Column(db.String(64))
+    team_id = db.Column(db.Integer, db.ForeignKey('team.id'))
+    active = db.Column(db.Boolean())
+    # TODO: Get possible values
+    bats = db.Column(db.String(12))
+    birth_date = db.Column(db.DateTime())
+    # TODO: get possible values
+    captain = db.Column(db.String(32))
+    city = db.Column(db.String(128))
+    draft_overall_pick = db.Column(db.Integer())
+    draft_round = db.Column(db.Integer())
+    draft_season = db.Column(db.Integer())
+    draft_team_name = db.Column(db.String(128))
+    name = db.Column(db.String(256))
+    first_name = db.Column(db.String(128))
+    last_name = db.Column(db.String(128))
+    handedness = db.Column(db.String(16))
+    height = db.Column(db.Integer())
+    high_school = db.Column(db.String(128))
+    salary = db.Column(db.Integer())
+    humanized_salary = db.Column(db.String(16))
+    salary_currency = db.Column(db.String(8))
+    mlbam_id = db.Column(db.Integer())
+    nickname = db.Column(db.String(128))
+    position_abbreviation = db.Column(db.String(8))
+    position_name = db.Column(db.String(32))
+    pro_debut = db.Column(db.DateTime())
+    school = db.Column(db.String(64))
+    state = db.Column(db.String(32))
+    uniform_number = db.Column(db.Integer())
+    unit_of_height = db.Column(db.String(16))
+    unit_of_weight = db.Column(db.String(16))
+    weight = db.Column(db.Integer())
+    years_of_experience = db.Column(db.Integer())
+
+
+    def __repr__(self):
+        return '<{} {}>'.format(self.__name__, self.name)
