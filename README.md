@@ -2,19 +2,50 @@
 
 This repo contains all the services to run HitParade.
 
-
-## The HitParade front end
-
 ## Getting Started
 
-Make sure you are using a virtual environment of some sort (e.g. `virtualenv` or
-`pyenv`).
+The recommended way to install and run this repo is using Docker.
 
-```
-pip install -r requirements.txt
-./manage.py migrate
-./manage.py loaddata sites
-./manage.py runserver
+The simplest way to install Docker is to install [the Platform from the official website](https://www.docker.com/products/docker).
+The official website offers [a good tutorial](https://docs.docker.com/engine/getstarted/).
+
+For each service, you'll need to create a .env file. The required fields are
+listed in .env.skel. The defaults are likely good enough for running an instance
+of each service locally.
+
+From the root of the repo;
+
+```bash
+$ cp data/.env.skel data/.env
+$ cp web/.env.skel web/.env
+$ docker-compose up -d
 ```
 
-To build assets, run `npm run build`
+## Additional Web service steps
+
+To build assets, from the `web/hitparade` directory, run
+
+ ```bash
+npm install
+npm run build
+```
+
+## Additional Data service steps
+
+Set up the database. (This should eventually be wired into the entrypoint
+script of the data-web container.)
+
+```bash
+docker-compose exec data-web ./manage.py db upgrade
+```
+
+Load Teams & players
+```bash
+docker-compose exec data-web ./manage.py load-teams
+docker-compose exec data-web ./manage.py load-players
+```
+
+Load BIS
+```bash
+docker-compose exec data-web ./manage.py load-bis-historical
+```
