@@ -1,10 +1,11 @@
+import datetime
 import requests
 
 from flask_script import Command
 
 from main import db
 from utils import get_stattleship_client
-from models import Conference, Division, Team, Player
+from models import *
 
 class LoadTeams(Command):
     "Loads teams"
@@ -61,7 +62,6 @@ class LoadTeams(Command):
                         latitude=t['latitude'],
                         longitude=t['longitude'],
                     ).save()
-
 
 
 class LoadPlayers(Command):
@@ -141,3 +141,130 @@ class LoadPlayers(Command):
                     ).save()
 
                 page = page + 1
+
+
+class LoadGames(Command):
+    """Load Games"""
+
+    def run(self):
+
+        year = datetime.datetime.now().year
+        season_slug = "mlb-%i" % year
+
+        s = get_stattleship_client()
+
+        import pprint
+        pp = pprint.PrettyPrinter(indent=2)
+
+        print "LoadGames"
+
+        teams = Team.query.all()
+
+        for t in teams:
+            print t
+
+            page = 1
+            len_games = -1
+
+            while len_games != 0:
+
+                result = s.ss_get_results(sport='baseball',
+                                        league='mlb',
+                                        ep='games',
+                                        team_id=t.slug,
+                                        page=page,
+                                        per_page=40,
+                                        season='mlb-2017'
+                                    )
+
+                len_games = len(result[0]['games'])
+                page = page + 1
+
+                if len_games == 0:
+                    continue
+
+                # Load conferences
+                for o in result[0]['officials']:
+                    if not Official.query.filter_by(ss_id=o['id']).first():
+                        off = Official(
+                                ss_id=o['id'],
+                                name=o['name'],
+                                first_name=o['first_name'],
+                                last_name=o['last_name'],
+                                uniform_number=o['uniform_number'] or 0,
+                            ).save()
+
+                # Load Venues
+                for v in result[0]['venues']:
+                    if not Venue.query.filter_by(ss_id=v['id']).first():
+                        ven = Venue(
+                                ss_id=v['id'],
+                                name=v['name'],
+                                abbreviation=v['abbreviation'],
+                                capacity=v['capacity'],
+                                city=v['city'],
+                                field_type=v['field_type'],
+                                slug=v['slug'],
+                                state=v['state'],
+                                stadium_type=v['stadium_type'],
+                                time_zone=v['time_zone'],
+                                longitude=v['longitude'],
+                                latitude=v['latitude'],
+                            ).save()
+
+                # Load Venues
+                for g in result[0]['games']:
+                    if not Game.query.filter_by(ss_id=g['id']).first():
+
+                        home_team_id = Team.query.filter_by(ss_id=g['home_team_id']).first().id
+                        away_team_id = Team.query.filter_by(ss_id=g['away_team_id']).first().id
+                        venue_id = Venue.query.filter_by(ss_id=g['venue_id']).first().id
+
+                        winning_team_id = None
+                        if g['winning_team_id']:
+                            winning_team_id = Team.query.filter_by(ss_id=g['winning_team_id']).first().id
+
+                        gam = Game(
+                                ss_id=g['id'],
+                                home_team_id=home_team_id,
+                                away_team_id=away_team_id,
+                                winning_team_id=winning_team_id,
+                                venue_id=venue_id,
+                                season=year,
+                                at_neutral_site=g['at_neutral_site'],
+                                attendance=g['attendance'],
+                                away_team_outcome=g['away_team_outcome'],
+                                away_team_score=g['away_team_score'],
+                                broadcast=g['broadcast'],
+                                daytime=g['daytime'],
+                                duration=g['duration'],
+                                ended_at=g['ended_at'],
+                                home_team_outcome=g['home_team_outcome'],
+                                home_team_score=g['home_team_score'],
+                                humidity=g['humidity'],
+                                interval=g['interval'],
+                                interval_number=g['interval_number'],
+                                interval_type=g['interval_type'],
+                                label=g['label'],
+                                name=g['name'],
+                                on=g['on'],
+                                period=g['period'],
+                                period_label=g['period_label'],
+                                score=g['score'],
+                                score_differential=g['score_differential'],
+                                scoreline=g['scoreline'],
+                                slug=g['slug'],
+                                started_at=g['started_at'],
+                                status=g['status'],
+                                internet_coverage=g['internet_coverage'],
+                                satellite_coverage=g['satellite_coverage'],
+                                television_coverage=g['television_coverage'],
+                                temperature=g['temperature'],
+                                temperature_unit=g['temperature_unit'],
+                                timestamp=g['timestamp'],
+                                title=g['title'],
+                                weather_conditions=g['weather_conditions'],
+                                wind_direction=g['wind_direction'],
+                                wind_speed=g['wind_speed'],
+                                wind_speed_unit=g['wind_speed_unit'],
+                            ).save()

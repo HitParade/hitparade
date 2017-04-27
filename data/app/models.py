@@ -62,8 +62,8 @@ class Team(HitparadeModel):
     nickname = db.Column(db.String(64))
     colors = db.Column(db.JSON())
     hashtags = db.Column(db.JSON())
-    latitude = db.Column(db.Numeric(precision=8, asdecimal=False, decimal_return_scale=None))
-    longitude = db.Column(db.Numeric(precision=8, asdecimal=False, decimal_return_scale=None))
+    longitude = db.Column(db.Float, nullable=False)
+    latitude = db.Column(db.Float, nullable=False)
 
 
 class Player(HitparadeModel):
@@ -110,3 +110,86 @@ class Player(HitparadeModel):
 
     def __repr__(self):
         return '<{} {}>'.format(self.__name__, self.name)
+
+
+class Official(HitparadeModel):
+    __tablename__ = 'official'
+    __name__ = "Official"
+
+    id = db.Column(db.Integer, primary_key=True)
+    ss_id = db.Column(db.String(36), unique=True, index=True)
+    first_name = db.Column(db.String(32))
+    last_name = db.Column(db.String(32))
+    name = db.Column(db.String(64))
+    uniform_number = db.Column(db.Integer())
+
+
+class Venue(HitparadeModel):
+    __tablename__ = 'venue'
+    __name__ = "Venue"
+
+
+    id = db.Column(db.Integer, primary_key=True)
+    ss_id = db.Column(db.String(36), unique=True, index=True)
+    abbreviation = db.Column(db.String(64))
+    capacity = db.Column(db.Integer())
+    city = db.Column(db.String(32))
+    field_type = db.Column(db.String(16))
+    name = db.Column(db.String(64))
+    slug = db.Column(db.String(32))
+    state = db.Column(db.String(2))
+    stadium_type = db.Column(db.String(32))
+    time_zone = db.Column(db.String(32))
+    longitude = db.Column(db.Float)
+    latitude = db.Column(db.Float)
+
+
+class Game(HitparadeModel):
+    __tablename__ = 'game'
+    __name__ = "Game"
+
+
+    id = db.Column(db.Integer, primary_key=True)
+    ss_id = db.Column(db.String(36), unique=True, index=True)
+    home_team_id = db.Column(db.Integer, db.ForeignKey('team.id'))
+    away_team_id = db.Column(db.Integer, db.ForeignKey('team.id'))
+    winning_team_id = db.Column(db.Integer, db.ForeignKey('team.id'))
+    venue_id = db.Column(db.Integer, db.ForeignKey('venue.id'))
+    season = db.Column(db.Integer())
+    at_neutral_site = db.Column(db.Boolean())
+    attendance = db.Column(db.Integer())
+    away_team_outcome = db.Column(db.String(16))
+    away_team_score = db.Column(db.Integer())
+    broadcast = db.Column(db.String(32))
+    daytime = db.Column(db.Boolean())
+    duration = db.Column(db.Integer())
+    ended_at = db.Column(db.DateTime())
+    home_team_outcome = db.Column(db.String(16))
+    home_team_score = db.Column(db.Integer())
+    # TODO:
+    humidity = db.Column(db.String(32))
+    interval = db.Column(db.String(32))
+    interval_number = db.Column(db.Integer())
+    interval_type = db.Column(db.String(32))
+    label = db.Column(db.String(64))
+    name = db.Column(db.String(128))
+    on = db.Column(db.String(64))
+    period = db.Column(db.Integer())
+    period_label = db.Column(db.String(16))
+    score = db.Column(db.String(16))
+    score_differential = db.Column(db.Integer())
+    scoreline = db.Column(db.String(64))
+    slug = db.Column(db.String(64))
+    started_at = db.Column(db.DateTime())
+    status = db.Column(db.String(16))
+    internet_coverage = db.Column(db.String(32))
+    satellite_coverage = db.Column(db.String(32))
+    television_coverage = db.Column(db.String(32))
+    temperature = db.Column(db.String(8))
+    temperature_unit = db.Column(db.String(8))
+    timestamp = db.Column(db.Integer())
+    title = db.Column(db.String(64))
+    weather_conditions = db.Column(db.String(64))
+    wind_direction = db.Column(db.String(32))
+    wind_speed = db.Column(db.Integer())
+    wind_speed_unit = db.Column(db.String(8))
