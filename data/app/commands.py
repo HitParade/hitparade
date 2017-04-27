@@ -63,7 +63,6 @@ class LoadTeams(Command):
                     ).save()
 
 
-
 class LoadPlayers(Command):
     "Loads players"
 
@@ -141,3 +140,16 @@ class LoadPlayers(Command):
                     ).save()
 
                 page = page + 1
+
+
+class LoadGames(Command):
+    """Load Games"""
+
+    def run(self):
+
+        s = get_stattleship_client()
+
+        import pprint
+        pp = pprint.PrettyPrinter(indent=2)
+
+        print "LoadGames"
