@@ -135,13 +135,13 @@ class Venue(HitparadeModel):
     capacity = db.Column(db.Integer())
     city = db.Column(db.String(32))
     field_type = db.Column(db.String(16))
-    name = db.Column(db.String(32))
+    name = db.Column(db.String(64))
     slug = db.Column(db.String(32))
     state = db.Column(db.String(2))
     stadium_type = db.Column(db.String(32))
     time_zone = db.Column(db.String(32))
-    longitude = db.Column(db.Float, nullable=False)
-    latitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(db.Float)
+    latitude = db.Column(db.Float)
 
 
 class Game(HitparadeModel):
