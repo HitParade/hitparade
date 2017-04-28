@@ -2,9 +2,17 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
-app.config.from_object(os.environ['APP_SETTINGS'])
-db = SQLAlchemy(app)
+# This probably doesn't belong here, but I have no idea where it should go
+def create_app():
+    config_name = os.environ['APP_SETTINGS']
+
+    app = Flask(__name__)
+    app.config.from_object(config_name)
+    db = SQLAlchemy(app)
+
+    return app, db
+
+app, db = create_app()
 
 from models import Team, Conference, Division
 

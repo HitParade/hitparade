@@ -7,6 +7,8 @@ from main import db
 from utils import get_stattleship_client
 from models import *
 
+#TODO: Command to wrap all data loading commands
+
 class LoadTeams(Command):
     "Loads teams"
 
@@ -268,3 +270,16 @@ class LoadGames(Command):
                                 wind_speed=g['wind_speed'],
                                 wind_speed_unit=g['wind_speed_unit'],
                             ).save()
+
+
+class UpdateGames(Command):
+    """Update Games"""
+
+    def run(self):
+        print "Update Games"
+
+        games_to_update = get_games_to_update()
+
+        for game in games_to_update:
+            print game
+
