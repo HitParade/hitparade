@@ -4,10 +4,10 @@ import os
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 
-from main import app, db
-from commands import LoadTeams, LoadPlayers, LoadGames
+from main import create_app
+from commands import *
 
-app.config.from_object(os.environ['APP_SETTINGS'])
+app, db = create_app()
 
 migrate = Migrate(app, db)
 manager = Manager(app)
@@ -16,6 +16,7 @@ manager.add_command('db', MigrateCommand)
 manager.add_command('load-teams', LoadTeams)
 manager.add_command('load-players', LoadPlayers)
 manager.add_command('load-games', LoadGames)
+manager.add_command('update-games', UpdateGames)
 
 
 if __name__ == '__main__':

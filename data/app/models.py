@@ -1,6 +1,9 @@
 from main import db
 from sqlalchemy.dialects.postgresql import JSON
+from sqlalchemy.exc import AmbiguousForeignKeysError
+from datetime import datetime
 
+# TODO: slug should actually be ss_slug, since we may be grabbing data from sources with differing slugs.
 
 class HitparadeModel(db.Model):
     __table_args__ = {'extend_existing': True}
@@ -23,6 +26,12 @@ class HitparadeModel(db.Model):
         db.session.commit()
 
         return self
+
+
+    def update_from_ss(self):
+
+        if not self.id or not self.ss_id:
+            raise AmbiguousForeignKeysError()
 
 
 class Conference(HitparadeModel):
@@ -148,6 +157,15 @@ class Game(HitparadeModel):
     __tablename__ = 'game'
     __name__ = "Game"
 
+    STATUS_UPCOMING = "upcoming"
+    STATUS_IN_PROGRESS = "in_progress"
+    STATUS_CLOSED = "closed"  # ended
+
+    STATUSES = [
+        STATUS_UPCOMING,
+        STATUS_IN_PROGRESS,
+        STATUS_CLOSED,
+    ]
 
     id = db.Column(db.Integer, primary_key=True)
     ss_id = db.Column(db.String(36), unique=True, index=True)
@@ -166,7 +184,6 @@ class Game(HitparadeModel):
     ended_at = db.Column(db.DateTime())
     home_team_outcome = db.Column(db.String(16))
     home_team_score = db.Column(db.Integer())
-    # TODO:
     humidity = db.Column(db.String(32))
     interval = db.Column(db.String(32))
     interval_number = db.Column(db.Integer())
@@ -193,3 +210,8 @@ class Game(HitparadeModel):
     wind_direction = db.Column(db.String(32))
     wind_speed = db.Column(db.Integer())
     wind_speed_unit = db.Column(db.String(8))
+
+
+def get_games_to_update():
+
+    return Game.query.filter(Game.status.in_([Game.STATUS_IN_PROGRESS, Game.STATUS_UPCOMING]), Game.started_at < datetime.now() )
