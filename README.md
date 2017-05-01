@@ -43,6 +43,12 @@ Load Teams & players
 ```bash
 docker-compose exec data-web ./manage.py load-teams
 docker-compose exec data-web ./manage.py load-players
+docker-compose exec data-web ./manage.py load-games
+```
+
+Run tests
+```bash
+docker-compose exec data-web py.test -s
 ```
 
 Load BIS
