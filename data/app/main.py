@@ -14,7 +14,7 @@ def create_app():
 
 app, db = create_app()
 
-from models import Team, Conference, Division
+from models import *
 
 @app.route("/")
 def hello():

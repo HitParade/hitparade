@@ -16,6 +16,7 @@ manager.add_command('db', MigrateCommand)
 manager.add_command('load-teams', LoadTeams)
 manager.add_command('load-players', LoadPlayers)
 manager.add_command('load-games', LoadGames)
+manager.add_command('load-bis-hist', LoadHistorical)
 manager.add_command('update-games', UpdateGames)
 
 

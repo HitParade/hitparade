@@ -1,10 +1,14 @@
+import os
+import json
 import datetime
 import requests
+import tempfile
+import subprocess
 
 from flask_script import Command
 
-from main import db
-from utils import get_stattleship_client
+from main import app, db
+from utils import *
 from models import *
 
 #TODO: Command to wrap all data loading commands
@@ -275,6 +279,7 @@ class LoadGames(Command):
 class UpdateGames(Command):
     """Update Games"""
 
+
     def run(self):
         print "Update Games"
 
@@ -282,4 +287,39 @@ class UpdateGames(Command):
 
         for game in games_to_update:
             print game
+
+
+class LoadHistorical(Command):
+    """Load Historical BIS Data"""
+
+
+    def run(self):
+        print "Load BIS Historical Data"
+
+        json_file = "/tmp/HistData2.json"
+
+        if not os.path.isfile(json_file):
+
+            f = tempfile.NamedTemporaryFile(delete=False)
+            key = os.path.join(app.config['AWS_S3_BUCKET_BASE_KEY'], app.config['BIS_HISTORICAL_ZIP'])
+
+            s3_get_file(app.config['AWS_S3_BUCKET_NAME'], key, f)
+
+            p = subprocess.Popen(["unzip", "-o", f.name, "-d", os.path.dirname(f.name)], stdout=subprocess.PIPE)
+            p.communicate()
+
+
+        with open(json_file) as data_file:
+            data = json.load(data_file)
+
+        for d in data:
+
+            import pprint
+            pp = pprint.PrettyPrinter(indent=2)
+
+            snake_keys = sorted(map(convert_camel2snake, d.keys()))
+
+            pp.pprint(snake_keys)
+
+            return
 
