@@ -16,6 +16,7 @@ app, db = create_app()
 
 from models import *
 
+
 @app.route("/")
 def hello():
 

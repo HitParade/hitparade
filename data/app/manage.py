@@ -9,6 +9,8 @@ from commands import *
 
 app, db = create_app()
 
+from models import *
+
 migrate = Migrate(app, db)
 manager = Manager(app)
 

@@ -296,6 +296,9 @@ class LoadHistorical(Command):
     def run(self):
         print "Load BIS Historical Data"
 
+        import pprint
+        pp = pprint.PrettyPrinter(indent=2)
+
         json_file = "/tmp/HistData2.json"
 
         if not os.path.isfile(json_file):
@@ -312,14 +315,29 @@ class LoadHistorical(Command):
         with open(json_file) as data_file:
             data = json.load(data_file)
 
+        # pp.pprint(GameStat.key_map)
+
         for d in data:
 
-            import pprint
-            pp = pprint.PrettyPrinter(indent=2)
+            # Ignore Expos data, they're no longer a team
+            if d['Team'] in GameStat.teams_ignored or \
+                d['Opp'] in GameStat.teams_ignored:
+                continue
 
-            snake_keys = sorted(map(convert_camel2snake, d.keys()))
+            pp.pprint(d)
 
-            pp.pprint(snake_keys)
+            kwargs = {}
 
-            return
+            for bis_key, hp_key in GameStat.key_map.iteritems():
+
+                if callable(hp_key):
+                    k, v = hp_key(bis_key, d[bis_key])
+                    kwargs[k] = v
+                else:
+                    kwargs[hp_key] = d[bis_key]
+
+            pp.pprint(kwargs)
+
+            GameStat(**kwargs).save()
+
 
