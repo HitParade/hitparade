@@ -1,7 +1,9 @@
-Django==1.10.3
+Django==1.11
 django-appconf==1.0.2
 django-bootstrap-form==3.2.1
 django-extensions==1.7.7
+django-model-utils==3.0.0
+django-mysql==1.1.1
 django-user-accounts==2.0.0
 jsonfield==2.0.0
 MySQL-python==1.2.5
@@ -11,7 +13,7 @@ pinax-theme-bootstrap==7.11.0
 pinax-webanalytics==2.0.4
 PyJWT==1.4.2
 python-openid==2.2.5
-pytz==2016.10
+pytz==2017.2
 requests==2.13.0
 requests-oauthlib==0.8.0
 six==1.10.0

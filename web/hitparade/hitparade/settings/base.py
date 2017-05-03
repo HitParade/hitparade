@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     "pinax.webanalytics",
     "social_django",
     'django_extensions',
+    'django_mysql',
 
     # project
     "hitparade",
