@@ -1,5 +1,6 @@
 from django.db import models
 from django_mysql.models import Model
+from django_mysql.models.fields.json import JSONField
 from model_utils.models import TimeStampedModel
 
 
@@ -11,8 +12,19 @@ class HitparadeModel(Model, TimeStampedModel):
         abstract = True
 
 
-    def __repr__(self):
-        return '<{} {}>'.format(self.__name__, self.id)
+    def update(self, *args, **kwargs):
+
+        # TODO: This should be a better exception
+        if not self.id:
+            raise Exception("Instance not saved yet.")
+
+        print "***********************update*********************"
+
+        for attr, value in kwargs.items():
+            print attr + " : " + str(value)
+            setattr(self, attr, value)
+
+        self.save()
 
 
     # TODO: Fully implement
@@ -34,29 +46,29 @@ class Division(HitparadeModel):
 
     ss_id = models.CharField(max_length=36, unique=True)
     name = models.CharField(max_length=36)
-    conference = models.ForeignKey(Conference)
+    conference = models.ForeignKey(Conference, null=True)
 
 
 class Team(HitparadeModel):
     __name__ = 'Team'
 
 
+    division = models.ForeignKey(Division, null=True)
     ss_id = models.CharField(max_length=36, unique=True)
     name = models.CharField(max_length=64)
     slug = models.CharField(max_length=7, unique=True)
-    division = models.ForeignKey(Conference)
     location = models.CharField(max_length=64)
     nickname = models.CharField(max_length=64)
-    # colors = models.JSONField()
-    # hashtags = models.JSONField()
-    longitude = models.FloatField()
-    latitude = models.FloatField()
+    colors = JSONField(default=list)
+    hashtags = JSONField(default=list)
+    longitude = models.FloatField(null=True)
+    latitude = models.FloatField(null=True)
 
 
 class Player(HitparadeModel):
     __name__ = "Player"
 
-    team = models.ForeignKey(Team)
+    team = models.ForeignKey(Team, null=True)
     ss_id = models.CharField(max_length=36, unique=True)
     slug = models.CharField(max_length=64)
     active = models.NullBooleanField()
@@ -136,9 +148,9 @@ class Game(HitparadeModel):
         STATUS_CLOSED,
     ]
 
-    home_team = models.ForeignKey(Team, related_name='home_game')
-    away_team = models.ForeignKey(Team, related_name='away_game')
-    winning_team = models.ForeignKey(Team, related_name='winning_game')
+    home_team = models.ForeignKey(Team, related_name='home_game', null=True)
+    away_team = models.ForeignKey(Team, related_name='away_game', null=True)
+    winning_team = models.ForeignKey(Team, related_name='winning_game', null=True)
     venue = models.ForeignKey(Team)
     ss_id = models.CharField(max_length=36, unique=True)
     season = models.IntegerField(blank=True, null=True)
@@ -345,14 +357,14 @@ class GameStat(HitparadeModel):
     }
 
 
-    home_team = models.ForeignKey(Team, related_name='+')
-    opp = models.ForeignKey(Team, related_name='+')
-    team = models.ForeignKey(Team, related_name='game_stat')
-    hp_ump = models.ForeignKey(Official, related_name='game_stat')
-    opp_cat = models.ForeignKey(Player, related_name='+')
-    opp_pit = models.ForeignKey(Player, related_name='+')
-    player = models.ForeignKey(Player, related_name='game_stat')
-    stadium = models.ForeignKey(Venue, related_name='game_stat')
+    home_team = models.ForeignKey(Team, related_name='+', null=True)
+    opp = models.ForeignKey(Team, related_name='+', null=True)
+    team = models.ForeignKey(Team, related_name='game_stat', null=True)
+    hp_ump = models.ForeignKey(Official, related_name='game_stat', null=True)
+    opp_cat = models.ForeignKey(Player, related_name='+', null=True)
+    opp_pit = models.ForeignKey(Player, related_name='+', null=True)
+    player = models.ForeignKey(Player, related_name='game_stat', null=True)
+    stadium = models.ForeignKey(Venue, related_name='game_stat', null=True)
 
     game_date = models.DateField(blank=True, null=True)
     local_game_time = models.DateField(blank=True, null=True)
