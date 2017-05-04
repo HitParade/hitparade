@@ -1,19 +1,25 @@
 import re
 import boto3
+
+from django.conf import settings
 from stattlepy import Stattleship
 from config import get_env_variable
 
 
 def get_stattleship_client():
 
-    s = Stattleship()
-    s.set_token(get_env_variable('STATTLESHIP_TOKEN'))
+    s = Stattleship(settings.STATTLESHIP_API_TOKEN)
+    s.set_token()
 
     return s
 
 def s3_get_file(bucket, key, file):
 
+    print "s3_get_file"
+    print bucket
+
     key = boto3.resource('s3').Object(bucket, key).get()
+    print key
     with file as f:
         chunk = key['Body'].read(1024*8)
         while chunk:

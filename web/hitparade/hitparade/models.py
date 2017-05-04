@@ -2,7 +2,7 @@ from django.db import models
 from django_mysql.models import Model
 from django_mysql.models.fields.json import JSONField
 from model_utils.models import TimeStampedModel
-
+from utils import convert_camel2snake
 
 
 class HitparadeModel(Model, TimeStampedModel):
@@ -201,12 +201,14 @@ class GameStat(HitparadeModel):
         slug = "mlb-%s" % GameStat.team_map[team_code]
         slug = slug.lower()
 
-        return convert_camel2snake(key), Team.query.filter_by(slug=slug).first().id
+        return convert_camel2snake(key), Team.objects.get(slug=slug).id
 
 
     @staticmethod
     def get_player_ref(key, player_name):
-        player = Player.query.filter_by(name=player_name).first()
+        print player_name
+
+        player = Player.objects.get(name=player_name)
 
         key = u'player'
 
@@ -219,7 +221,7 @@ class GameStat(HitparadeModel):
 
     @staticmethod
     def get_umpire_ref(key, official_name):
-        official = Official.query.filter_by(name=official_name).first()
+        official = Official.objects.get(name=official_name)
 
         key = convert_camel2snake(key)
 
@@ -232,7 +234,7 @@ class GameStat(HitparadeModel):
 
     @staticmethod
     def get_venue_ref(key, venue_name):
-        venue = Venue.query.filter_by(name=venue_name).first()
+        venue = Venue.objects.get(name=venue_name)
 
         key = convert_camel2snake(key)
 
@@ -366,63 +368,63 @@ class GameStat(HitparadeModel):
     player = models.ForeignKey(Player, related_name='game_stat', null=True)
     stadium = models.ForeignKey(Venue, related_name='game_stat', null=True)
 
-    game_date = models.DateField(blank=True, null=True)
-    local_game_time = models.DateField(blank=True, null=True)
-    ab = models.IntegerField(blank=True, null=True)
-    ba14 = models.IntegerField(blank=True, null=True)
-    ba7 = models.IntegerField(blank=True, null=True)
-    ba_curr_month = models.IntegerField(blank=True, null=True)
-    bb = models.IntegerField(blank=True, null=True)
-    car_ba = models.FloatField()
-    car_ba_bip = models.FloatField()
-    car_ba_curr_month = models.FloatField()
-    car_ba_for_half = models.FloatField()
-    car_ba_in_park = models.FloatField()
-    car_ba_off_pit = models.FloatField()
-    car_ba_vs_lhp = models.FloatField()
-    car_ba_vs_opp = models.FloatField()
-    car_ba_vs_rhp = models.FloatField()
-    car_ba_with_ump = models.FloatField()
-    car_era_with_ump = models.FloatField()
-    car_game_num = models.IntegerField(blank=True, null=True)
-    curr_hit_streak = models.IntegerField(blank=True, null=True)
-    doubles = models.IntegerField(blank=True, null=True)
-    gidp = models.IntegerField(blank=True, null=True)
-    game_num = models.IntegerField(blank=True, null=True)
-    h = models.IntegerField(blank=True, null=True)
-    hbp = models.IntegerField(blank=True, null=True)
-    hr = models.IntegerField(blank=True, null=True)
-    half = models.IntegerField(blank=True, null=True)
-    ibb = models.IntegerField(blank=True, null=True)
-    is_opp_pit_rhp = models.IntegerField(blank=True, null=True)
-    k = models.IntegerField(blank=True, null=True)
-    opp_bullpen_era = models.FloatField()
-    opp_pit_car_era = models.FloatField()
-    opp_pit_car_l = models.FloatField()
-    opp_pit_car_w = models.FloatField()
-    opp_pit_era = models.FloatField()
-    opp_pit_l = models.IntegerField(blank=True, null=True)
-    opp_pit_w = models.IntegerField(blank=True, null=True)
-    opp_score = models.IntegerField(blank=True, null=True)
-    pa = models.FloatField()
-    player_team_score = models.IntegerField(blank=True, null=True)
-    r = models.IntegerField(blank=True, null=True)
-    rbi = models.IntegerField(blank=True, null=True)
-    roe = models.IntegerField(blank=True, null=True)
-    sac = models.IntegerField(blank=True, null=True)
-    sb = models.IntegerField(blank=True, null=True)
-    sf = models.IntegerField(blank=True, null=True)
-    sea_ba = models.FloatField()
-    sea_ba_bip = models.FloatField()
-    sea_ba_for_half = models.FloatField()
-    sea_ba_in_park = models.FloatField()
-    sea_ba_vs_lhp = models.FloatField()
-    sea_ba_vs_opp = models.FloatField()
-    sea_ba_vs_rhp = models.FloatField()
-    sea_ba_with_ump = models.FloatField()
-    sea_era_with_ump = models.FloatField()
-    triples = models.IntegerField(blank=True, null=True)
-    was_start = models.IntegerField(blank=True, null=True)
+    game_date = models.DateField(null=True)
+    local_game_time = models.DateField(null=True)
+    ab = models.IntegerField(null=True)
+    ba14 = models.IntegerField(null=True)
+    ba7 = models.IntegerField(null=True)
+    ba_curr_month = models.IntegerField(null=True)
+    bb = models.IntegerField(null=True)
+    car_ba = models.FloatField(null=True)
+    car_ba_bip = models.FloatField(null=True)
+    car_ba_curr_month = models.FloatField(null=True)
+    car_ba_for_half = models.FloatField(null=True)
+    car_ba_in_park = models.FloatField(null=True)
+    car_ba_off_pit = models.FloatField(null=True)
+    car_ba_vs_lhp = models.FloatField(null=True)
+    car_ba_vs_opp = models.FloatField(null=True)
+    car_ba_vs_rhp = models.FloatField(null=True)
+    car_ba_with_ump = models.FloatField(null=True)
+    car_era_with_ump = models.FloatField(null=True)
+    car_game_num = models.IntegerField(null=True)
+    curr_hit_streak = models.IntegerField(null=True)
+    doubles = models.IntegerField(null=True)
+    gidp = models.IntegerField(null=True)
+    game_num = models.IntegerField(null=True)
+    h = models.IntegerField(null=True)
+    hbp = models.IntegerField(null=True)
+    hr = models.IntegerField(null=True)
+    half = models.IntegerField(null=True)
+    ibb = models.IntegerField(null=True)
+    is_opp_pit_rhp = models.IntegerField(null=True)
+    k = models.IntegerField(null=True)
+    opp_bullpen_era = models.FloatField(null=True)
+    opp_pit_car_era = models.FloatField(null=True)
+    opp_pit_car_l = models.FloatField(null=True)
+    opp_pit_car_w = models.FloatField(null=True)
+    opp_pit_era = models.FloatField(null=True)
+    opp_pit_l = models.IntegerField(null=True)
+    opp_pit_w = models.IntegerField(null=True)
+    opp_score = models.IntegerField(null=True)
+    pa = models.FloatField(null=True)
+    player_team_score = models.IntegerField(null=True)
+    r = models.IntegerField(null=True)
+    rbi = models.IntegerField(null=True)
+    roe = models.IntegerField(null=True)
+    sac = models.IntegerField(null=True)
+    sb = models.IntegerField(null=True)
+    sf = models.IntegerField(null=True)
+    sea_ba = models.FloatField(null=True)
+    sea_ba_bip = models.FloatField(null=True)
+    sea_ba_for_half = models.FloatField(null=True)
+    sea_ba_in_park = models.FloatField(null=True)
+    sea_ba_vs_lhp = models.FloatField(null=True)
+    sea_ba_vs_opp = models.FloatField(null=True)
+    sea_ba_vs_rhp = models.FloatField(null=True)
+    sea_ba_with_ump = models.FloatField(null=True)
+    sea_era_with_ump = models.FloatField(null=True)
+    triples = models.IntegerField(null=True)
+    was_start = models.IntegerField(null=True)
 
 
 def get_games_to_update():

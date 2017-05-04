@@ -2,7 +2,7 @@ FROM python:2.7
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update && \
-  apt-get install -y mysql-client nginx vim && \
+  apt-get install -y mysql-client nginx vim zip && \
   rm -rf /var/lib/apt/lists/* && \
   rm /etc/nginx/sites-available/default
 

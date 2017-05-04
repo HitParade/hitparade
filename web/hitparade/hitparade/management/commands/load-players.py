@@ -44,13 +44,16 @@ class Command(BaseCommand):
 
                     p = move_ssid(p)
 
-                    if p['active'] == 'False':
-                        pass
+                    if not p['active']:
+                        continue
 
                     p['team'] = t
                     p['uniform_number'] = p['uniform_number'] or 0
                     del p['team_id']
                     del p['league_id']
+
+                    if not p['name'].strip():
+                        p['name'] = "%s %s" % (p['first_name'], ['last_name'])
 
                     pp.pprint(p)
 
