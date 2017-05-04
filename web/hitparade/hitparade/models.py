@@ -1,12 +1,16 @@
+import datetime
+import pytz
+
 from django.db import models
 from django_mysql.models import Model
 from django_mysql.models.fields.json import JSONField
 from model_utils.models import TimeStampedModel
 from utils import convert_camel2snake
-
+from managers import HitParadeManager
 
 class HitparadeModel(Model, TimeStampedModel):
 
+    objects = HitParadeManager()
 
     class Meta:
         abstract = True
@@ -201,48 +205,59 @@ class GameStat(HitparadeModel):
         slug = "mlb-%s" % GameStat.team_map[team_code]
         slug = slug.lower()
 
-        return convert_camel2snake(key), Team.objects.get(slug=slug).id
+        return convert_camel2snake(key), Team.objects.get(slug=slug)
 
 
     @staticmethod
     def get_player_ref(key, player_name):
         print player_name
-
-        player = Player.objects.get(name=player_name)
+        player = Player.objects.get_or_none(name=player_name)
 
         key = u'player'
 
         if not player:
-            print player_name
             return key, None
         else:
-            return key, player.id
+            return key, player
 
 
     @staticmethod
     def get_umpire_ref(key, official_name):
-        official = Official.objects.get(name=official_name)
+        official = Official.objects.get_or_none(name=official_name)
 
         key = convert_camel2snake(key)
 
         if not official:
-            print official_name
             return key, None
         else:
-            return key, official.id
+            return key, official
 
 
     @staticmethod
     def get_venue_ref(key, venue_name):
-        venue = Venue.objects.get(name=venue_name)
+        venue = Venue.objects.get_or_none(name=venue_name)
 
         key = convert_camel2snake(key)
 
         if not venue:
-            print venue_name
             return key, None
         else:
-            return key, venue.id
+            return key, venue
+
+
+    @staticmethod
+    def format_game_date(key, date):
+        """BIS sends us date as 5/30/2011"""
+
+        key = 'game_date'
+        date = datetime.datetime.strptime(date, "%m/%d/%Y")
+        date = pytz.utc.localize(date).date()
+
+        if not date:
+            return key, None
+        else:
+            return key, date
+
 
     key_map = {
 
@@ -254,6 +269,7 @@ class GameStat(HitparadeModel):
         u'OppPit': get_player_ref.__func__,
         u'PlayerName': get_player_ref.__func__,
         u'Stadium': get_venue_ref.__func__,
+        u'GameDate': format_game_date.__func__,
 
         u'AB': u'ab',
         u'BA14': u'ba14',
@@ -275,7 +291,6 @@ class GameStat(HitparadeModel):
         u'CurrHitStreak': u'curr_hit_streak',
         u'Doubles': u'doubles',
         u'GIDP': u'gidp',
-        u'GameDate': u'game_date',
         u'GameNum': u'game_num',
         u'H': u'h',
         u'HBP': u'hbp',
@@ -369,7 +384,7 @@ class GameStat(HitparadeModel):
     stadium = models.ForeignKey(Venue, related_name='game_stat', null=True)
 
     game_date = models.DateField(null=True)
-    local_game_time = models.DateField(null=True)
+    local_game_time = models.DateTimeField(null=True)
     ab = models.IntegerField(null=True)
     ba14 = models.IntegerField(null=True)
     ba7 = models.IntegerField(null=True)
