@@ -39,3 +39,14 @@ def convert_camel2snake(name):
     name = name.replace("BABIP", "BaBIP")
     s1 = first_cap_re.sub(r'\1_\2', name)
     return all_cap_re.sub(r'\1_\2', s1).lower()
+
+
+def move_ssid(thing):
+
+    if 'id' in thing:
+        thing['ss_id'] = thing['id']
+
+        del thing['id']
+
+    return thing
+

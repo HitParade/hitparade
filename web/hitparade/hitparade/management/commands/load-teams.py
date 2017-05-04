@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 
 from hitparade.models import Conference, Division, Team
-from hitparade.utils import get_stattleship_client
+from hitparade.utils import get_stattleship_client, move_ssid
 
 
 class Command(BaseCommand):
@@ -27,7 +27,7 @@ class Command(BaseCommand):
         # Load conferences
         for c in result[0]['conferences']:
 
-            c = self.move_ssid(c)
+            c = move_ssid(c)
 
             conf, created = Conference.objects.get_or_create(ss_id=c['ss_id'])
             conf.update(**c)
@@ -37,7 +37,7 @@ class Command(BaseCommand):
         # Load divisions
         for d in result[0]['divisions']:
 
-            d = self.move_ssid(d)
+            d = move_ssid(d)
 
             d['conference'] = Conference.objects.get(ss_id=d['conference_id'])
             del d['conference_id']
@@ -50,7 +50,7 @@ class Command(BaseCommand):
         # Load teams
         for t in result[0]['teams']:
 
-            t =self.move_ssid(t)
+            t =move_ssid(t)
 
             t['division'] = Division.objects.get(ss_id=t['division_id'])
             del t['division_id']
@@ -58,14 +58,4 @@ class Command(BaseCommand):
             this_team, created = Team.objects.get_or_create(ss_id=t['ss_id'])
             this_team.update(**t)
             this_team.save()
-
-
-    def move_ssid(self, thing):
-
-        if 'id' in thing:
-            thing['ss_id'] = thing['id']
-
-            del thing['id']
-
-        return thing
 
