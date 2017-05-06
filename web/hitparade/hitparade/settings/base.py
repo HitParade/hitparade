@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     "pinax.webanalytics",
     "social_django",
     'django_extensions',
+    'django_mysql',
 
     # project
     "hitparade",
@@ -215,3 +216,16 @@ SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 SOCIAL_AUTH_TWITTER_KEY = ""
 SOCIAL_AUTH_TWITTER_SECRET = ""
+
+# API TOKEN
+STATTLESHIP_API_TOKEN = get_env_variable('STATTLESHIP_TOKEN')
+
+# AWS
+AWS_ACCESS_KEY_ID = get_env_variable("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = get_env_variable("AWS_SECRET_ACCESS_KEY")
+AWS_S3_BIS_BUCKET_NAME = "hit-parade-bis"
+AWS_S3_BIS_BUCKET_BASE_KEY = "2017"
+
+
+# DATA Source Config
+BIS_HISTORICAL_ZIP = "HistData2.zip"
