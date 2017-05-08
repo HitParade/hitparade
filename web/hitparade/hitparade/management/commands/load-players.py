@@ -16,7 +16,7 @@ class Command(BaseCommand):
 
         print "Load Players!!!!1!"
 
-        # self.import_data()
+        self.import_data()
 
         self.clean_dupes()
 
@@ -51,9 +51,6 @@ class Command(BaseCommand):
                 for p in result[0]['players']:
 
                     p = move_ssid(p)
-
-                    if not p['active']:
-                        continue
 
                     p['team'] = t
                     p['uniform_number'] = p['uniform_number'] or 0
