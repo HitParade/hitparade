@@ -53,7 +53,7 @@ class Command(BaseCommand):
                     del p['league_id']
 
                     if not p['name'].strip():
-                        p['name'] = "%s %s" % (p['first_name'], ['last_name'])
+                        p['name'] = "%s %s" % (p['first_name'], p['last_name'])
 
                     pp.pprint(p)
 
