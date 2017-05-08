@@ -1,6 +1,13 @@
 import os
 import re
+import json
+import pprint
+import datetime
+import requests
+import tempfile
+import subprocess
 import boto3
+
 from stattlepy import Stattleship
 from django.core.exceptions import ImproperlyConfigured
 
@@ -49,4 +56,27 @@ def move_ssid(thing):
         del thing['id']
 
     return thing
+
+
+def load_bis_game(data):
+
+    pp = pp.PrettyPrinter(indent=2)
+
+    # Ignore Expos data, they're no longer a team
+    if d['Team'] in GameStat.teams_ignored or \
+        d['Opp'] in GameStat.teams_ignored:
+        continue
+
+    kwargs = {}
+
+    for bis_key, hp_key in GameStat.key_map.iteritems():
+
+        if callable(hp_key):
+            k, v = hp_key(bis_key, data[bis_key])
+            kwargs[k] = v
+        else:
+            kwargs[hp_key] = data[bis_key]
+
+    GameStat(**kwargs).save()
+
 

@@ -210,10 +210,12 @@ class GameStat(HitparadeModel):
 
     @staticmethod
     def get_player_ref(key, player_name):
-        print player_name
         player = Player.objects.get_or_none(name=player_name)
 
-        key = u'player'
+        key = convert_camel2snake(key)
+
+        if key == 'player_name':
+            key = 'player'
 
         if not player:
             return key, None

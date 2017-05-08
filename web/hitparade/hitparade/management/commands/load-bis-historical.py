@@ -10,7 +10,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 
 from hitparade.models import GameStat
-from hitparade.utils import s3_get_file
+from hitparade.utils import s3_get_file, load_bis_game
 
 class Command(BaseCommand):
     """Load Historical BIS Data"""
@@ -37,29 +37,8 @@ class Command(BaseCommand):
         with open(json_file) as data_file:
             data = json.load(data_file)
 
-        # pp.pprint(GameStat.key_map)
-
         for d in data:
 
-            # Ignore Expos data, they're no longer a team
-            if d['Team'] in GameStat.teams_ignored or \
-                d['Opp'] in GameStat.teams_ignored:
-                continue
-
-            pp.pprint(d)
-
-            kwargs = {}
-
-            for bis_key, hp_key in GameStat.key_map.iteritems():
-
-                if callable(hp_key):
-                    k, v = hp_key(bis_key, d[bis_key])
-                    kwargs[k] = v
-                else:
-                    kwargs[hp_key] = d[bis_key]
-
-            pp.pprint(kwargs)
-
-            GameStat(**kwargs).save()
+            load_bis_game(d)
 
 
