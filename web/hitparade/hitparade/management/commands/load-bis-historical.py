@@ -9,8 +9,8 @@ import subprocess
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-from hitparade.models import GameStat
-from hitparade.utils import s3_get_file, load_bis_game
+from hitparade.models import GameStat, load_bis_game
+from hitparade.utils import s3_get_file
 
 class Command(BaseCommand):
     """Load Historical BIS Data"""

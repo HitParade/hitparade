@@ -1,3 +1,5 @@
+import pprint
+import dateutil.parser
 import datetime
 import pytz
 
@@ -5,8 +7,8 @@ from django.db import models
 from django_mysql.models import Model
 from django_mysql.models.fields.json import JSONField
 from model_utils.models import TimeStampedModel
-from utils import convert_camel2snake
 from managers import HitParadeManager
+from utils import convert_camel2snake
 
 class HitparadeModel(Model, TimeStampedModel):
 
@@ -249,10 +251,10 @@ class GameStat(HitparadeModel):
 
     @staticmethod
     def format_game_date(key, date):
-        """BIS sends us date as 5/30/2011"""
+        """BIS sends us a couple different date formats - 5/30/2011, 2017-05-05T18:40:00"""
 
         key = 'game_date'
-        date = datetime.datetime.strptime(date, "%m/%d/%Y")
+        date = dateutil.parser.parse('2017-05-05T18:40:00')
         date = pytz.utc.localize(date).date()
 
         if not date:
@@ -442,6 +444,30 @@ class GameStat(HitparadeModel):
     sea_era_with_ump = models.FloatField(null=True)
     triples = models.IntegerField(null=True)
     was_start = models.IntegerField(null=True)
+
+
+def load_bis_game(data):
+
+    pp = pprint.PrettyPrinter(indent=2)
+
+    pp.pprint(data)
+
+    # Ignore Expos data, they're no longer a team
+    if data['Team'] in GameStat.teams_ignored or \
+        data['Opp'] in GameStat.teams_ignored:
+        return
+
+    kwargs = {}
+
+    for bis_key, hp_key in GameStat.key_map.iteritems():
+
+        if callable(hp_key):
+            k, v = hp_key(bis_key, data[bis_key])
+            kwargs[k] = v
+        else:
+            kwargs[hp_key] = data[bis_key]
+
+    return GameStat(**kwargs).save()
 
 
 def get_games_to_update():

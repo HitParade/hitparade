@@ -3,10 +3,12 @@ import re
 import json
 import pprint
 import datetime
+import dateutil.parser
 import requests
 import tempfile
 import subprocess
 import boto3
+import botocore
 
 from stattlepy import Stattleship
 from django.core.exceptions import ImproperlyConfigured
@@ -29,14 +31,26 @@ def get_stattleship_client():
     return s
 
 
-def s3_get_file(bucket, key, file):
+def s3_get_file(bucket, key, file=None):
 
-    key = boto3.resource('s3').Object(bucket, key).get()
+    if not file:
+        file = tempfile.NamedTemporaryFile(delete=False)
+
+    try:
+        key = boto3.resource('s3').Object(bucket, key).get()
+    except botocore.exceptions.ClientError as e:
+        if e.response['ResponseMetadata']['HTTPStatusCode'] == 404:
+            return False
+        else:
+            raise
+
     with file as f:
         chunk = key['Body'].read(1024*8)
         while chunk:
             f.write(chunk)
             chunk = key['Body'].read(1024*8)
+
+    return f
 
 
 first_cap_re = re.compile('(.)([A-Z][a-z]+)')
@@ -56,27 +70,4 @@ def move_ssid(thing):
         del thing['id']
 
     return thing
-
-
-def load_bis_game(data):
-
-    pp = pp.PrettyPrinter(indent=2)
-
-    # Ignore Expos data, they're no longer a team
-    if d['Team'] in GameStat.teams_ignored or \
-        d['Opp'] in GameStat.teams_ignored:
-        continue
-
-    kwargs = {}
-
-    for bis_key, hp_key in GameStat.key_map.iteritems():
-
-        if callable(hp_key):
-            k, v = hp_key(bis_key, data[bis_key])
-            kwargs[k] = v
-        else:
-            kwargs[hp_key] = data[bis_key]
-
-    GameStat(**kwargs).save()
-
 
