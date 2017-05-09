@@ -46,7 +46,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        print "Load BIS Historical Daily!!!1!!"
+        print "Load BIS Daily!!!1!!"
 
         pp = pprint.PrettyPrinter(indent=2)
         today = datetime.today()
@@ -55,8 +55,6 @@ class Command(BaseCommand):
             date = datetime.strptime(options['start_date'], "%Y%m%d")
         else:
             date = datetime.today() - timedelta(1)
-
-        print date
 
         key = self.get_key(date)
         file = s3_get_file(settings.AWS_S3_BIS_BUCKET_NAME, key)
