@@ -254,6 +254,20 @@ class GameStat(HitparadeModel):
         """BIS sends us a couple different date formats - 5/30/2011, 2017-05-05T18:40:00"""
 
         key = 'game_date'
+        date = dateutil.parser.parse(date)
+        date = pytz.utc.localize(date).date()
+
+        if not date:
+            return key, None
+        else:
+            return key, date
+
+
+    @staticmethod
+    def denaive_date(key, date):
+        """Dates come in with no timezone. This matures them."""
+
+        key = convert_camel2snake(key)
         date = dateutil.parser.parse('2017-05-05T18:40:00')
         date = pytz.utc.localize(date).date()
 
@@ -274,6 +288,7 @@ class GameStat(HitparadeModel):
         u'PlayerName': get_player_ref.__func__,
         u'Stadium': get_venue_ref.__func__,
         u'GameDate': format_game_date.__func__,
+        u'LocalGameTime': denaive_date.__func__,
 
         u'AB': u'ab',
         u'BA14': u'ba14',
@@ -303,7 +318,6 @@ class GameStat(HitparadeModel):
         u'IBB': u'ibb',
         u'IsOppPitRHP': u'is_opp_pit_rhp',
         u'K': u'k',
-        u'LocalGameTime': u'local_game_time',
         u'OppBullpenERA': u'opp_bullpen_era',
         u'OppPitCarERA': u'opp_pit_car_era',
         u'OppPitCarL': u'opp_pit_car_l',
@@ -446,11 +460,14 @@ class GameStat(HitparadeModel):
     was_start = models.IntegerField(null=True)
 
 
+    class Meta:
+        unique_together = (('player', 'car_game_num'),)
+
+
 def load_bis_game(data):
 
     pp = pprint.PrettyPrinter(indent=2)
-
-    pp.pprint(data)
+    # pp.pprint(data)
 
     # Ignore Expos data, they're no longer a team
     if data['Team'] in GameStat.teams_ignored or \

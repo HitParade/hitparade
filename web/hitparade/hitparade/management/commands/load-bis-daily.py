@@ -49,26 +49,27 @@ class Command(BaseCommand):
         print "Load BIS Historical Daily!!!1!!"
 
         pp = pprint.PrettyPrinter(indent=2)
+        today = datetime.today()
 
-        if 'date' in options and options['date']:
-            start_date = datetime.strptime(options['date'], "%Y%m%d")
+        if 'start_date' in options and options['start_date']:
+            date = datetime.strptime(options['start_date'], "%Y%m%d")
         else:
-            start_date = datetime.today() - timedelta(1)
+            date = datetime.today() - timedelta(1)
 
-        key = self.get_key(start_date)
+        key = self.get_key(date)
         file = s3_get_file(settings.AWS_S3_BIS_BUCKET_NAME, key)
 
-        while file:
+        while date < today:
 
-            print key
+            print "Loading " + str(date)
 
-            with open(file.name) as f:
-                data = json.load(f)
+            if file:
+                with open(file.name) as f:
+                    data = json.load(f)
 
-            for d in data['Table1']:
+                for d in data['Table1']:
+                    load_bis_game(d)
 
-                load_bis_game(d)
-
-            start_date = start_date + timedelta(1)
-            key = self.get_key(start_date)
+            date = date + timedelta(1)
+            key = self.get_key(date)
             file = s3_get_file(settings.AWS_S3_BIS_BUCKET_NAME, key)
