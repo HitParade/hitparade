@@ -478,13 +478,18 @@ def load_bis_game(data):
 
     for bis_key, hp_key in GameStat.key_map.iteritems():
 
-        if callable(hp_key):
-            k, v = hp_key(bis_key, data[bis_key])
-            kwargs[k] = v
-        else:
-            kwargs[hp_key] = data[bis_key]
+        if bis_key in data:
+            if callable(hp_key):
+                k, v = hp_key(bis_key, data[bis_key])
+                kwargs[k] = v
+            else:
+                kwargs[hp_key] = data[bis_key]
 
-    return GameStat(**kwargs).save()
+    ga, created = GameStat.objects.get_or_create(player=kwargs['player'], car_game_num=kwargs['car_game_num'])
+    ga.update(**kwargs)
+    ga.save()
+
+    return ga
 
 
 def get_games_to_update():

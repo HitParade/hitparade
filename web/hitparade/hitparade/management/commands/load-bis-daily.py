@@ -23,7 +23,7 @@ class Command(BaseCommand):
         parser.add_argument(
             '--date',
             action='store',
-            dest='date',
+            dest='start_date',
             default=None,
             help='Date from which to start import, formatted YYYYMMDD',
         )
@@ -56,12 +56,14 @@ class Command(BaseCommand):
         else:
             date = datetime.today() - timedelta(1)
 
+        print date
+
         key = self.get_key(date)
         file = s3_get_file(settings.AWS_S3_BIS_BUCKET_NAME, key)
 
-        while date < today:
+        print "Loading " + str(date)
 
-            print "Loading " + str(date)
+        while date < today:
 
             if file:
                 with open(file.name) as f:
@@ -73,3 +75,5 @@ class Command(BaseCommand):
             date = date + timedelta(1)
             key = self.get_key(date)
             file = s3_get_file(settings.AWS_S3_BIS_BUCKET_NAME, key)
+
+            print "Loading " + str(date)
