@@ -41,7 +41,11 @@ class Command(BaseCommand):
 
                 print result[0].keys()
 
-                pp.pprint(result[0]['at_bats'][0])
+                # pp.pprint(result[0]['at_bats'][0])
+                # pp.pprint(result[0]['baseball_pitches'][0])
+
+                # return
+
 
                 len_atbats = len(result[0]['at_bats'])
                 page = page + 1
@@ -51,20 +55,20 @@ class Command(BaseCommand):
                     continue
 
 
-                # # Load Officials
-                # for o in result[0]['officials']:
-                #     Official.create_from_ss(o)
+                # Load Officials
+                for o in result[0]['officials']:
+                    Official.create_from_ss(o)
 
 
-                # # Load Venues
-                # for v in result[0]['venues']:
-                #     Venue.create_from_ss(v)
+                # Load Venues
+                for v in result[0]['venues']:
+                    Venue.create_from_ss(v)
 
 
-                # # Load Games
-                # for g in result[0]['games']:
-                #     g[u'season'] = year
-                #     Game.create_from_ss(g)
+                # Load Games
+                for g in result[0]['games']:
+                    g[u'season'] = year
+                    Game.create_from_ss(g)
 
 
                 # Load Players
@@ -78,12 +82,12 @@ class Command(BaseCommand):
 
                 # Load pitches
                 for p in result[0]['baseball_pitches']:
-
-                    pp.pprint(p)
-
                     p['game'] = game
                     Pitch.create_from_ss(p)
 
 
-                return
+                # Load at Bats
+                for ab in result[0]['at_bats']:
+                    ab['game'] = game
+                    AtBat.create_from_ss(ab)
 

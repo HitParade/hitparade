@@ -526,6 +526,52 @@ class GameStat(HitparadeModel):
         unique_together = (('player', 'car_game_num'),)
 
 
+class AtBat(HitparadeModel):
+    __name__ = "At Bat"
+
+    ss_id = models.CharField(max_length=36, unique=True)
+
+    game = models.ForeignKey(Game, related_name='at_bats', null=True)
+    hitter = models.ForeignKey(Player, related_name='at_bats', null=True)
+    hitter_team = models.ForeignKey(Team, related_name='+', null=True)
+
+    description = models.CharField(max_length=256, null=True)
+    half = models.CharField(max_length=2, null=True)
+    inning = models.IntegerField(null=True)
+    inning_label = models.CharField(max_length=32, null=True)
+
+
+    @classmethod
+    def create_from_ss(cls, ss_data):
+        obj = super(AtBat, cls).create_from_ss(ss_data)
+
+        for pitch_id in ss_data['baseball_pitch_ids']:
+            pitch = Pitch.objects.get_or_none(ss_id=pitch_id)
+
+            if pitch is not None:
+                pitch.at_bat = obj
+                pitch.save()
+
+        return obj
+
+
+    @classmethod
+    def clean_ss_data(cls, data):
+
+        data[u'hitter_team'] = Team.objects.get(ss_id=data['hitter_team_id'])
+        data[u'hitter'] = Player.objects.get(ss_id=data['hitter_id'])
+
+        # If game not set, grab the reference to the game object
+        if 'game' not in data and 'game_id' in data:
+            data['game'] = Game.objects.get(ss_id=data['game_id'])
+
+        del data['game_id']
+        del data['hitter_team_id']
+        del data['hitter_id']
+
+        return data
+
+
 class Pitch(HitparadeModel):
     __name__ = "Pitch"
 
@@ -534,6 +580,7 @@ class Pitch(HitparadeModel):
     # I have no idea what an event is
     # event_id = models.IntegerField(null=True) u'e67486ff-f21e-468f-b77d-2d0781bfa297',
 
+    at_bat = models.ForeignKey(AtBat, related_name='at_bat', null=True)
     game = models.ForeignKey(Game, related_name='pitch', null=True)
     hitter = models.ForeignKey(Player, related_name="+", null=True)
     hitter_team = models.ForeignKey(Team, related_name='+', null=True)
