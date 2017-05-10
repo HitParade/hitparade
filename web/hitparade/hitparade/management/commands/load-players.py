@@ -48,23 +48,11 @@ class Command(BaseCommand):
                                     )
                 len_players = len(result[0]['players'])
 
+
                 for p in result[0]['players']:
-
-                    p = move_ssid(p)
-
                     p['team'] = t
-                    p['uniform_number'] = p['uniform_number'] or 0
-                    del p['team_id']
-                    del p['league_id']
+                    Player.create_from_ss(p)
 
-                    if not p['name'].strip():
-                        p['name'] = "%s %s" % (p['first_name'], p['last_name'])
-
-                    pp.pprint(p)
-
-                    player, created = Player.objects.get_or_create(ss_id=p['ss_id'])
-                    player.update(**p)
-                    player.save()
 
                 page = page + 1
 

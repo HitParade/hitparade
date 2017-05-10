@@ -120,6 +120,19 @@ class Player(HitparadeModel):
     years_of_experience = models.IntegerField(blank=True, null=True)
 
 
+    @classmethod
+    def clean_ss_data(cls, data):
+
+        data['uniform_number'] = data['uniform_number'] or 0
+        del data['team_id']
+        del data['league_id']
+
+        if not data['name'].strip():
+            data['name'] = "%s %s" % (data['first_name'], data['last_name'])
+
+        return data
+
+
 class Official(HitparadeModel):
     __name__ = "Official"
 
