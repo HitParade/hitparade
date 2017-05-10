@@ -204,6 +204,12 @@ class GameStat(HitparadeModel):
 
     @staticmethod
     def get_team_ref(key, team_code):
+
+        # Not sure if this is the best option.
+        #   If we can't find a team, we should probably raise
+        if team_code not in GameStat.team_map:
+            return convert_camel2snake(key), None
+
         slug = "mlb-%s" % GameStat.team_map[team_code]
         slug = slug.lower()
 
