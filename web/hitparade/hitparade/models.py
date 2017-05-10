@@ -8,7 +8,7 @@ from django_mysql.models import Model
 from django_mysql.models.fields.json import JSONField
 from model_utils.models import TimeStampedModel
 from managers import HitParadeManager
-from utils import convert_camel2snake
+from utils import convert_camel2snake, move_ssid
 
 class HitparadeModel(Model, TimeStampedModel):
 
@@ -33,11 +33,19 @@ class HitparadeModel(Model, TimeStampedModel):
         self.save()
 
 
-    # TODO: Fully implement
-    def update_from_ss(self):
+    @classmethod
+    def create_from_ss(cls, ss_data):
 
-        if not self.id or not self.ss_id:
-            raise AmbiguousForeignKeysError()
+        # All objects need to shift id -> ss_id
+        moved_ss_data = move_ssid(ss_data)
+
+        cleaned_ss_data = cls.clean_ss_data(moved_ss_data)
+
+        obj, created = cls.objects.get_or_create(ss_id=cleaned_ss_data['ss_id'])
+        obj.update(**cleaned_ss_data)
+        obj.save()
+
+        return obj
 
 
 class Conference(HitparadeModel):
@@ -123,6 +131,14 @@ class Official(HitparadeModel):
     uniform_number = models.IntegerField(blank=True, null=True)
 
 
+    @classmethod
+    def clean_ss_data(cls, data):
+
+        data[u'uniform_number'] = data['uniform_number'] or 0
+
+        return data
+
+
 class Venue(HitparadeModel):
     __name__ = "Venue"
 
@@ -139,6 +155,11 @@ class Venue(HitparadeModel):
     time_zone = models.CharField(max_length=32, null=True)
     longitude = models.FloatField(null=True)
     latitude = models.FloatField(null=True)
+
+
+    @classmethod
+    def clean_ss_data(cls, data):
+        return data
 
 
 class Game(HitparadeModel):
@@ -196,6 +217,25 @@ class Game(HitparadeModel):
     wind_direction = models.CharField(max_length=32, null=True)
     wind_speed = models.IntegerField(blank=True, null=True)
     wind_speed_unit = models.CharField(max_length=8, null=True)
+
+
+    @classmethod
+    def clean_ss_data(cls, data):
+
+        data[u'home_team'] = Team.objects.get(ss_id=data['home_team_id'])
+        data[u'away_team'] = Team.objects.get(ss_id=data['away_team_id'])
+        data[u'venue'] = Venue.objects.get(ss_id=data['venue_id'])
+
+        if data['winning_team_id']:
+            data['winning_team'] = Team.objects.get(ss_id=data['winning_team_id'])
+
+        del data['home_team_id']
+        del data['away_team_id']
+        del data['venue_id']
+        del data['winning_team_id']
+
+        return data
+
 
 
 class GameStat(HitparadeModel):
