@@ -195,8 +195,10 @@ class Game(HitparadeModel):
     away_team = models.ForeignKey(Team, related_name='away_game', null=True)
     winning_team = models.ForeignKey(Team, related_name='winning_game', null=True)
     venue = models.ForeignKey(Venue, null=True)
+
     ss_id = models.CharField(max_length=36, unique=True)
     season = models.IntegerField(blank=True, null=True)
+    at_bats_loaded = models.BooleanField(default=False)
     at_neutral_site = models.NullBooleanField()
     attendance = models.IntegerField(blank=True, null=True)
     away_team_outcome = models.CharField(max_length=16)
@@ -629,6 +631,7 @@ class Pitch(HitparadeModel):
         data[u'hitter'] = Player.objects.get(ss_id=data['hitter_id'])
 
         data[u'pitch_zone'] = data[u'pitch_zone'] or None
+        data[u'hit_location'] = data[u'hit_location'] or None
 
         # If game not set, grab the reference to the game object
         if 'game' not in data and 'game_id' in data:

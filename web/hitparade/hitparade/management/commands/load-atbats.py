@@ -21,7 +21,7 @@ class Command(BaseCommand):
         s = get_stattleship_client()
         year = datetime.datetime.now().year
         season_slug = "mlb-%i" % year
-        games = Game.objects.filter(status=Game.STATUS_CLOSED)
+        games = Game.objects.filter(status=Game.STATUS_CLOSED, at_bats_loaded=False)
 
         for game in games:
 
@@ -83,6 +83,7 @@ class Command(BaseCommand):
 
                 # Load pitches
                 for p in result[0]['baseball_pitches']:
+                    pp.pprint(p)
                     p['game'] = game
                     Pitch.create_from_ss(p)
 
@@ -92,3 +93,5 @@ class Command(BaseCommand):
                     ab['game'] = game
                     AtBat.create_from_ss(ab)
 
+            game.at_bats_loaded = True
+            game.save()
