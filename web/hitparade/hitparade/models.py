@@ -1,3 +1,5 @@
+import pprint
+import dateutil.parser
 import datetime
 import pytz
 
@@ -5,8 +7,8 @@ from django.db import models
 from django_mysql.models import Model
 from django_mysql.models.fields.json import JSONField
 from model_utils.models import TimeStampedModel
-from utils import convert_camel2snake
 from managers import HitParadeManager
+from utils import convert_camel2snake
 
 class HitparadeModel(Model, TimeStampedModel):
 
@@ -210,10 +212,12 @@ class GameStat(HitparadeModel):
 
     @staticmethod
     def get_player_ref(key, player_name):
-        print player_name
         player = Player.objects.get_or_none(name=player_name)
 
-        key = u'player'
+        key = convert_camel2snake(key)
+
+        if key == 'player_name':
+            key = 'player'
 
         if not player:
             return key, None
@@ -247,10 +251,24 @@ class GameStat(HitparadeModel):
 
     @staticmethod
     def format_game_date(key, date):
-        """BIS sends us date as 5/30/2011"""
+        """BIS sends us a couple different date formats - 5/30/2011, 2017-05-05T18:40:00"""
 
         key = 'game_date'
-        date = datetime.datetime.strptime(date, "%m/%d/%Y")
+        date = dateutil.parser.parse(date)
+        date = pytz.utc.localize(date).date()
+
+        if not date:
+            return key, None
+        else:
+            return key, date
+
+
+    @staticmethod
+    def denaive_date(key, date):
+        """Dates come in with no timezone. This matures them."""
+
+        key = convert_camel2snake(key)
+        date = dateutil.parser.parse('2017-05-05T18:40:00')
         date = pytz.utc.localize(date).date()
 
         if not date:
@@ -270,6 +288,7 @@ class GameStat(HitparadeModel):
         u'PlayerName': get_player_ref.__func__,
         u'Stadium': get_venue_ref.__func__,
         u'GameDate': format_game_date.__func__,
+        u'LocalGameTime': denaive_date.__func__,
 
         u'AB': u'ab',
         u'BA14': u'ba14',
@@ -299,7 +318,6 @@ class GameStat(HitparadeModel):
         u'IBB': u'ibb',
         u'IsOppPitRHP': u'is_opp_pit_rhp',
         u'K': u'k',
-        u'LocalGameTime': u'local_game_time',
         u'OppBullpenERA': u'opp_bullpen_era',
         u'OppPitCarERA': u'opp_pit_car_era',
         u'OppPitCarL': u'opp_pit_car_l',
@@ -440,6 +458,38 @@ class GameStat(HitparadeModel):
     sea_era_with_ump = models.FloatField(null=True)
     triples = models.IntegerField(null=True)
     was_start = models.IntegerField(null=True)
+
+
+    class Meta:
+        unique_together = (('player', 'car_game_num'),)
+
+
+def load_bis_game(data):
+
+    pp = pprint.PrettyPrinter(indent=2)
+    # pp.pprint(data)
+
+    # Ignore Expos data, they're no longer a team
+    if data['Team'] in GameStat.teams_ignored or \
+        data['Opp'] in GameStat.teams_ignored:
+        return
+
+    kwargs = {}
+
+    for bis_key, hp_key in GameStat.key_map.iteritems():
+
+        if bis_key in data:
+            if callable(hp_key):
+                k, v = hp_key(bis_key, data[bis_key])
+                kwargs[k] = v
+            else:
+                kwargs[hp_key] = data[bis_key]
+
+    ga, created = GameStat.objects.get_or_create(player=kwargs['player'], car_game_num=kwargs['car_game_num'])
+    ga.update(**kwargs)
+    ga.save()
+
+    return ga
 
 
 def get_games_to_update():

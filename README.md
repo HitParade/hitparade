@@ -16,7 +16,6 @@ of each service locally.
 From the root of the repo;
 
 ```bash
-$ cp data/.env.skel data/.env
 $ cp web/.env.skel web/.env
 $ docker-compose up -d
 ```
@@ -30,28 +29,18 @@ npm install
 npm run build
 ```
 
-## Additional Data service steps
+## Additional steps to load base data
 
-Set up the database. (This should eventually be wired into the entrypoint
-script of the data-web container.)
-
+Load teams, players & BIS Data
 ```bash
-docker-compose exec data-web ./manage.py db upgrade
-```
-
-Load Teams & players
-```bash
-docker-compose exec data-web ./manage.py load-teams
-docker-compose exec data-web ./manage.py load-players
-docker-compose exec data-web ./manage.py load-games
+docker-compose exec web ./manage.py load-teams
+docker-compose exec web ./manage.py load-players
+docker-compose exec web ./manage.py load-games
+docker-compose exec web ./manage.py load-bis-historical
+docker-compose exec web ./manage.py load-bis-daily --date 20160505
 ```
 
 Run tests
 ```bash
-docker-compose exec data-web py.test -s
-```
-
-Load BIS
-```bash
-docker-compose exec data-web ./manage.py load-bis-historical
+docker-compose exec web py.test -s
 ```

@@ -1,6 +1,15 @@
 import os
 import re
+import json
+import pprint
+import datetime
+import dateutil.parser
+import requests
+import tempfile
+import subprocess
 import boto3
+import botocore
+
 from stattlepy import Stattleship
 from django.core.exceptions import ImproperlyConfigured
 
@@ -22,14 +31,26 @@ def get_stattleship_client():
     return s
 
 
-def s3_get_file(bucket, key, file):
+def s3_get_file(bucket, key, file=None):
 
-    key = boto3.resource('s3').Object(bucket, key).get()
+    if not file:
+        file = tempfile.NamedTemporaryFile(delete=False)
+
+    try:
+        key = boto3.resource('s3').Object(bucket, key).get()
+    except botocore.exceptions.ClientError as e:
+        if e.response['ResponseMetadata']['HTTPStatusCode'] == 404:
+            return False
+        else:
+            raise
+
     with file as f:
         chunk = key['Body'].read(1024*8)
         while chunk:
             f.write(chunk)
             chunk = key['Body'].read(1024*8)
+
+    return f
 
 
 first_cap_re = re.compile('(.)([A-Z][a-z]+)')
