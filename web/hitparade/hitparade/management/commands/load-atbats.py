@@ -24,32 +24,33 @@ class Command(BaseCommand):
         games = Game.objects.filter(status=Game.STATUS_CLOSED)
 
         for game in games:
-            print game
 
             page = 1
             len_atbats = -1
 
             while len_atbats != 0:
 
+                print "%s : %i" % (str(game.id), int(page))
+
                 result = s.ss_get_results(sport='baseball',
                                         league='mlb',
                                         ep='at_bats',
-                                        game_id=game.ss_id,
+                                        game_id=game.slug,
                                         page=page,
-                                        per_page=40
+                                        per_page=40,
+                                        verbose=False
                                     )
 
-                print result[0].keys()
-
+                # print result[0].keys()
                 # pp.pprint(result[0]['at_bats'][0])
                 # pp.pprint(result[0]['baseball_pitches'][0])
-
                 # return
 
 
                 len_atbats = len(result[0]['at_bats'])
                 page = page + 1
 
+                print "len_atbats" + str(len_atbats)
 
                 if len_atbats == 0:
                     continue
