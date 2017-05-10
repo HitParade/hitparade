@@ -44,3 +44,13 @@ Run tests
 ```bash
 docker-compose exec web py.test -s
 ```
+
+Installing new Python modules
+```bash
+docker-compose exec web pip install {package}
+docker-compose exec web pip freeze > requirements.txt
+```
+
+After installing, the stattlepy line needs to be edited back to the github
+install. This is because stattlepy currently doesn't have the package available
+via PyPi. We've asked Stattleship to do this.
