@@ -8,7 +8,7 @@ from django_mysql.models import Model
 from django_mysql.models.fields.json import JSONField
 from model_utils.models import TimeStampedModel
 from managers import HitParadeManager
-from utils import convert_camel2snake
+from utils import convert_camel2snake, move_ssid
 
 class HitparadeModel(Model, TimeStampedModel):
 
@@ -33,11 +33,19 @@ class HitparadeModel(Model, TimeStampedModel):
         self.save()
 
 
-    # TODO: Fully implement
-    def update_from_ss(self):
+    @classmethod
+    def create_from_ss(cls, ss_data):
 
-        if not self.id or not self.ss_id:
-            raise AmbiguousForeignKeysError()
+        # All objects need to shift id -> ss_id
+        moved_ss_data = move_ssid(ss_data)
+
+        cleaned_ss_data = cls.clean_ss_data(moved_ss_data)
+
+        obj, created = cls.objects.get_or_create(ss_id=cleaned_ss_data['ss_id'])
+        obj.update(**cleaned_ss_data)
+        obj.save()
+
+        return obj
 
 
 class Conference(HitparadeModel):
@@ -112,6 +120,22 @@ class Player(HitparadeModel):
     years_of_experience = models.IntegerField(blank=True, null=True)
 
 
+    @classmethod
+    def clean_ss_data(cls, data):
+
+        if 'team_id' in data and 'team' not in data:
+            data['team'] = Team.objects.get(ss_id=data['team_id'])
+
+        data['uniform_number'] = data['uniform_number'] or 0
+        del data['team_id']
+        del data['league_id']
+
+        if not data['name'].strip():
+            data['name'] = "%s %s" % (data['first_name'], data['last_name'])
+
+        return data
+
+
 class Official(HitparadeModel):
     __name__ = "Official"
 
@@ -121,6 +145,14 @@ class Official(HitparadeModel):
     last_name = models.CharField(max_length=32)
     name = models.CharField(max_length=64)
     uniform_number = models.IntegerField(blank=True, null=True)
+
+
+    @classmethod
+    def clean_ss_data(cls, data):
+
+        data[u'uniform_number'] = data['uniform_number'] or 0
+
+        return data
 
 
 class Venue(HitparadeModel):
@@ -141,6 +173,11 @@ class Venue(HitparadeModel):
     latitude = models.FloatField(null=True)
 
 
+    @classmethod
+    def clean_ss_data(cls, data):
+        return data
+
+
 class Game(HitparadeModel):
     __name__ = "Game"
 
@@ -158,8 +195,10 @@ class Game(HitparadeModel):
     away_team = models.ForeignKey(Team, related_name='away_game', null=True)
     winning_team = models.ForeignKey(Team, related_name='winning_game', null=True)
     venue = models.ForeignKey(Venue, null=True)
+
     ss_id = models.CharField(max_length=36, unique=True)
     season = models.IntegerField(blank=True, null=True)
+    at_bats_loaded = models.BooleanField(default=False)
     at_neutral_site = models.NullBooleanField()
     attendance = models.IntegerField(blank=True, null=True)
     away_team_outcome = models.CharField(max_length=16)
@@ -198,12 +237,36 @@ class Game(HitparadeModel):
     wind_speed_unit = models.CharField(max_length=8, null=True)
 
 
+    @classmethod
+    def clean_ss_data(cls, data):
+
+        data[u'home_team'] = Team.objects.get(ss_id=data['home_team_id'])
+        data[u'away_team'] = Team.objects.get(ss_id=data['away_team_id'])
+        data[u'venue'] = Venue.objects.get(ss_id=data['venue_id'])
+
+        if data['winning_team_id']:
+            data['winning_team'] = Team.objects.get(ss_id=data['winning_team_id'])
+
+        del data['home_team_id']
+        del data['away_team_id']
+        del data['venue_id']
+        del data['winning_team_id']
+
+        return data
+
+
 class GameStat(HitparadeModel):
     __name__ = "GameStat"
 
 
     @staticmethod
     def get_team_ref(key, team_code):
+
+        # Not sure if this is the best option.
+        #   If we can't find a team, we should probably raise
+        if team_code not in GameStat.team_map:
+            return convert_camel2snake(key), None
+
         slug = "mlb-%s" % GameStat.team_map[team_code]
         slug = slug.lower()
 
@@ -392,6 +455,7 @@ class GameStat(HitparadeModel):
     }
 
 
+    # TODO: Add a reference to the game model. duh.
     home_team = models.ForeignKey(Team, related_name='+', null=True)
     opp = models.ForeignKey(Team, related_name='+', null=True)
     team = models.ForeignKey(Team, related_name='game_stat', null=True)
@@ -462,6 +526,124 @@ class GameStat(HitparadeModel):
 
     class Meta:
         unique_together = (('player', 'car_game_num'),)
+
+
+class AtBat(HitparadeModel):
+    __name__ = "At Bat"
+
+    ss_id = models.CharField(max_length=36, unique=True)
+
+    game = models.ForeignKey(Game, related_name='at_bats', null=True)
+    hitter = models.ForeignKey(Player, related_name='at_bats', null=True)
+    hitter_team = models.ForeignKey(Team, related_name='+', null=True)
+
+    description = models.CharField(max_length=256, null=True)
+    half = models.CharField(max_length=2, null=True)
+    inning = models.IntegerField(null=True)
+    inning_label = models.CharField(max_length=32, null=True)
+
+
+    @classmethod
+    def create_from_ss(cls, ss_data):
+        obj = super(AtBat, cls).create_from_ss(ss_data)
+
+        for pitch_id in ss_data['baseball_pitch_ids']:
+            pitch = Pitch.objects.get_or_none(ss_id=pitch_id)
+
+            if pitch is not None:
+                pitch.at_bat = obj
+                pitch.save()
+
+        return obj
+
+
+    @classmethod
+    def clean_ss_data(cls, data):
+
+        data[u'hitter_team'] = Team.objects.get(ss_id=data['hitter_team_id'])
+        data[u'hitter'] = Player.objects.get(ss_id=data['hitter_id'])
+
+        # If game not set, grab the reference to the game object
+        if 'game' not in data and 'game_id' in data:
+            data['game'] = Game.objects.get(ss_id=data['game_id'])
+
+        del data['game_id']
+        del data['hitter_team_id']
+        del data['hitter_id']
+
+        return data
+
+
+class Pitch(HitparadeModel):
+    __name__ = "Pitch"
+
+    ss_id = models.CharField(max_length=36, unique=True)
+
+    # I have no idea what an event is
+    # event_id = models.IntegerField(null=True) u'e67486ff-f21e-468f-b77d-2d0781bfa297',
+
+    at_bat = models.ForeignKey(AtBat, related_name='at_bat', null=True)
+    game = models.ForeignKey(Game, related_name='pitch', null=True)
+    hitter = models.ForeignKey(Player, related_name="+", null=True)
+    hitter_team = models.ForeignKey(Team, related_name='+', null=True)
+    pitcher = models.ForeignKey(Player, related_name='+', null=True)
+    team = models.ForeignKey(Team, related_name='+', null=True)
+
+    at_bat_balls = models.IntegerField(null=True)
+    at_bat_outs = models.IntegerField(null=True)
+    at_bat_pitch_count = models.IntegerField(null=True)
+    at_bat_strikes = models.IntegerField(null=True)
+    even_count = models.NullBooleanField()
+    full_count = models.NullBooleanField()
+    half = models.CharField(max_length=2, null=True)
+    hit_location = models.IntegerField(null=True)
+    hit_type = models.CharField(max_length=2, null=True)
+    hitter_pitch_count = models.CharField(max_length=3, null=True)
+    inning = models.IntegerField(null=True)
+    inning_label = models.CharField(max_length=32, null=True)
+    is_at_bat = models.NullBooleanField()
+    is_at_bat_over = models.NullBooleanField()
+    is_bunt = models.NullBooleanField()
+    is_bunt_shown = models.NullBooleanField()
+    is_double_play = models.NullBooleanField()
+    is_hit = models.NullBooleanField()
+    is_on_base = models.NullBooleanField()
+    is_passed_ball = models.NullBooleanField()
+    is_triple_play = models.NullBooleanField()
+    is_wild_pitch = models.NullBooleanField()
+    pitched_at = models.DateTimeField(null=True)
+    pitch_count = models.IntegerField(null=True)
+    pitch_name = models.CharField(max_length=32, null=True)
+    pitch_outcome = models.CharField(max_length=32, null=True)
+    pitch_outcome_type = models.CharField(max_length=32, null=True)
+    pitch_speed = models.FloatField(null=True)
+    pitch_type = models.CharField(max_length=8, null=True)
+    pitch_zone = models.IntegerField(null=True)
+    sequence = models.IntegerField(null=True)
+
+
+    @classmethod
+    def clean_ss_data(cls, data):
+
+        data[u'team'] = Team.objects.get(ss_id=data['team_id'])
+        data[u'hitter_team'] = Team.objects.get(ss_id=data['hitter_team_id'])
+        data[u'pitcher'] = Player.objects.get(ss_id=data['pitcher_id'])
+        data[u'hitter'] = Player.objects.get(ss_id=data['hitter_id'])
+
+        data[u'pitch_zone'] = data[u'pitch_zone'] or None
+        data[u'hit_location'] = data[u'hit_location'] or None
+
+        # If game not set, grab the reference to the game object
+        if 'game' not in data and 'game_id' in data:
+            data['game'] = Game.objects.get(ss_id=data['game_id'])
+
+        del data['game_id']
+        del data['team_id']
+        del data['hitter_team_id']
+        del data['hitter_id']
+        del data['pitcher_id']
+
+        return data
 
 
 def load_bis_game(data):

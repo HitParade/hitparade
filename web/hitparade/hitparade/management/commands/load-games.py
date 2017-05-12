@@ -24,7 +24,6 @@ class Command(BaseCommand):
         teams = Team.objects.all()
 
         for t in teams:
-            print t
 
             page = 1
             len_games = -1
@@ -46,47 +45,19 @@ class Command(BaseCommand):
                 if len_games == 0:
                     continue
 
+
                 # Load conferences
                 for o in result[0]['officials']:
+                    Official.create_from_ss(o)
 
-                    o = move_ssid(o)
-
-                    o[u'uniform_number'] = o['uniform_number'] or 0
-
-                    off, created = Official.objects.get_or_create(ss_id=o['ss_id'])
-                    off.update(**o)
-                    off.save()
 
                 # Load Venues
                 for v in result[0]['venues']:
+                    Venue.create_from_ss(v)
 
-                    v = move_ssid(v)
-
-                    ven, created = Venue.objects.get_or_create(ss_id=v['ss_id'])
-                    ven.update(**v)
-                    ven.save()
 
                 # Load Games
                 for g in result[0]['games']:
-
-                    g = move_ssid(g)
-
                     g[u'season'] = year
-                    g[u'home_team'] = Team.objects.get(ss_id=g['home_team_id'])
-                    g[u'away_team'] = Team.objects.get(ss_id=g['away_team_id'])
-                    g[u'venue'] = Venue.objects.get(ss_id=g['venue_id'])
-
-                    if g['winning_team_id']:
-                        g['winning_team'] = Team.objects.get(ss_id=g['winning_team_id'])
-
-                    del g['home_team_id']
-                    del g['away_team_id']
-                    del g['venue_id']
-                    del g['winning_team_id']
-
-                    pp.pprint(g)
-
-                    gam, created = Game.objects.get_or_create(ss_id=g['ss_id'])
-                    gam.update(**g)
-                    gam.save()
+                    Game.create_from_ss(g)
 

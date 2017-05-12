@@ -22,3 +22,16 @@ DATABASES = {
         }
     },
 }
+
+INSTALLED_APPS = INSTALLED_APPS + ['django_nose']
+
+########## TEST CONFIGURATION
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+NOSE_ARGS = [
+    '--nocapture',
+    '--nologcapture',
+    '--with-coverage',
+    '--cover-package=hitparade',
+]
+########## END TEST CONFIGURATION
+
