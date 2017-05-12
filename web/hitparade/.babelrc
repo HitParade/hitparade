@@ -1,7 +1,8 @@
 {
   "presets": [
     "es2015",
-    "stage-1"
+    "stage-1",
+    "react"
   ],
   "ignore": [
     "node_modules/",
