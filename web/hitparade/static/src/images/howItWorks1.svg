@@ -1,7 +1,5 @@
 
 <svg width="623px" height="372px" viewBox="0 0 623 372" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
-    <desc>Created with Sketch.</desc>
     <defs>
         <filter x="-3.9%" y="-5.4%" width="107.9%" height="113.7%" filterUnits="objectBoundingBox" id="filter-1">
             <feOffset dx="0" dy="5" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
