@@ -1,9 +1,18 @@
-/* global window */
-window.jQuery = window.$ = require('jquery');
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import HitParadeReducer from './src/reducers/hitparade';
+import HitParade from './src/containers/HitParade';
 
-const $ = window.$;
+const store = createStore(
+  HitParadeReducer,
+  window.devToolsExtension && window.devToolsExtension()
+);
 
-require('bootstrap');
-
-$(() => {
-});
+render(
+    <Provider store={store}>
+        <HitParade />
+    </Provider>,
+  document.getElementById('root')
+);

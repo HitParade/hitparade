@@ -1,0 +1,18 @@
+<svg width="23px" height="17px" viewBox="0 0 23 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs></defs>
+    <g id="Mobile-Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="Mobile-01.01-Home" transform="translate(-14.000000, -17.000000)" stroke-width="3" stroke="#2D2D2D">
+            <g id="00-Header" transform="translate(15.000000, 10.000000)">
+                <g id="Group-23-Copy" transform="translate(0.615385, 7.000000)">
+                    <g id="menu">
+                        <g id="Group-11">
+                            <path d="M-7.99690175e-14,1.5 L19,1.5" id="Line"></path>
+                            <path d="M-7.99690175e-14,8.5 L19,8.5" id="Line"></path>
+                            <path d="M-7.99690175e-14,15.5 L19,15.5" id="Line"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
