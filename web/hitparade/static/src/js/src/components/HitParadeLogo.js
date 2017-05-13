@@ -3,8 +3,8 @@ import React, { PropTypes } from 'react';
 const HitParadeLogo = props => {
   return (
   	<div className={props.className}>
-	    <svg width={props.logoWidth} height={props.logoHeight} viewBox={props.logoViewBox} version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-		    <desc>Created with Sketch.</desc>
+	    <svg width={props.logoWidth} height={props.logoHeight} viewBox={props.logoViewBox} preserveAspectRatio="xMidYMid meet" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+		    <desc>HitParade</desc>
 		    <defs></defs>
 		    <g id="Symbols" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
 		        <g id="Header" transform="translate(-120.000000, -11.000000)" fill={props.logoColor}>
