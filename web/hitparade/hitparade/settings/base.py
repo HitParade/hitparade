@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     "social_django",
     'django_extensions',
     'django_mysql',
+    'rest_framework',
 
     # project
     "hitparade",
