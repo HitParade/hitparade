@@ -10,23 +10,20 @@ const HitParadeHowItWorks = props => {
                         <img src={props.imgRoot+'divider.svg'}   className="hp-divider" />
                   </section>
                   <section className="hp-section-how-ct proxima-nova-regular">
-                        Using Hit Parade to <span className="boldText">&nbsp;Beat The Streak&nbsp;</span> is the same as <span className="boldText">&nbsp;Counting Cards&nbsp;</span> at the Black Jack table!
+                    Use <span className="boldText">&nbsp;HitParade&nbsp;</span> to help shift the odds of <span className="boldText">&nbsp;Beat the Streak&nbsp;</span> in your favor!
                   </section>
-                  <section className="hp-section-how-ct proxima-nova-regular">
-                        Hit Parade helps shift the odds in your favor!
-                   </section>
                    <section className="hp-section-how-graphics-panel">
                       <HitParadeHowToPanel
                         imgRoot={props.imgRoot}
                         svg="detailedStats.svg"
                         h1Text="DETAILED STATISTICS"
-                        descText="Hit Parade provides both detailed historical and upcoming game statistics in data simple custom data visualization format." />
+                        descText="HitParade visualizes both detailed historical and upcoming game stats to surface the best picks." />
 
                       <HitParadeHowToPanel
                         imgRoot={props.imgRoot}
                         svg="predictiveEngine.svg"
                         h1Text="PREDICTIVE ENGINE"
-                        descText="Hit Parade uses a custom predictive engine to predict if a player will get a hit in the upcoming game." />
+                        descText="HitParade uses a custom predictive engine to predict if a player will get a hit in an upcoming game." />
 
                       <HitParadeHowToPanel
                         imgRoot={props.imgRoot}
@@ -77,7 +74,7 @@ const HitParadeHowItWorks = props => {
                               </div>
                               <div className="hp-panel-text">
                                     <div className="hp-panel-text-h1 niveau-grotesk-black"><img className="hp-diamond-bullet" src={props.imgRoot+'diamondBullet.svg'}  /><span className="h1-move">STEP 3:</span></div>
-                                    <div className="hp-panel-text-desc proxima-nova-regular">Choose the most probable player(s) to get a hit to Beat The Streak and  WIN the $5.6 million! </div>
+                                    <div className="hp-panel-text-desc proxima-nova-regular">Choose the most probable player(s) to get a hit to Beat the Streak and WIN $5.6 million! </div>
                               </div>
                         </div>
                         <div className="hp-rectangle"></div>
