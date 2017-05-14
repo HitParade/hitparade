@@ -35,7 +35,7 @@ const HitParadeFooter = props => {
               <HitParadeLeftMenuItem imgRoot={props.imgRoot} menuItemText="Privacy Statement" classNames="hp-privacy-statement hp-footer-font-size hp-footer-item proxima-nova-regular" clickMethod={props.navs.click.navPrivacyStatement} />
           </div>
           <div className="hp-footer-font-size hp-right-bar hp-copyright proxima-nova-regular hp-border-top ">
-              &copy; Hit Parade LLC 2017
+              &copy; Hit Parade LLC {fullYear}
           </div>
 
       </div>
