@@ -68,10 +68,6 @@
      -moz-justify-content: flex-start;
 
   }
-  button.hp-signup-button-footer {
-    margin-left: 0px;
-    margin-right: 10px;
-  }
   div.hp-footer-menu-bar > div.hp-left-bar {
     border: none;
   }
@@ -224,7 +220,6 @@
 		-webkit-flex-direction: column;
 		-ms-flex-direction: column;
 		-o-flex-direction: column;
-
 	}
   	div.hp-left-bar {
   		width: 20%;
@@ -377,8 +372,6 @@
   		-moz-align-items: center;
   		-o-justify-content: center;
   		-o-align-items: center;
-
-
   	}
   	section.hp-why-header-bottom-panel {
   		width: 100%;
@@ -583,7 +576,7 @@
     background:#fff;
     clear:left;
     font:14px Helvetica,Arial,sans-serif;
-     width:100%;
+    width:100%;
 }
 .hp-desktop-hero-image {
 	width: 100%;
@@ -598,7 +591,6 @@
 }
 html, body, section {
     max-width: 100%;
-    overflow-x: hidden;
 	margin: 0px;
 	padding: 0px;
 }
@@ -633,7 +625,6 @@ html, body, section {
     width: 100%;
 }
 .header, .footer {
-  	width:  100%;
 	padding-left: 120px;
 	padding-right: 120px;
 
@@ -643,23 +634,23 @@ html, body, section {
     display: -webkit-flex;
     display: flex;
 	flex-wrap: nowrap;
-	justify-content: flex-start;
+  justify-content: space-between;
 	align-items: center;
 
 	-webkit-flex-wrap: nowrap;
-	-webkit-justify-content: flex-start;
+	-webkit-justify-content: space-between;
 	-webkit-align-items: center;
 
 	-moz-flex-wrap: nowrap;
-	-moz-justify-content: flex-start;
+	-moz-justify-content: space-between;
 	-moz-align-items: center;
 
 	-o-flex-wrap: nowrap;
-	-o-justify-content: flex-start;
+	-o-justify-content: space-between;
 	-o-align-items: center;
 
 	-ms-flex-wrap: nowrap;
-	-ms-justify-content: flex-start;
+	-ms-justify-content: space-between;
 	-ms-align-items: center;
 }
 .hp-header-item-logo, .hp-footer-logo-ph {
@@ -671,16 +662,16 @@ html, body, section {
 .hp-header-item, .hp-header-item-right {
 	margin-right: 15px;
 }
-.hp-header-item,  .hp-header-item-logo {
+.hp-header-item {
 	min-width: 30px;
 }
 .hp-hero-text-elem {
-	display: -webkit-box;
-  	display: -moz-box;
-  	display: -ms-flexbox;
-  	display: -webkit-flex;
-  	display: flex;
-
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  margin-right: 4px;
 }
 .hp-header-item, .hp-header-item-right, .hp-header-item-logo {
 	flex-direction: row;
@@ -897,6 +888,7 @@ html, body, section {
 	margin-left: 20px;
 	color: rgba( 255,255,255, 1);
 	text-transform: uppercase;
+  flex-direction: row;
 }
 .hp-signup-button-footer:focus, .hp-signup-button-footer:active .hp-login-button-footer:focus, .hp-login-button-footer:active, .hp-signup-button:focus, .hp-signup-button:active,.hp-login-button:active,.hp-login-button:focus {
 	outline: none;
@@ -1075,11 +1067,12 @@ html, body, section {
 	min-width: 100%;
 	max-width: 100%;
 	width: 100%;
+  padding: 6px 0;
 	font-weight: normal;
 	font-style: normal;
 	font-stretch: normal;
 	color: #2d2d2d;
- display: -webkit-box;
+  display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -1304,6 +1297,7 @@ html, body, section {
 	line-height: 1.33;
 	text-align: center;
 	color: #2d2d2d;
+  margin-bottom: 12px;
 
 	display: -webkit-box;
   	display: -moz-box;
@@ -1750,7 +1744,9 @@ html, body, section {
 .hp-logo-hero-img {
 	width: 206px;
 	height: 71px;
-
+  margin-right: 8px;
+  position: relative;
+  top:-4px;
 }
  .hp-rectangle-ls {
  	left: -20px;
@@ -2045,9 +2041,10 @@ display: -webkit-box;
 	z-index: 6;
 }
 .hp-hero-image {
-	position: relative;
+	background-color: #F3F3ED;
+  position: relative;
 	z-index: 5;
- display: -webkit-box;
+  display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;

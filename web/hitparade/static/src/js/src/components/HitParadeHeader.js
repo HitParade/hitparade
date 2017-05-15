@@ -23,12 +23,7 @@ const HitParadeHeader = props => {
      </div>
      </div>
   ) : (
-    <div className="header-top">
-     <div className="hp-left-bar  "> </div>
-     <div className="hp-right-bar ">
-            <HitParadeButton imgRoot={props.imgRoot}  buttonText="Beta Sign Up" className="hp-signup-button niveau-grotesk-black" clickMethod={props.navs.click.navSignup}/>
-     </div>
-    </div>
+    <HitParadeButton imgRoot={props.imgRoot} buttonText="Beta Sign Up" className="hp-signup-button niveau-grotesk-black" clickMethod={props.navs.click.navSignup}/>
   );
   return (
     <header className="header">
