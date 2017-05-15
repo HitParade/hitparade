@@ -6,7 +6,7 @@ from hitparade.models import Team
 from hitparade.serializers import TeamSerializer
 
 @csrf_exempt
-def team_list(request):
+def team_list(request, version):
     """
     List all code snippets, or create a new snippet.
     """

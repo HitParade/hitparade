@@ -5,6 +5,7 @@ from django.views.generic import TemplateView
 from django.contrib import admin
 
 from hitparade import views
+from utils import v_url
 
 urlpatterns = [
     url(r"^$", TemplateView.as_view(template_name="homepage.html"), name="home"),
@@ -13,7 +14,7 @@ urlpatterns = [
     url(r"^account/social/accounts/$", TemplateView.as_view(template_name="account/social.html"), name="account_social_accounts"),
     url(r"^account/social/", include("social_django.urls", namespace="social")),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^teams/$', views.team_list),
+    url(v_url('teams/$'), views.team_list),
 
 ]
 

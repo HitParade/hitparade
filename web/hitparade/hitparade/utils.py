@@ -12,6 +12,11 @@ import botocore
 
 from stattlepy import Stattleship
 from django.core.exceptions import ImproperlyConfigured
+from django.conf import settings
+
+def v_url(pattern):
+    vs = "|".join(settings.ALLOWED_VERSIONS)
+    return r"^(?P<version>(%s))/%s" % (vs, pattern)
 
 
 def get_env_variable(var_name):
