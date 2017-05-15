@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.test import TestCase, TransactionTestCase
+from django_webtest import WebTest
 from django.contrib.auth import get_user_model
 from django.template import Context, Template
 
@@ -56,3 +57,51 @@ class HPUnitTestCase(TestCase):
                     tokenstr = header[1].split(';')[0]
                     return tokenstr.replace('csrftoken=', '').strip()
 
+
+class HPIntegrationTestCase(HPUnitTestCase, WebTest):
+
+    def get(self, *args, **kwargs):
+
+        kwargs = self.add_token_to_kwargs(kwargs)
+
+        req = self.app.get(*args, **kwargs)
+
+        return req
+
+    def post(self, *args, **kwargs):
+
+        kwargs = self.add_token_to_kwargs(kwargs)
+
+        req = self.app.post(*args, **kwargs)
+
+        return req
+
+    def put(self, *args, **kwargs):
+
+        kwargs = self.add_token_to_kwargs(kwargs)
+
+        req = self.app.put(*args, **kwargs)
+
+        return req
+
+
+    def add_token_to_kwargs(self, kwargs_dict):
+
+        if hasattr(self, 'token'):
+            token_value = str("Token %s" % self.token.key)
+
+            if 'headers' in kwargs_dict:
+                kwargs_dict['headers']['Authorization'] = token_value
+            else:
+                kwargs_dict['headers'] = { 'Authorization': token_value }
+
+        return kwargs_dict
+
+
+    def create_api_token(self, user=None):
+
+        if user is None:
+            user = User.objects.get(pk=1)
+
+        token = Token.objects.create(user=user)
+        return token

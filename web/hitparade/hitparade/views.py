@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from hitparade.models import Team
-from hitparade.serializers import TeamSerializer
+from hitparade.serializers import TeamSerializerV1
 
 @csrf_exempt
 def team_list(request, version):
@@ -12,5 +12,5 @@ def team_list(request, version):
     """
     if request.method == 'GET':
         teams = Team.objects.all()
-        serializer = TeamSerializer(teams, many=True)
+        serializer = TeamSerializerV1(teams, many=True)
         return JsonResponse(serializer.data, safe=False)

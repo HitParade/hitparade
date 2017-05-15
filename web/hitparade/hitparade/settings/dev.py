@@ -32,6 +32,8 @@ NOSE_ARGS = [
     '--nologcapture',
     '--with-coverage',
     '--cover-package=hitparade',
+    '--with-ddf-setup'
 ]
+DDF_DEFAULT_DATA_FIXTURE = 'sequential'
 ########## END TEST CONFIGURATION
 
