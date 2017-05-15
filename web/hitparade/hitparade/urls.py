@@ -12,6 +12,7 @@ from utils import v_url
 router = routers.DefaultRouter()
 router.register(v_url('teams'), views.TeamListView)
 router.register(v_url('games'), views.GameListView)
+router.register(v_url('players'), views.PlayerListView)
 
 
 urlpatterns = [

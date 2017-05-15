@@ -6,7 +6,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework import viewsets, status
 
 from hitparade.models import Team, Game
-from hitparade.serializers import TeamSerializerV1, GameSerializerV1
+from hitparade.serializers import *
 
 
 class TeamListView(viewsets.ModelViewSet):
@@ -23,3 +23,11 @@ class GameListView(viewsets.ModelViewSet):
     """
     queryset = Game.objects.all()
     serializer_class = GameSerializerV1
+
+
+class PlayerListView(viewsets.ModelViewSet):
+    """
+    List games
+    """
+    queryset = Player.objects.all()
+    serializer_class = PlayerSerializerV1

@@ -43,3 +43,17 @@ class HPEndpointTestCase(HPIntegrationTestCase):
 
         resp.json['count'].should.equal(1)
         len(resp.json['results']).should.equal(1)
+
+
+    def test_players(self):
+
+        g = G(Player)
+
+        resp = self.get("/v1/players/")
+        resp.status_int.should.equal(200)
+
+        resp.json.should.have.key('next')
+        resp.json.should.have.key('previous')
+
+        resp.json['count'].should.equal(1)
+        len(resp.json['results']).should.equal(1)
