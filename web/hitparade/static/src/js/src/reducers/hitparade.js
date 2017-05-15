@@ -10,7 +10,7 @@ const svgShare = {
 	  	width: '15px',
 	  	height: '16px',
 	  	maxHeight: '16px',
-  } ;
+  };
   const svgCart = {
   		img: 'cart.png',
   		width: '20px',
