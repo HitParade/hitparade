@@ -259,7 +259,6 @@
       border: none;
   }
 }
-
 @media screen and (max-width: 400px) {
   section.hp-why-header-bottom-panel {
     display: none;
@@ -420,7 +419,6 @@
   		width: 20%;
   	}
 }
-
 @media screen and (max-width: 320px) {
   section.hp-why-header-bottom-panel {
     display: none;
@@ -493,7 +491,7 @@
 
   	}
   	div.hp-rectangle, div.hp-rectangle-ls {
-  		width: 90%; 
+  		width: 90%;
         left: 0%;
         margin-left: 15px;
   	}
@@ -1718,13 +1716,44 @@ html, body, section {
   position: relative;
   top:-4px;
 }
- .hp-rectangle-ls {
- 	left: -20px;
- }
+ .hp-rectangle {
+	z-index: 4;
+	position: relative;
+    left: 50%;
+	min-width: 50%;
+	height: 400px;
+	border: solid 6px #e3e3db;
+	display: flex;
+	flex-direction: row;
+	font-size: 34px;
+	line-height: 1.06;
+	letter-spacing: -0.5px;
+	color: #2d2d2d;
 
+	justify-content: center;
+	align-items:  center;
+	align-content:  center;
+
+	-ms-flex-wrap: nowrap;
+	-ms-justify-content:  center;
+	-ms-align-items:  center;
+	-ms-align-content:  center;
+
+	-o-flex-wrap: nowrap;
+	-o-justify-content:  center;
+	-o-align-items:  center;
+	-o-align-content: center;
+
+	-moz-flex-wrap: nowrap;
+	-moz-justify-content: center;
+	-moz-align-items: center;
+	-moz-align-content:  center;
+
+}
  .hp-rectangle-ls {
 	z-index: 4;
 	position: relative;
+    left: -20px;
 	min-width: 50%;
 	height: 400px;
 	border: solid 6px #e3e3db;
