@@ -11,7 +11,9 @@ from utils import v_url
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(v_url('teams'), views.TeamListView)
-router.register(v_url('games'), views.GameListView)
+
+# TODO: Make sure the `base_name` here is correct
+router.register(v_url('games'), views.GameListView, base_name='games')
 router.register(v_url('players'), views.PlayerListView)
 
 

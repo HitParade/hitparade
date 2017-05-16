@@ -33,7 +33,8 @@ class HPEndpointTestCase(HPIntegrationTestCase):
 
     def test_games(self):
 
-        g = G(Game)
+        g  = G(Game, status=Game.STATUS_UPCOMING)
+        g2 = G(Game, status=Game.STATUS_CLOSED)
 
         resp = self.get("/v1/games/")
         resp.status_int.should.equal(200)
@@ -43,6 +44,10 @@ class HPEndpointTestCase(HPIntegrationTestCase):
 
         resp.json['count'].should.equal(1)
         len(resp.json['results']).should.equal(1)
+        resp.json['results'][0]['status'].should.equal(Game.STATUS_UPCOMING)
+
+        resp = self.get("/v1/games/?status=%s" % Game.STATUS_CLOSED)
+        resp.json['results'][0]['status'].should.equal(Game.STATUS_CLOSED)
 
 
     def test_players(self):
