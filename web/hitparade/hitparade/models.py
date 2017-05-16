@@ -716,4 +716,9 @@ def load_bis_game(data):
 
 def get_games_to_update():
 
-    return Game.query.filter(Game.status.in_([Game.STATUS_IN_PROGRESS, Game.STATUS_UPCOMING]), Game.started_at < datetime.now() )
+    kwargs = {
+        "status__in":[Game.STATUS_IN_PROGRESS, Game.STATUS_UPCOMING],
+        "started_at__lt": datetime.datetime.now()
+    }
+
+    return Game.objects.filter(**kwargs)
