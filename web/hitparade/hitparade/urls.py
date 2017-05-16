@@ -14,7 +14,7 @@ router.register(v_url('teams'), views.TeamListView)
 
 # TODO: Make sure the `base_name` here is correct
 router.register(v_url('games'), views.GameListView, base_name='games')
-router.register(v_url('players'), views.PlayerListView)
+router.register(v_url('players'), views.PlayerListView, base_name='players')
 
 
 urlpatterns = [

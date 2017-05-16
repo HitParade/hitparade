@@ -20,7 +20,6 @@ class GameListView(viewsets.ModelViewSet):
 
     def get_queryset(self):
 
-
         filter_kwargs = {
             'status': Game.STATUS_UPCOMING
         }
@@ -32,8 +31,18 @@ class GameListView(viewsets.ModelViewSet):
 
 
 class PlayerListView(viewsets.ModelViewSet):
-    """
-    List games
-    """
-    queryset = Player.objects.all()
     serializer_class = PlayerSerializerV1
+
+
+    def get_queryset(self):
+
+        filter_kwargs = {}
+
+        # TODO: validate this is actually a real team ID
+        if 'team_id' in self.request.query_params:
+            filter_kwargs['team__id'] = self.request.query_params['team_id']
+
+        if len(filter_kwargs) == 0:
+            return Player.objects.all()
+        else:
+            return Player.objects.filter(**filter_kwargs)

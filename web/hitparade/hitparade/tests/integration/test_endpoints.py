@@ -12,6 +12,7 @@ from hitparade.utils import *
 from hitparade.tests.helpers import HPIntegrationTestCase
 
 from django_dynamic_fixture import G, get
+import random
 import sure
 
 class HPEndpointTestCase(HPIntegrationTestCase):
@@ -52,7 +53,8 @@ class HPEndpointTestCase(HPIntegrationTestCase):
 
     def test_players(self):
 
-        g = G(Player)
+        t = G(Team)
+        p = G(Player, team=t)
 
         resp = self.get("/v1/players/")
         resp.status_int.should.equal(200)
@@ -62,3 +64,8 @@ class HPEndpointTestCase(HPIntegrationTestCase):
 
         resp.json['count'].should.equal(1)
         len(resp.json['results']).should.equal(1)
+
+        non_existant_team_id = random.randrange(0, 1000000)
+        resp = self.get("/v1/players/?team_id=%i" % non_existant_team_id)
+        len(resp.json['results']).should.equal(0)
+

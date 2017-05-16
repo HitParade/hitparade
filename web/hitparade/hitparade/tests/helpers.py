@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.template import Context, Template
 
 from types import *
-from random import randint
+import random
 import json
 
 import sure
