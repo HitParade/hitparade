@@ -2,8 +2,6 @@ import os
 
 from django.test import TestCase
 from django.conf import settings
-from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
 
 from hitparade.models import *
@@ -11,7 +9,7 @@ from hitparade.utils import *
 from types import *
 
 from hitparade.tests.helpers import HPUnitTestCase
-
+from django_dynamic_fixture import G, get
 import sure
 
 class HPModelTestCase(HPUnitTestCase):
@@ -31,8 +29,8 @@ class HPModelTestCase(HPUnitTestCase):
 
     def test_gamestat_player_ref(self):
 
-        t = Team.objects.create(slug="mlb-nyy")
-        p = Player.objects.create(name="Jim Stark", team=t)
+        t = G(Team, slug="mlb-nyy")
+        p = G(Player, name="Jim Stark", team=t)
 
         key, player = GameStat.get_player_ref("player_name", "Jim Stark")
 

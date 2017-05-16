@@ -298,9 +298,6 @@ class GameStat(HitparadeModel):
         if key == 'player_name':
             key = 'player'
 
-        if player is None:
-            print key, value
-
         if not player:
             return key, None
         else:
