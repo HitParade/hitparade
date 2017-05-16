@@ -97,7 +97,7 @@ class Player(HitparadeModel):
     draft_round = models.IntegerField(blank=True, null=True)
     draft_season = models.IntegerField(blank=True, null=True)
     draft_team_name = models.CharField(max_length=128, null=True)
-    name = models.CharField(max_length=256, null=True)
+    name = models.CharField(max_length=256, null=True, db_index=True)
     first_name = models.CharField(max_length=128, null=True)
     last_name = models.CharField(max_length=128, null=True)
     handedness = models.CharField(max_length=16, null=True)
@@ -118,6 +118,12 @@ class Player(HitparadeModel):
     unit_of_weight = models.CharField(max_length=16, null=True)
     weight = models.IntegerField(blank=True, null=True)
     years_of_experience = models.IntegerField(blank=True, null=True)
+
+
+    class Meta:
+        index_together = [
+            ("nickname", "last_name"),
+        ]
 
 
     @classmethod
@@ -274,13 +280,26 @@ class GameStat(HitparadeModel):
 
 
     @staticmethod
-    def get_player_ref(key, player_name):
-        player = Player.objects.get_or_none(name=player_name)
+    def get_player_ref(key, value):
 
+        if 'MLBAMId' in key:
+            player = Player.objects.get_or_none(mlbam_id=value)
+        else:
+            player = Player.objects.get_or_none(name=value)
+
+            # Try the nickname
+            if player is None:
+                split_name = value.split(" ")
+                player = Player.objects.get_or_none(nickname=split_name[0], last_name=split_name[1])
+
+        key = key.replace('MLBAMId', '')
         key = convert_camel2snake(key)
 
         if key == 'player_name':
             key = 'player'
+
+        if player is None:
+            print key, value
 
         if not player:
             return key, None
@@ -340,18 +359,29 @@ class GameStat(HitparadeModel):
             return key, date
 
 
+    # Both of these are here so we can continue to support older files that
+    #    don't have mlbam_id
+    player_key_map = {
+        u'OppCat': get_player_ref.__func__,
+        u'OppPit': get_player_ref.__func__,
+        u'PlayerName': get_player_ref.__func__,
+    }
+
+    player_name_map = {
+        # BIS          # Stattleship
+        "DJ LeMahieu": "David LeMahieu"
+    }
+
     key_map = {
 
         u'Team': get_team_ref.__func__,
         u'Opp': get_team_ref.__func__,
         u'HomeTeam': get_team_ref.__func__,
         u'HPUmp': get_umpire_ref.__func__,
-        u'OppCat': get_player_ref.__func__,
-        u'OppPit': get_player_ref.__func__,
-        u'PlayerName': get_player_ref.__func__,
         u'Stadium': get_venue_ref.__func__,
         u'GameDate': format_game_date.__func__,
         u'LocalGameTime': denaive_date.__func__,
+
 
         u'AB': u'ab',
         u'BA14': u'ba14',
@@ -666,6 +696,19 @@ def load_bis_game(data):
                 kwargs[k] = v
             else:
                 kwargs[hp_key] = data[bis_key]
+
+
+    for bis_player_key, hp_player_key in GameStat.player_key_map.iteritems():
+
+        mlbamid_key = bis_player_key + 'MLBAMId'
+
+        if mlbamid_key in data:
+            k, v = hp_player_key(mlbamid_key, data[mlbamid_key])
+            kwargs[k] = v
+        else:
+            k, v = hp_player_key(bis_player_key, data[bis_player_key])
+            kwargs[k] = v
+
 
     ga, created = GameStat.objects.get_or_create(player=kwargs['player'], car_game_num=kwargs['car_game_num'])
     ga.update(**kwargs)
