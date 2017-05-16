@@ -4,6 +4,7 @@ import json
 import pprint
 import datetime
 import dateutil.parser
+import random
 import requests
 import tempfile
 import subprocess
@@ -12,6 +13,30 @@ import botocore
 
 from stattlepy import Stattleship
 from django.core.exceptions import ImproperlyConfigured
+from django.conf import settings
+
+
+def get_random_num_excluding(range_, exclude):
+
+    # If a tuple is passed, expand it to full range (list)
+    if type(range_) == 'tuple':
+        range_ = range(expand(range_))
+
+    if exclude not in range_:
+        raise ValueError("Excluded number should be within range")
+
+    index = range_.index(exclude)
+
+    front_range = range(0, index+1)
+    back_range = range(index+2, len(range_)+1)
+
+    numbers = front_range + back_range
+    return random.choice(numbers)
+
+
+def v_url(pattern):
+    vs = "|".join(settings.ALLOWED_VERSIONS)
+    return r"^(?P<version>(%s))/%s" % (vs, pattern)
 
 
 def get_env_variable(var_name):

@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     "social_django",
     'django_extensions',
     'django_mysql',
+    'rest_framework',
 
     # project
     "hitparade",
@@ -216,6 +217,27 @@ SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 SOCIAL_AUTH_TWITTER_KEY = ""
 SOCIAL_AUTH_TWITTER_SECRET = ""
+
+####################################
+# REST FRAMEWORK CONFIG
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 40
+}
+
+DEFAULT_VERSION = 'v1'
+ALLOWED_VERSIONS = ['v1']
+# END REST FRAMEWORK CONFIG
+####################################
 
 # API TOKEN
 STATTLESHIP_API_TOKEN = get_env_variable('STATTLESHIP_TOKEN')
