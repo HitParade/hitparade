@@ -52,16 +52,16 @@ class HitParade extends Component {
       };
   		return (
   			<div>
-  				<HitParadeHeader isLive='false' playersInCart={playersInCart} svgs={svgs} navs={navigationMethods} imgRoot={imgRoot} />
-  				<HitParadeHeroImage img={heroImage} imgMobile={heroImageMobile} navs={navigationMethods}  imgRoot={imgRoot} />
-          <HitParadeSectionWhy  navs={navigationMethods} imgRoot={imgRoot}  />
-          <HitParadeHowItWorks  navs={navigationMethods}  imgRoot={imgRoot} />
-          <HitParadeFooter playersInCart={playersInCart} svgs={svgs} navs={navigationMethods}  imgRoot={imgRoot} />
-          <ReactModal
-           isOpen={showModal}
-           contentLabel="Minimal Modal Example" >
-                    <HitParadeMailChimp closeModal={closeModal} subscribe={closeModal}  imgRoot={imgRoot} />
-          </ReactModal>
+  				  <HitParadeHeader isLive='false' playersInCart={playersInCart} svgs={svgs} navs={navigationMethods} imgRoot={imgRoot} />
+                  <HitParadeHeroImage img={heroImage} imgMobile={heroImageMobile} navs={navigationMethods}  imgRoot={imgRoot} />
+                  <HitParadeSectionWhy  navs={navigationMethods} imgRoot={imgRoot}  />
+                  <HitParadeHowItWorks  navs={navigationMethods}  imgRoot={imgRoot} />
+                  <HitParadeFooter playersInCart={playersInCart} svgs={svgs} navs={navigationMethods}  imgRoot={imgRoot} />
+                  <ReactModal
+                   isOpen={showModal}
+                   contentLabel="Minimal Modal Example" >
+                            <HitParadeMailChimp closeModal={closeModal} subscribe={closeModal}  imgRoot={imgRoot} />
+                  </ReactModal>
 
   			</div>
   		)

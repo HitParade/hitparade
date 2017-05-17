@@ -11,7 +11,7 @@ const HitParadeFooter = props => {
     <footer className="footer">
     <HitParadeLogo logoColor="#FFFFFF" className="hp-footer-logo-ph" logoWidth="126px" logoHeight="43px" logoViewBox="0 0 126 43"/>
     <div className="hp-footer-menu">
-      <div className="hp-footer-menu-bar">
+      <div className="hp-footer-menu-bar-desktop   hp-remove">
           <div className="hp-left-bar hp-remove">
               <HitParadeLeftMenuItem imgRoot={props.imgRoot} classNames="hp-header-item proxima-nova-regular" menuItemText="Select Players"  clickMethod={props.navs.click.navSelectPlayers} />
              <HitParadeLeftMenuItem  imgRoot={props.imgRoot} classNames="hp-header-item proxima-nova-regular" menuItemText="FAQ"  clickMethod={props.navs.click.navFaq}  />
@@ -29,8 +29,14 @@ const HitParadeFooter = props => {
                   <HitParadeButton buttonText="Beta Sign Up" className="hp-signup-button-footer niveau-grotesk-black" clickMethod={props.navs.click.navSignup}/>
             </div>
       </div>
+         <div className="hp-footer-menu-bar-mobile">
+            <div className="hp-left-bar">  </div>
+            <div className="hp-right-bar">
+                <HitParadeButton buttonText="Beta Sign Up" className="hp-signup-button-footer niveau-grotesk-black" clickMethod={props.navs.click.navSignup}/>
+            </div>
+         </div>
+        <div className="hp-footer-menu-bar-mobile">
 
-        <div className="hp-footer-menu-bar">
           <div className="hp-left-bar hp-privacy-statement hp-border-top ">
               <HitParadeLeftMenuItem imgRoot={props.imgRoot} menuItemText="Privacy Statement" classNames="hp-privacy-statement hp-footer-font-size hp-footer-item proxima-nova-regular" clickMethod={props.navs.click.navPrivacyStatement} />
           </div>
