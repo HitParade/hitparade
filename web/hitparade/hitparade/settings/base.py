@@ -251,3 +251,8 @@ AWS_S3_BIS_BUCKET_BASE_KEY = "2017"
 
 # DATA Source Config
 BIS_HISTORICAL_ZIP = "HistData2.zip"
+
+########## Additional SHELL_PLUS IMPORTS
+SHELL_PLUS_PRE_IMPORTS = (
+    ('hitparade.utils', '*'),
+)
