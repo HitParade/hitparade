@@ -4,6 +4,7 @@ import time
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
+from django.utils import timezone
 
 from hitparade.models import Team, Official, Venue, Game, get_games_to_update
 from hitparade.utils import get_stattleship_client
@@ -25,25 +26,30 @@ class Command(BaseCommand):
         # games = get_games_to_update()
 
         # get last updated game
-        g = Game.objects.filter(status=Game.STATUS_CLOSED).order_by('-started_at')[0]
+        oldest_closed_game = Game.objects.filter(status=Game.STATUS_CLOSED).order_by('-started_at')[0]
 
-        result = s.ss_get_results(sport='baseball',
-                                league='mlb',
-                                ep='games',
-                                on=g.started_at.strftime("%Y-%m-%d")
-                                # since=int(time.mktime(g.started_at.timetuple()))
-                            )
+        on_date = oldest_closed_game.started_at
 
-        # Load conferences
-        for o in result[0]['officials']:
-            Official.create_from_ss(o)
+        while on_date < timezone.now() + datetime.timedelta(1):
 
+            result = s.ss_get_results(sport='baseball',
+                                    league='mlb',
+                                    ep='games',
+                                    on=on_date.strftime("%Y-%m-%d")
+                                )
 
-        # Load Venues
-        for v in result[0]['venues']:
-            Venue.create_from_ss(v)
+            # Load conferences
+            for o in result[0]['officials']:
+                Official.create_from_ss(o)
 
 
-        # Load Games
-        for g in result[0]['games']:
-            Game.create_from_ss(g)
+            # Load Venues
+            for v in result[0]['venues']:
+                Venue.create_from_ss(v)
+
+
+            # Load Games
+            for g in result[0]['games']:
+                Game.create_from_ss(g)
+
+            on_date = on_date + datetime.timedelta(1)
