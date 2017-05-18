@@ -39,7 +39,7 @@ const HitParadeHowItWorks = props => {
 
                         <div className="hp-panel-relative">
                               <div className="hp-img-panel">
-                                    <img src={props.imgRoot+'howItWorks1.svg'}  />
+                                    <img src={props.imgRoot+'hiw1.svg'}  />
                               </div>
                               <div className="hp-panel-text">
                                     <div className="hp-panel-text-h1 niveau-grotesk-black"><img className="hp-diamond-bullet" src={props.imgRoot+'diamondBullet.svg'} /><span className="h1-move">STEP 1:</span></div>
