@@ -1,9 +1,16 @@
 @media screen and (min-width: @hp-mobile-min) and (max-width: @hp-mobile-max) {
     div.hp-footer-logo-ph {
       .hp-flex;
+      justify-content: center;
+      align-items: flex-start;
       margin: 0px;
-
+      width: 100%;
+      margin-bottom: 30px;
     }
+    div.hp-privacy-statement {
+      width: 100%;
+    }
+    div.hp-footer-menu
     header.header,
     footer.footer {
       padding: 10px;
@@ -11,7 +18,7 @@
     footer.footer {
         .hp-flex-column;
         .hp-flex-centered;
-        .hp-flex-wrap;
+        width: 99%;
     }
     section.hp-hero-overlay-medium-text {
       font-size: 30px;
@@ -42,12 +49,22 @@
       display: none;
     }
     div.hp-footer-menu-bar-mobile {
+      .hp-flex;
+      .hp-flex-centered;
+      .hp-flex-column;
+      align-items: center;
       border: none;
-      div.hp-left-bar,
+      justify-content: center;
+      width: 100%;
+      div.hp-left-bar {
+        border: none;
+        width: 100%;
+      }
       div.hp-right-bar {
-            width: 100%;
-            justify-content: flex-start;
+            align-items: center;
             border: none;
+            justify-content: center;
+            width: 100%;
         .hp-login-button,
         .hp-signup-button,
         .hp-signup-button-footer,
@@ -57,25 +74,21 @@
         }
       }
     }
-    div.hp-footer-menu-bar-mobile {
-      width: 100%;
-      .hp-flex;
-      .hp-flex-start;
-      .hp-flex-column;
-       div.hp-left-bar {
-        border: none;
-      }
-    }
 
-    div.hp-footer-menu-bar >
     footer.footer {
+      height: 256px;
       div.hp-footer-menu {
+        justify-content: center;
+        align-items: center;
         div.hp-footer-menu-bar {
+          .hp-flex;
+          .hp-flex-centered;
+          width: 100%;
           div.hp-right-bar {
                   margin-right: 0px;
-                  width: 100%;
+                  width: 98%;
                   .hp-flex;
-                  .hp-flex-start;
+                  .hp-flex-centered;
           }
         }
       }
