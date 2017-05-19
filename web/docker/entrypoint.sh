@@ -16,6 +16,7 @@ done
 cd /code/
 
 python manage.py migrate --fake-initial
+python manage.py collectstatic
 
 echo $TIER
 

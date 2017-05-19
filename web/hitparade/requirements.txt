@@ -7,6 +7,7 @@ django-appconf==1.0.2
 django-bootstrap-form==3.2.1
 django-dynamic-fixture==1.9.5
 django-extensions==1.7.7
+django-grappelli==2.9.1
 django-model-utils==3.0.0
 django-mysql==1.1.1
 django-nose==1.4.4
