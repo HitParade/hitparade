@@ -556,7 +556,7 @@ class GameStat(HitparadeModel):
 
 
 class AtBat(HitparadeModel):
-    __name__ = "At Bat"
+    __name__ = "AtBat"
 
     ss_id = models.CharField(max_length=36, unique=True)
 
