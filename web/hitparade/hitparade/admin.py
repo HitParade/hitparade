@@ -90,14 +90,21 @@ class GameStatAdmin(TimeStampedAdmin):
     # status is required, but I don't know what for. - CH
     status = None
     list_display = ('__unicode__', 'game_date', )
+    ordering = ('-game_date', 'team')
+
+    # TODO: Set game filter once game is properly linked.
 
 
 class AtBatAdmin(TimeStampedAdmin):
-    model = AtBat
+    status = None
+    list_display = ('__unicode__', 'inning',)
+    ordering = ('-game__started_at', '-inning',)
 
 
 class PitchAdmin(TimeStampedAdmin):
-    model = Pitch
+    status = None
+    list_display = ('__unicode__', 'inning',)
+    ordering = ('-game__started_at', 'hitter__name', 'sequence',)
 
 
 admin.site.register(Player, PlayerAdmin)

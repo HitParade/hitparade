@@ -581,6 +581,10 @@ class AtBat(HitparadeModel):
     inning_label = models.CharField(max_length=32, null=True)
 
 
+    def __unicode__(self):
+        return "%s %s At Bat" % (self.game, self.hitter.name)
+
+
     @classmethod
     def create_from_ss(cls, ss_data):
         obj = super(AtBat, cls).create_from_ss(ss_data)
@@ -664,6 +668,10 @@ class Pitch(HitparadeModel):
     pitch_type = models.CharField(max_length=8, null=True)
     pitch_zone = models.IntegerField(null=True)
     sequence = models.IntegerField(null=True)
+
+
+    def __unicode__(self):
+        return "%s - %s - %i" % (self.game, self.hitter.name, self.sequence)
 
 
     @classmethod
