@@ -48,6 +48,10 @@ class HitparadeModel(Model, TimeStampedModel):
         return obj
 
 
+    def __unicode__(self):
+        return self.name
+
+
 class Conference(HitparadeModel):
     __name__ = 'Conference'
 
@@ -79,10 +83,14 @@ class Team(HitparadeModel):
     latitude = models.FloatField(null=True)
 
 
+    def __unicode__(self):
+        return self.nickname
+
+
 class Player(HitparadeModel):
     __name__ = "Player"
 
-    team = models.ForeignKey(Team, null=True)
+    team = models.ForeignKey(Team, related_name='team', null=True)
     ss_id = models.CharField(max_length=36, unique=True)
     slug = models.CharField(max_length=64, null=True)
     active = models.NullBooleanField()
@@ -551,6 +559,9 @@ class GameStat(HitparadeModel):
     was_start = models.IntegerField(null=True)
 
 
+    def __unicode__(self):
+        return "%s vs %s" % (self.home_team.name, self.team.name)
+
     class Meta:
         unique_together = (('player', 'car_game_num'),)
 
@@ -603,6 +614,12 @@ class AtBat(HitparadeModel):
 
 class Pitch(HitparadeModel):
     __name__ = "Pitch"
+    verbose_name_plural = "Pitches"
+
+
+    class Meta:
+        verbose_name_plural = "Pitches"
+
 
     ss_id = models.CharField(max_length=36, unique=True)
 
