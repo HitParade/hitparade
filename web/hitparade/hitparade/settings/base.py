@@ -50,10 +50,6 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.staticfiles",
 
-    # theme
-    "bootstrapform",
-    "pinax_theme_bootstrap",
-
     # external
     "account",
     "pinax.eventlog",
@@ -210,6 +206,7 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.yahoo.YahooOpenId',
     'django.contrib.auth.backends.ModelBackend',
+    "account.auth_backends.EmailAuthenticationBackend",
     'account.auth_backends.UsernameAuthenticationBackend',
 ]
 
