@@ -1,10 +1,13 @@
-<svg width="34px" height="34px" viewBox="0 0 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<svg width="44px" height="45px" viewBox="0 0 44 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs></defs>
-    <g id="Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="1.01-desktop-homepage-A" transform="translate(-668.000000, -634.000000)" stroke-width="3" stroke="#F3F3ED">
-            <g id="aquare-copy" transform="translate(-35.000000, 634.000000)">
-                <g id="Group-6">
-                    <rect id="Rectangle-7-Copy-12" transform="translate(719.992308, 17.000000) rotate(-45.000000) translate(-719.992308, -17.000000) " x="709.523932" y="6.53703704" width="20.9367521" height="20.9259259"></rect>
+    <g id="Desktop-Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1.01-desktop-homepage" transform="translate(-1107.000000, -1130.000000)" stroke="#E3E3DB" stroke-width="2">
+            <g id="Intro" transform="translate(0.000000, 598.000000)">
+                <g id="aquare" transform="translate(-125.000000, 532.000000)">
+                    <g id="Group-6-Copy-2" transform="translate(793.000000, 0.000000)">
+                        <rect id="Rectangle-7-Copy-9" transform="translate(460.819573, 22.500040) rotate(-45.000000) translate(-460.819573, -22.500040) " x="446.349573" y="8.03703704" width="28.9400005" height="28.9260069"></rect>
+                    </g>
                 </g>
             </g>
         </g>

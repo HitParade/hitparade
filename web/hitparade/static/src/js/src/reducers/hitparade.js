@@ -21,7 +21,7 @@ const initialState = {
 	imgRoot: '/static/dist/images/',
 	cart: [{}],
 	playersInCart: 4,
-	heroImage: 'HeroImage.svg',
+	heroImage: 'Hero.png',
 	heroImageMobile: 'heroImageMobile.svg',
 	showModal: false,
 	svgs: {
