@@ -1,17 +1,18 @@
 import os
+from datetime import timedelta
 
 from django.test import TestCase
 from django.conf import settings
-from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
+from django.utils import timezone
 
 from hitparade.models import *
 from hitparade.utils import *
 from types import *
 
 from hitparade.tests.helpers import HPUnitTestCase
-
+from django_dynamic_fixture import G, get
+from freezegun import freeze_time
 import sure
 
 class HPModelTestCase(HPUnitTestCase):
@@ -31,8 +32,8 @@ class HPModelTestCase(HPUnitTestCase):
 
     def test_gamestat_player_ref(self):
 
-        t = Team.objects.create(slug="mlb-nyy")
-        p = Player.objects.create(name="Jim Stark", team=t)
+        t = G(Team, slug="mlb-nyy")
+        p = G(Player, name="Jim Stark", team=t)
 
         key, player = GameStat.get_player_ref("player_name", "Jim Stark")
 
@@ -73,6 +74,19 @@ class HPModelTestCase(HPUnitTestCase):
             pdate.year.should.equal(2017)
             pdate.month.should.equal(5)
             pdate.day.should.equal(30)
+
+
+    @freeze_time("2017-05-14 12:37:01")
+    def test_games_to_update(self):
+
+        started_at1 = timezone.now() - timedelta(1)
+        started_at2 = timezone.now() + timedelta(5)
+        g1 = G(Game, status=Game.STATUS_IN_PROGRESS, started_at=started_at1)
+        g2 = G(Game, status=Game.STATUS_CLOSED, started_at=started_at2)
+
+        games = get_games_to_update()
+        len(games).should.equal(1)
+        games[0].should.equal(g1)
 
 
 class HPUtilTestCase(HPUnitTestCase):
