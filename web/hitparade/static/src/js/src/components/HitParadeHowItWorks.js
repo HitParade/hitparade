@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import HitParadeHowToPanel from './HitParadeHowToPanel';
-/** data-0="opacity: 0;top: 0px;" data-400="opacity: 0; top: -200px;" data-500="opacity: 0.9; top: -500px;" data-850="opacity: 1; top: -700px;"**/
 const HitParadeHowItWorks = props => {
   return (
             <section
@@ -17,19 +16,19 @@ const HitParadeHowItWorks = props => {
                           <HitParadeHowToPanel
                             imgRoot={props.imgRoot}
                             svg="detailedStats.svg"
-                            h1Text="DETAILED STATISTICS"
+                            h1Text="Detailed Statistics"
                             descText="HitParade visualizes both detailed historical and upcoming game stats to surface the best picks." />
 
                           <HitParadeHowToPanel
                             imgRoot={props.imgRoot}
                             svg="predictiveEngine.svg"
-                            h1Text="PREDICTIVE ENGINE"
+                            h1Text="Predictive Engine"
                             descText="HitParade uses a custom predictive engine to predict if a player will get a hit in an upcoming game." />
 
                           <HitParadeHowToPanel
                             imgRoot={props.imgRoot}
                             svg="confidenceLevel.svg"
-                            h1Text="CONFIDENCE LEVEL"
+                            h1Text="Confidence Level"
                             descText="We will give you a detailed data visualization and Confidence Level in how likely our prediction is to occur." />
                        </section>
                        <section className="hp-section-how-h1  niveau-grotesk-black"  style={{marginTop: '40px'}}>HOW IT WORKS</section>
