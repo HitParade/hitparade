@@ -296,9 +296,10 @@ class GameStat(HitparadeModel):
             player = Player.objects.get_or_none(name=value)
 
             # Try the nickname
-            if player is None:
+            if value:
                 split_name = value.split(" ")
-                player = Player.objects.get_or_none(nickname=split_name[0], last_name=split_name[1])
+                if player is None and len(split_name) > 1:
+                    player = Player.objects.get_or_none(nickname=split_name[0], last_name=split_name[1])
 
         key = key.replace('MLBAMId', '')
         key = convert_camel2snake(key)
@@ -490,7 +491,7 @@ class GameStat(HitparadeModel):
     }
 
 
-    # TODO: Add a reference to the game model. duh.
+    game = models.ForeignKey(Game, related_name='game', null=True)
     home_team = models.ForeignKey(Team, related_name='+', null=True)
     opp = models.ForeignKey(Team, related_name='+', null=True)
     team = models.ForeignKey(Team, related_name='game_stat', null=True)
@@ -710,6 +711,7 @@ def load_bis_game(data):
 
     kwargs = {}
 
+    # Map BIS Fields to our model fields
     for bis_key, hp_key in GameStat.key_map.iteritems():
 
         if bis_key in data:
@@ -719,7 +721,7 @@ def load_bis_game(data):
             else:
                 kwargs[hp_key] = data[bis_key]
 
-
+    # Properly map the player fields
     for bis_player_key, hp_player_key in GameStat.player_key_map.iteritems():
 
         mlbamid_key = bis_player_key + 'MLBAMId'
@@ -731,6 +733,8 @@ def load_bis_game(data):
             k, v = hp_player_key(bis_player_key, data[bis_player_key])
             kwargs[k] = v
 
+    # Figure out the game this was referencing.
+    kwargs['game'] = Game.objects.get_or_none(started_at__date=kwargs['game_date'], home_team=kwargs['home_team'])
 
     ga, created = GameStat.objects.get_or_create(player=kwargs['player'], car_game_num=kwargs['car_game_num'])
     ga.update(**kwargs)
