@@ -3,6 +3,9 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from django.contrib import admin
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic.base import RedirectView
+
 from rest_framework import routers, serializers, viewsets
 
 from hitparade import views
@@ -17,9 +20,11 @@ router.register(v_url('games'), views.GameListView, base_name='games')
 router.register(v_url('players'), views.PlayerListView, base_name='players')
 
 
-urlpatterns = [
+urlpatterns = [ 
     # Admin
     url(r'^grappelli/', include('grappelli.urls')),
+    url(r'^favicon.ico$', RedirectView.as_view( url=staticfiles_storage.url('images/favicon.ico'), permanent=False), name="favicon"),
+    url(r"^$", TemplateView.as_view(template_name="homepage.html"), name="home"),
     url(r"^admin/", include(admin.site.urls)),
 
     # HitParade
