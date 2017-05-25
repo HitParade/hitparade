@@ -20,15 +20,24 @@ router.register(v_url('games'), views.GameListView, base_name='games')
 router.register(v_url('players'), views.PlayerListView, base_name='players')
 
 
-urlpatterns = [
+urlpatterns = [ 
+    # Admin
+    url(r'^grappelli/', include('grappelli.urls')),
     url(r'^favicon.ico$', RedirectView.as_view( url=staticfiles_storage.url('images/favicon.ico'), permanent=False), name="favicon"),
     url(r"^$", TemplateView.as_view(template_name="homepage.html"), name="home"),
     url(r"^admin/", include(admin.site.urls)),
+
+    # HitParade
+    url(r"^$", TemplateView.as_view(template_name="homepage.html"), name="home"),
+
+    # Hit Parade API
+    url(r'^', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    # django-account
     url(r"^account/", include("account.urls")),
     url(r"^account/social/accounts/$", TemplateView.as_view(template_name="account/social.html"), name="account_social_accounts"),
     url(r"^account/social/", include("social_django.urls", namespace="social")),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^', include(router.urls)),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

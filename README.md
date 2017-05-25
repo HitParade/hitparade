@@ -37,15 +37,15 @@ docker-compose exec web ./manage.py load-teams
 docker-compose exec web ./manage.py load-players
 docker-compose exec web ./manage.py load-games
 docker-compose exec web ./manage.py load-bis-historical
-docker-compose exec web ./manage.py load-bis-daily --date 20160505
+docker-compose exec web ./manage.py load-bis-daily --date 20170301
 ```
 
-Run tests
+## Run tests
 ```bash
 docker-compose exec web py.test -s
 ```
 
-Installing new Python modules
+## Installing new Python modules
 ```bash
 docker-compose exec web pip install {package}
 docker-compose exec web pip freeze > requirements.txt
@@ -54,3 +54,9 @@ docker-compose exec web pip freeze > requirements.txt
 After installing, the stattlepy line needs to be edited back to the github
 install. This is because stattlepy currently doesn't have the package available
 via PyPi. We've asked Stattleship to do this.
+
+## Admin section
+
+The admin section is available at [http://localhost/admin](http://localhost/admin).
+
+The username / password is; `info@hitparade.co / password`

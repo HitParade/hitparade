@@ -1,0 +1,1 @@
+[{"model": "account.account", "pk": 1, "fields": {"user": 1, "timezone": "", "language": "en-us"}}, {"model": "account.emailaddress", "pk": 1, "fields": {"user": 1, "email": "info@hitparade.co", "verified": false, "primary": true}}]

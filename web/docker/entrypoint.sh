@@ -16,6 +16,7 @@ done
 cd /code/
 
 python manage.py migrate --fake-initial
+python manage.py collectstatic --noinput
 
 echo $TIER
 
@@ -24,7 +25,7 @@ then
   if [ "$TIER" == "dev" ]
   then
     echo "Fixturizing"
-    # python manage.py loaddata users/fixtures/users.json
+    python manage.py loaddata fixtures/accounts.json
   elif [ "$TIER" == "stage" ] || [ "$TIER" == "prod" ]
   then
     echo "We're in $TIER, not Fixturizing"

@@ -48,6 +48,10 @@ class HitparadeModel(Model, TimeStampedModel):
         return obj
 
 
+    def __unicode__(self):
+        return self.name
+
+
 class Conference(HitparadeModel):
     __name__ = 'Conference'
 
@@ -79,10 +83,14 @@ class Team(HitparadeModel):
     latitude = models.FloatField(null=True)
 
 
+    def __unicode__(self):
+        return self.nickname
+
+
 class Player(HitparadeModel):
     __name__ = "Player"
 
-    team = models.ForeignKey(Team, null=True)
+    team = models.ForeignKey(Team, related_name='team', null=True)
     ss_id = models.CharField(max_length=36, unique=True)
     slug = models.CharField(max_length=64, null=True)
     active = models.NullBooleanField()
@@ -288,9 +296,10 @@ class GameStat(HitparadeModel):
             player = Player.objects.get_or_none(name=value)
 
             # Try the nickname
-            if player is None:
+            if value:
                 split_name = value.split(" ")
-                player = Player.objects.get_or_none(nickname=split_name[0], last_name=split_name[1])
+                if player is None and len(split_name) > 1:
+                    player = Player.objects.get_or_none(nickname=split_name[0], last_name=split_name[1])
 
         key = key.replace('MLBAMId', '')
         key = convert_camel2snake(key)
@@ -482,7 +491,7 @@ class GameStat(HitparadeModel):
     }
 
 
-    # TODO: Add a reference to the game model. duh.
+    game = models.ForeignKey(Game, related_name='game', null=True)
     home_team = models.ForeignKey(Team, related_name='+', null=True)
     opp = models.ForeignKey(Team, related_name='+', null=True)
     team = models.ForeignKey(Team, related_name='game_stat', null=True)
@@ -551,12 +560,15 @@ class GameStat(HitparadeModel):
     was_start = models.IntegerField(null=True)
 
 
+    def __unicode__(self):
+        return "%s vs %s" % (self.home_team.name, self.team.name)
+
     class Meta:
         unique_together = (('player', 'car_game_num'),)
 
 
 class AtBat(HitparadeModel):
-    __name__ = "At Bat"
+    __name__ = "AtBat"
 
     ss_id = models.CharField(max_length=36, unique=True)
 
@@ -568,6 +580,10 @@ class AtBat(HitparadeModel):
     half = models.CharField(max_length=2, null=True)
     inning = models.IntegerField(null=True)
     inning_label = models.CharField(max_length=32, null=True)
+
+
+    def __unicode__(self):
+        return "%s %s At Bat" % (self.game, self.hitter.name)
 
 
     @classmethod
@@ -603,6 +619,12 @@ class AtBat(HitparadeModel):
 
 class Pitch(HitparadeModel):
     __name__ = "Pitch"
+    verbose_name_plural = "Pitches"
+
+
+    class Meta:
+        verbose_name_plural = "Pitches"
+
 
     ss_id = models.CharField(max_length=36, unique=True)
 
@@ -649,6 +671,10 @@ class Pitch(HitparadeModel):
     sequence = models.IntegerField(null=True)
 
 
+    def __unicode__(self):
+        return "%s - %s - %i" % (self.game, self.hitter.name, self.sequence)
+
+
     @classmethod
     def clean_ss_data(cls, data):
 
@@ -685,6 +711,7 @@ def load_bis_game(data):
 
     kwargs = {}
 
+    # Map BIS Fields to our model fields
     for bis_key, hp_key in GameStat.key_map.iteritems():
 
         if bis_key in data:
@@ -694,7 +721,7 @@ def load_bis_game(data):
             else:
                 kwargs[hp_key] = data[bis_key]
 
-
+    # Properly map the player fields
     for bis_player_key, hp_player_key in GameStat.player_key_map.iteritems():
 
         mlbamid_key = bis_player_key + 'MLBAMId'
@@ -706,6 +733,8 @@ def load_bis_game(data):
             k, v = hp_player_key(bis_player_key, data[bis_player_key])
             kwargs[k] = v
 
+    # Figure out the game this was referencing.
+    kwargs['game'] = Game.objects.get_or_none(started_at__date=kwargs['game_date'], home_team=kwargs['home_team'])
 
     ga, created = GameStat.objects.get_or_create(player=kwargs['player'], car_game_num=kwargs['car_game_num'])
     ga.update(**kwargs)
