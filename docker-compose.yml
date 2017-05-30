@@ -1,12 +1,19 @@
 version: '2'
 services:
-  web-db:
-    image: mysql:latest
-    env_file: ./web/.env
+
+  # Redis
+  redis:
+    image: redis:2.8.19
+    hostname: redis
+
+  # RabbitMQ
+  rabbit:
+    hostname: rabbit
+    image: rabbitmq:3.6.0
     ports:
-      - "3306:3306"
-    volumes:
-      - ./web/mysql-data/:/var/lib/mysql/
+      - "5672:5672"  # we forward this port because it's useful for debugging
+      - "15672:15672"  # here, we can access rabbitmq management plugin
+
   web-js:
     build:
       dockerfile: Dockerfile.js
@@ -14,6 +21,15 @@ services:
     volumes:
       - ./web/hitparade/:/code/
     command: ["/usr/local/bin/npm", "run", "watch"]
+
+  web-db:
+    image: mysql:latest
+    env_file: ./web/.env
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./web/mysql-data/:/var/lib/mysql/
+
   web:
     build:
       dockerfile: Dockerfile.web
@@ -23,11 +39,29 @@ services:
       MYSQL_HOST: web-db
     volumes:
       - ./web/hitparade/:/code/
-      - ./web/docker/entrypoint.sh:/code/entrypoint.sh
+      - ./web/docker/entrypoint-web.sh:/code/entrypoint-web.sh
     ports:
       - "80:80"
     depends_on:
+      - rabbit
+      - redis
       - web-db
     links:
-      - web-db:web-db
+      - rabbit
+      - redis
+      - web-db
 
+  web-worker:
+    build:
+      dockerfile: Dockerfile.web-worker
+      context: ./web/
+    volumes:
+      - ./web/hitparade/:/code/
+      - ./web/docker/entrypoint-celery.sh:/code/entrypoint-celery.sh
+    links:
+      - web-db
+      - rabbit
+      - redis
+    depends_on:
+      - web-db
+      - rabbit

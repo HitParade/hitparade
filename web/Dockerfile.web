@@ -12,11 +12,11 @@ WORKDIR /code
 ADD hitparade/ /code/
 RUN pip install -r /code/requirements.txt
 
-ADD docker/entrypoint.sh /code/
+ADD docker/entrypoint-web.sh /code/
 ADD docker/hitparade-nginx.conf /etc/nginx/sites-enabled/
 ADD docker/hitparade-uwsgi-params /etc/nginx/
 ADD docker/hitparade-uwsgi.ini /etc/uwsgi/
 
 EXPOSE 80
 
-CMD ["/code/entrypoint.sh"]
+CMD ["/code/entrypoint-web.sh"]

@@ -1,0 +1,16 @@
+FROM python:2.7
+ENV PYTHONUNBUFFERED 1
+
+RUN apt-get update && \
+  apt-get install -y mysql-client vim && \
+  rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /code/requirements
+WORKDIR /code
+
+ADD hitparade/ /code/
+RUN pip install -r /code/requirements.txt
+
+ADD docker/entrypoint-celery.sh /code/
+
+CMD ["/code/entrypoint-celery.sh"]
