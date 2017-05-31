@@ -4,4 +4,4 @@
 sleep 10
 
 # run Celery worker for our project myproject with Celery configuration stored in Celeryconf
-celery worker -A hitparade.celeryconf -Q default -n default@%h
+celery worker -A hitparade.celery -Q default -n default@%h

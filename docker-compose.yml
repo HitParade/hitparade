@@ -9,7 +9,8 @@ services:
   # RabbitMQ
   rabbit:
     hostname: rabbit
-    image: rabbitmq:3.6.0
+    image: rabbitmq:3.6.10-management-alpine
+    env_file: ./web/.env
     ports:
       - "5672:5672"  # we forward this port because it's useful for debugging
       - "15672:15672"  # here, we can access rabbitmq management plugin
@@ -37,6 +38,8 @@ services:
     env_file: ./web/.env
     environment:
       MYSQL_HOST: web-db
+      REDIS_HOST: redis
+      RABBIT_HOST: rabbit
     volumes:
       - ./web/hitparade/:/code/
       - ./web/docker/entrypoint-web.sh:/code/entrypoint-web.sh
@@ -44,24 +47,26 @@ services:
       - "80:80"
     depends_on:
       - rabbit
-      - redis
       - web-db
     links:
       - rabbit
-      - redis
       - web-db
 
   web-worker:
     build:
       dockerfile: Dockerfile.web-worker
       context: ./web/
+    env_file: ./web/.env
+    environment:
+      MYSQL_HOST: web-db
+      REDIS_HOST: redis
+      RABBIT_HOST: rabbit
     volumes:
       - ./web/hitparade/:/code/
       - ./web/docker/entrypoint-celery.sh:/code/entrypoint-celery.sh
     links:
       - web-db
       - rabbit
-      - redis
     depends_on:
       - web-db
       - rabbit
