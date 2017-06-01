@@ -61,12 +61,11 @@ class Command(BaseCommand):
                 result = s.ss_get_results(**kwargs)
 
                 if 'games' not in result[0]:
-                    continue
+                    len_games = 0
+                else:
+                    len_games = len(result[0]['games'])
 
-                len_games = len(result[0]['games'])
                 page = page + 1
-
-                print len_games
 
                 if len_games == 0:
                     continue

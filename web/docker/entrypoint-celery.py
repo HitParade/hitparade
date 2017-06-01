@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 '''
 A python script which starts celery worker and auto reload it when any code change happens.
 I did this because Celery worker's "--autoreload" option seems not working for a lot of people.
@@ -28,7 +30,9 @@ class MyHandler(PatternMatchingEventHandler):
             if not proc_cmdline or len(proc_cmdline) < len(celery_cmdline):
                 continue
 
-            is_celery_worker = 'python' in proc_cmdline[0].lower() \
+            print proc_cmdline
+
+            is_celery_worker = 'celery' in proc_cmdline[0].lower() \
                                and celery_cmdline[0] == proc_cmdline[1] \
                                and celery_cmdline[1] == proc_cmdline[2]
 
@@ -61,7 +65,7 @@ if __name__ == "__main__":
 
     run_worker()
 
-    event_handler = MyHandler(patterns = ["*.py"])
+    event_handler = MyHandler(patterns=["*.py"])
     observer = Observer()
     observer.schedule(event_handler, code_dir_to_monitor, recursive=True)
     observer.start()

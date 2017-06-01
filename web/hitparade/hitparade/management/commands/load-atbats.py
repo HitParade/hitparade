@@ -16,7 +16,7 @@ class Command(base.BaseCommand):
 
         print "Load At Bats!!!!1!"
 
-        call_command('load-games')
+        # call_command('load-games', '--only-recent')
 
         pp = pprint.PrettyPrinter(indent=2)
 
@@ -29,5 +29,3 @@ class Command(base.BaseCommand):
 
             print "Submitted Game: %i" % game.id
             load_at_bats.delay(game.id)
-
-            return

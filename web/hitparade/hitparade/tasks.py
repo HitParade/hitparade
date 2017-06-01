@@ -1,6 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 from celery import shared_task
 
+import pprint
+import datetime
 from hitparade.models import *
 from hitparade.utils import get_stattleship_client, move_ssid
 
@@ -17,6 +19,8 @@ def load_at_bats(game_id):
 
     print "Received %i" % game_id
 
+    pp = pprint.PrettyPrinter(indent=2)
+    year = datetime.datetime.now().year
     s = get_stattleship_client()
     game = Game.objects.get(pk=game_id)
 
@@ -26,6 +30,7 @@ def load_at_bats(game_id):
     while len_atbats != 0:
 
         print "%s : %i" % (str(game.id), int(page))
+
 
         result = s.ss_get_results(sport='baseball',
                                 league='mlb',
