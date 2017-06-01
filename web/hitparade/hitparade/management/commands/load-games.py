@@ -30,13 +30,15 @@ class Command(BaseCommand):
 
             while len_games != 0:
 
+                # TODO: Only update games that are open and earlier than today
+
                 result = s.ss_get_results(sport='baseball',
                                         league='mlb',
                                         ep='games',
                                         team_id=t.slug,
                                         page=page,
+                                        season=season_slug,
                                         per_page=40,
-                                        season=season_slug
                                     )
 
                 len_games = len(result[0]['games'])

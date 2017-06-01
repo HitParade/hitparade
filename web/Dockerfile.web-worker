@@ -11,6 +11,6 @@ WORKDIR /code
 ADD hitparade/ /code/
 RUN pip install -r /code/requirements.txt
 
-ADD docker/entrypoint-celery.sh /code/
+ADD docker/entrypoint-celery.py /code/
 
-CMD ["/code/entrypoint-celery.sh"]
+CMD ["/usr/local/bin/python", "/code/entrypoint-celery.py"]

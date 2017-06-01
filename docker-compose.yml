@@ -1,12 +1,10 @@
 version: '2'
 services:
 
-  # Redis
   redis:
     image: redis:2.8.19
     hostname: redis
 
-  # RabbitMQ
   rabbit:
     hostname: rabbit
     image: rabbitmq:3.6.10-management-alpine
@@ -63,7 +61,7 @@ services:
       RABBIT_HOST: rabbit
     volumes:
       - ./web/hitparade/:/code/
-      - ./web/docker/entrypoint-celery.sh:/code/entrypoint-celery.sh
+      - ./web/docker/entrypoint-celery.py:/code/entrypoint-celery.py
     links:
       - web-db
       - rabbit
