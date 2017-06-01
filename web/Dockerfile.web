@@ -6,16 +6,17 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/* && \
   rm /etc/nginx/sites-available/default
 
-RUN mkdir -p /code/requirements && mkdir -p /etc/uwsgi/
+RUN mkdir -p /code/ && mkdir -p /etc/uwsgi/
 WORKDIR /code
 
-ADD hitparade/ /code/
+COPY hitparade/requirements.txt /code/
 RUN pip install -r /code/requirements.txt
 
 ADD docker/entrypoint-web.sh /code/
 ADD docker/hitparade-nginx.conf /etc/nginx/sites-enabled/
 ADD docker/hitparade-uwsgi-params /etc/nginx/
 ADD docker/hitparade-uwsgi.ini /etc/uwsgi/
+ADD hitparade/ /code/
 
 EXPOSE 80
 

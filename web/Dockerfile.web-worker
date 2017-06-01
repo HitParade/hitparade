@@ -5,12 +5,13 @@ RUN apt-get update && \
   apt-get install -y mysql-client vim && \
   rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /code/requirements
+RUN mkdir -p /code/
 WORKDIR /code
 
-ADD hitparade/ /code/
+COPY hitparade/requirements.txt /code/
 RUN pip install -r /code/requirements.txt
 
+ADD hitparade/ /code/
 ADD docker/entrypoint-celery.py /code/
 
 CMD ["/usr/local/bin/python", "/code/entrypoint-celery.py"]
