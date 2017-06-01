@@ -83,7 +83,6 @@ def load_at_bats(game_id):
 
         # Load pitches
         for p in result[0]['baseball_pitches']:
-            pp.pprint(p)
             p['game'] = game
             Pitch.create_from_ss(p)
 
