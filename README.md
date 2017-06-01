@@ -38,6 +38,7 @@ docker-compose exec web ./manage.py load-players
 docker-compose exec web ./manage.py load-games
 docker-compose exec web ./manage.py load-bis-historical
 docker-compose exec web ./manage.py load-bis-daily --date 20170301
+docker-compose exec web ./manage.py load-atbats
 ```
 
 ## Run tests
