@@ -116,7 +116,7 @@ class GameStatAdmin(TimeStampedAdmin):
     # status is required, but I don't know what for. - CH
     status = None
     list_per_page = 50
-    list_display = ('__unicode__', 'player', 'car_game_num', )
+    list_display = ('__unicode__', 'player', 'car_game_num', 'game_date',)
     list_filter = (TeamFilter, GameStatPlayerFilter, )
     ordering = ('-game_date', 'team')
 
