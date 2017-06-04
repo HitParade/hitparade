@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ReactModal from 'react-modal';
-
 import * as HitParadeActionCreators from '../actions/hitparade';
 import HitParadeHeader from '../components/HitParadeHeader';
 import HitParadeFooter from '../components/HitParadeFooter';
@@ -10,7 +9,28 @@ import HitParadeHeroImage from '../components/HitParadeHeroImage';
 import HitParadeSectionWhy from '../components/HitParadeSectionWhy';
 import HitParadeHowItWorks from '../components/HitParadeHowItWorks';
 import HitParadeMailChimp from '../components/HitParadeMailChimp';
+import HitParadeLogo from '../components/HitParadeLogo';
+import HitParadeButton from '../components/HitParadeButton';
+import Parallax from 'react-springy-parallax';
+/**
+ *
 
+
+<Parallax ref='parallax' pages={3}>
+
+
+
+
+
+
+<Parallax.Layer offset={0.85} speed={-0.2} style={{  zIndex: '2', backgroundSize: '100% 100%', backgroundRepeat: 'norepeat'}} >
+                                <div className="img-parallax-overlay"></div>
+                                <div className="img-parallax"><img src={imgRoot + 'parallax1.svg'}/></div>
+                            </Parallax.Layer>
+
+
+
+ */
 class HitParade extends Component {
   static propTypes = {
       playersInCart: PropTypes.number.isRequired,
@@ -50,24 +70,46 @@ class HitParade extends Component {
           'navPrivacyStatement': navPrivacyStatement,
         }
       };
-  		return (
-  			<div>
-                <HitParadeHeader isLive='false' playersInCart={playersInCart} svgs={svgs} navs={navigationMethods} imgRoot={imgRoot} />
-                    <HitParadeHeroImage img={heroImage} imgMobile={heroImageMobile} navs={navigationMethods}  imgRoot={imgRoot} />
-                    <HitParadeSectionWhy  navs={navigationMethods} imgRoot={imgRoot}  />
-                    <HitParadeHowItWorks  navs={navigationMethods}  imgRoot={imgRoot} />
+       const styles = {
+            fontFamily: 'Menlo-Regular, Menlo, monospace',
+            fontSize: 14,
+            lineHeight: '10px',
+            color: 'white',
+            display: 'flex', alignItems: 'center', justifyContent: 'center'
+        };
 
-                 <HitParadeFooter playersInCart={playersInCart} svgs={svgs} navs={navigationMethods}  imgRoot={imgRoot} />
-                <ReactModal
-                               isOpen={showModal}
-                               contentLabel="Minimal Modal Example" >
-                                        <HitParadeMailChimp closeModal={closeModal} subscribe={closeModal}  imgRoot={imgRoot} />
-                              </ReactModal>
-            </div>
-  		)
+  		return (<div className="hp-hero-parallax-overlay">
+                        <HitParadeHeader isLive='false' playersInCart={playersInCart} svgs={svgs} navs={navigationMethods} imgRoot={imgRoot} />
+
+                        <Parallax  ref='parallax'
+                                   pages={5}
+                                   className="hp-hero-parallax">
+
+
+
+
+                             <HitParadeHeroImage
+                                 parallax={() => this.refs.parallax.scrollTo(3)}
+                                 img={heroImage}
+                                 imgMobile={heroImageMobile}
+                                 navs={navigationMethods}
+                                 imgRoot={imgRoot} />
+
+                            <HitParadeSectionWhy   parallax={() => this.refs.parallax.scrollTo(2)} refs={this.refs}  navs={navigationMethods} imgRoot={imgRoot}  />
+
+                            <HitParadeHowItWorks  playersInCart={playersInCart} navigationMethods={navigationMethods} svgs={svgs} navs={navigationMethods}  imgRoot={imgRoot} />
+
+
+                  </Parallax>
+                   <ReactModal
+                   isOpen={showModal}
+                   contentLabel="Minimal Modal Example" >
+                            <HitParadeMailChimp closeModal={closeModal} subscribe={closeModal}  imgRoot={imgRoot} />
+                  </ReactModal>
+
+                </div>)
   }
 }
-//,
 const mapStateToProps = state => ({
    playersInCart: state.playersInCart,
    heroImage: state.heroImage,

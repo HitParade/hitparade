@@ -1,5 +1,6 @@
 import * as HitParadeActionTypes from '../actiontypes/hitparade';
 
+
 export const closeModal = () => {
   return {
     type: HitParadeActionTypes.NAV_CLOSE_MODAL,

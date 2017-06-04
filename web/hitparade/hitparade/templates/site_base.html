@@ -8,9 +8,21 @@
     <title>Hit Parade - Beat the Streak for the cost of your morning coffee!</title>
     <link href="{% static "css/site.css" %}" rel="stylesheet" />
     <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon"  href="{% static "images/favicon.ico" %}">
     <script src="https://use.typekit.net/lut6lbo.js"></script> 
     <script>
       try{Typekit.load({ async: true });}catch(e){}
+    </script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-100450755-1', 'auto');
+      ga('send', 'pageview');
+
     </script>
   </head>
 
@@ -18,17 +30,6 @@
           <div id="skrollr-body">
               <div id="root"></div>
           </div>
-     <script src="{% static "js/site.js" %}"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/skrollr/0.6.26/skrollr.js"></script>
-    <script>
-
-      var s = skrollr.init({
-        forceHeight: false,
-        mobileCheck: function() {
-            //hack - forces mobile version to be off
-            return false;
-        }
-      });
-    </script>
+            <script src="{% static "js/site.js" %}"></script>
   </body>
 </html>

@@ -1,40 +1,52 @@
 import React, { PropTypes } from 'react';
 import HitParadeHowToPanel from './HitParadeHowToPanel';
+import HitParadeFooter from './HitParadeFooter';
+import Parallax from 'react-springy-parallax';
 const HitParadeHowItWorks = props => {
   return (
-            <section
-                     id="slide3"
-                     className="hp-section-how" >
-                       <section className="hp-section-how-h1 niveau-grotesk-black">WHY HIT PARADE</section>
+                  <section>
+                    <Parallax.Layer
+                            offset={2.0}
+                            speed={1}
+							onClick={() => props.parallax}>
+                         <section className="hp-section-how-h1 niveau-grotesk-black">WHY HIT PARADE</section>
                       <section className="hp-why-header-divider">
                             <img src={props.imgRoot+'divider.svg'}   className="hp-divider" />
                       </section>
                       <section className="hp-section-how-ct proxima-nova-regular">
                         Use <span className="boldText">&nbsp;HitParade&nbsp;</span> to help shift the odds of <span className="boldText">&nbsp;Beat the Streak&nbsp;</span> in your favor!
                       </section>
-                       <section className="hp-section-how-graphics-panel">
-                          <HitParadeHowToPanel
-                            imgRoot={props.imgRoot}
-                            svg="detailedStats.svg"
-                            h1Text="Detailed Statistics"
-                            descText="HitParade visualizes both detailed historical and upcoming game stats to surface the best picks." />
+                        <section className="hp-section-how-graphics-panel-container">
+                           <section className="hp-section-how-graphics-panel">
+                              <HitParadeHowToPanel
+                                imgRoot={props.imgRoot}
+                                svg="detailedStats.svg"
+                                h1Text="Detailed Statistics"
+                                descText="HitParade visualizes both detailed historical and upcoming game stats to surface the best picks." />
 
-                          <HitParadeHowToPanel
-                            imgRoot={props.imgRoot}
-                            svg="predictiveEngine.svg"
-                            h1Text="Predictive Engine"
-                            descText="HitParade uses a custom predictive engine to predict if a player will get a hit in an upcoming game." />
+                              <HitParadeHowToPanel
+                                imgRoot={props.imgRoot}
+                                svg="predictiveEngine.svg"
+                                h1Text="Predictive Engine"
+                                descText="HitParade uses a custom predictive engine to predict if a player will get a hit in an upcoming game." />
 
-                          <HitParadeHowToPanel
-                            imgRoot={props.imgRoot}
-                            svg="confidenceLevel.svg"
-                            h1Text="Confidence Level"
-                            descText="We will give you a detailed data visualization and Confidence Level in how likely our prediction is to occur." />
-                       </section>
-                       <section className="hp-section-how-h1  niveau-grotesk-black"  style={{marginTop: '40px'}}>HOW IT WORKS</section>
+                              <HitParadeHowToPanel
+                                imgRoot={props.imgRoot}
+                                svg="confidenceLevel.svg"
+                                h1Text="Confidence Level"
+                                descText="We will give you a detailed data visualization and Confidence Level in how likely our prediction is to occur." />
+                           </section>
+                            </section>
+                      </Parallax.Layer>
+                    <Parallax.Layer
+                            offset={3.0}
+                            speed={1}
+							onClick={() => props.parallax}>
+                        <section className="hp-section-how-h1  niveau-grotesk-black"  style={{marginTop: '40px'}}>HOW IT WORKS</section>
                        <section className="hp-why-header-divider">
                             <img src={props.imgRoot+'divider.svg'}  className="hp-divider" />
                        </section>
+                        <div className="hp-panel-row-container">
                        <div className="hp-panel-row-end"  data-170-center="opacity: 1;transform: translateX( 0% ); "
 								 data-200-center="opacity: 1;transform: translateX( 50% );  "
 								 data-220-center="opacity: 0.01;transform: translateX( 100% );  ">
@@ -51,8 +63,9 @@ const HitParadeHowItWorks = props => {
                            <div className="hp-rectangle"></div>
 
                       </div>
-
-                       <div className="hp-panel-row-start"  data-170-center="opacity: 1;transform: translateX( 0% ); "
+                        </div>
+                       <div className="hp-panel-row-container">
+                            <div className="hp-panel-row-start"  data-170-center="opacity: 1;transform: translateX( 0% ); "
 								 data-200-center="opacity: 1;transform: translateX( -50% );  "
 								 data-220-center="opacity: 0.01;transform: translateX( -100% );  ">
 
@@ -68,6 +81,8 @@ const HitParadeHowItWorks = props => {
                             </div>
 
                       </div>
+                       </div>
+                      <div className="hp-panel-row-container">
                       <div className="hp-panel-row-end" style={{marginBottom: '250px'}}  data-170-center="opacity: 1;transform: translateX( 0% ); "
 								 data-200-center="opacity: 1;transform: translateX( 50% );  "
 								 data-220-center="opacity: 0.01;transform: translateX( 100% );  ">
@@ -85,13 +100,21 @@ const HitParadeHowItWorks = props => {
                             </div>
                             <div className="hp-rectangle"></div>
                       </div>
+                      </div>
 
+                      </Parallax.Layer>
+                        <HitParadeFooter playersInCart={props.playersInCart} svgs={props.svgs} navs={props.navigationMethods}  imgRoot={props.imgRoot} />
 
-            </section>
+                    </section>
+
         );
 }
 HitParadeHowItWorks.propTypes = {
 	navs: PropTypes.object.isRequired,
+    playersInCart: PropTypes.number.isRequired,
+    imgRoot: PropTypes.string.isRequired,
+    svgs: PropTypes.object.isRequired,
+    navigationMethods:  PropTypes.object.isRequired,
 };
 
 export default HitParadeHowItWorks;

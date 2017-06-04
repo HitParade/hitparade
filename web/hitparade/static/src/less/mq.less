@@ -1,14 +1,14 @@
 @media screen and (min-width: @hp-mobile-min) and (max-width: @hp-mobile-max) {
-    section.hp-hero-image {
+
           section.hp-hero-image-container {
 		    background-image: url(/static/dist/images/heroImageMobile.svg);
         }
-    }
-    section.hp-section-why {
+
+
         div.hp-why-content-container::after {
           background-image: url(/static/dist/images/mobileHero2.png);
         }
-    }
+
     div.hp-footer-logo-ph {
       .hp-flex;
       justify-content: center;
@@ -128,6 +128,7 @@
 	section.hp-hero-overlay-text {
         .hp-flex;
 		.hp-flex-column;
+        margin-top: 0px;
 	}
   	div.hp-left-bar {
   		width: 20%;
@@ -189,20 +190,20 @@
 }
 @media screen and (min-width: @hp-tablet-min) and (max-width: @hp-tablet-max) {
 
-    section.hp-hero-image {
+
           section.hp-hero-image-container {
 		    background-image: url(/static/dist/images/heroImageMobile.svg);
         }
-    }
-    section.hp-section-why {
+
+
         section.hp-why-content-container::after {
           background-image: url(/static/dist/images/mobileHero2.png);
         }
-    }
+
 
     div#root {
         div {
-            max-height: 2011px;
+            //max-height: 2011px;
         }
     }
    div.ReactModal__Content div.ReactModal__Content--after-open {
