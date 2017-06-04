@@ -1,4 +1,14 @@
 @media screen and (min-width: @hp-mobile-min) and (max-width: @hp-mobile-max) {
+    section.hp-hero-image {
+          section.hp-hero-image-container {
+		    background-image: url(/static/dist/images/heroImageMobile.svg);
+        }
+    }
+    section.hp-section-why {
+        div.hp-why-content-container::after {
+          background-image: url(/static/dist/images/mobileHero2.png);
+        }
+    }
     div.hp-footer-logo-ph {
       .hp-flex;
       justify-content: center;
@@ -11,9 +21,17 @@
       width: 100%;
     }
     div.hp-footer-menu
-    header.header,
+    nav.header,
     footer.footer {
       padding: 10px;
+    }
+     nav.header {
+            button.hp-signup-button {
+                font-size: 12px;
+                padding: 0px;
+                margin-left: 0px;
+                min-width: 100px;
+            }
     }
     footer.footer {
         .hp-flex-column;
@@ -163,8 +181,30 @@
       width: 0%;
     }
   }
+  div.hp-why-content {
+        div.hp-why-coin-image-container {
+          top: 0px;
+        }
+  }
 }
 @media screen and (min-width: @hp-tablet-min) and (max-width: @hp-tablet-max) {
+
+    section.hp-hero-image {
+          section.hp-hero-image-container {
+		    background-image: url(/static/dist/images/heroImageMobile.svg);
+        }
+    }
+    section.hp-section-why {
+        section.hp-why-content-container::after {
+          background-image: url(/static/dist/images/mobileHero2.png);
+        }
+    }
+
+    div#root {
+        div {
+            max-height: 2011px;
+        }
+    }
    div.ReactModal__Content div.ReactModal__Content--after-open {
       max-width: 70%;
       top: 0px;
@@ -172,13 +212,30 @@
       right: 0px;
       bottom: 0px;
     }
-    section.hp-why-header-bottom, section.hp-why-header-divider, section.hp-why-header-top, section.hp-why-main-content {
+    div.hp-why-content {
+      div.hp-why-coin-image-container {
+        top: 50px;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+      }
+      section.hp-why-main-content {
+          max-width: 45%;
+          section.hp-why-header-top,
+          section.hp-why-header-divider,
+          section.hp-why-header-bottom {
+            max-width: none;
+            width: 100%;
+          }
+      }
+    }
+    section.hp-why-header-bottom, section.hp-why-header-divider, section.hp-why-header-top {
           max-width: 390px;
     }
     section.hp-why-header-bottom-panel {
       display: none;
     }
-  	header.header, footer.footer {
+  	nav.header, footer.footer {
   		padding-left: 20px;
   		padding-right: 20px;
   	}
@@ -189,14 +246,24 @@
   		padding-left: 1px;
   		padding-right: 1px;
   	}
-	header.header  > div.header-top > div.hp-right-bar {
-  		width: 70%;
-  		margin-right: 10px;
-  	}
-	footer > div.hp-footer-menu > div.hp-footer-menu-bar > div.hp-right-bar {
-  		width: 45%;
-  		margin-right: 100px;
-  	}
+	nav.header {
+      div.header-top {
+        div.hp-right-bar {
+          width: 70%;
+          margin-right: 10px;
+        }
+      }
+    }
+	footer{
+      div.hp-footer-menu {
+        div.hp-footer-menu-bar {
+          div.hp-right-bar {
+              width: 45%;
+              margin-right: 100px;
+          }
+        }
+      }
+    }
   	div.hp-why-coin-image{
  			max-width: 125px;
  			max-height: 140px;
@@ -216,7 +283,7 @@
  			max-width: 125px;
  			max-height: 140px;
   	}
-  	header.hp-section-why-header {
+  	div.hp-section-why-header {
   		padding-top: 0px;
   		margin-bottom: 40px;
   	}
@@ -275,17 +342,13 @@
   		padding-bottom: 0px;
   		margin-top: 40px;
   	}
-	header.header {
+	nav.header {
       div.header-top {
         div.hp-right-bar {
           width: 70%;
   		  margin-right: 10px;
         }
       }
-  	}
-  	header.hp-section-why-header {
-  		padding-top: 0px;
-  		margin-bottom: 40px;
   	}
     img.hp-why-coin-image{
  			max-width: 125px;

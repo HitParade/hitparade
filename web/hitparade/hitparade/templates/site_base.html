@@ -3,17 +3,33 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1">
     <title>Hit Parade - Beat the Streak for the cost of your morning coffee!</title>
     <link rel="icon" type="image/png" href="{% static "images/favicon.ico" %}">
     <link href="{% static "css/site.css" %}" rel="stylesheet" />
     <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
-    <script src="https://use.typekit.net/lut6lbo.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <script src="https://use.typekit.net/lut6lbo.js"></script> 
+    <script>
+      try{Typekit.load({ async: true });}catch(e){}
+    </script>
   </head>
 
   <body>
-    <div id="root"></div>
+          <div id="skrollr-body">
+              <div id="root"></div>
+          </div>
      <script src="{% static "js/site.js" %}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/skrollr/0.6.26/skrollr.js"></script>
+    <script>
+
+      var s = skrollr.init({
+        forceHeight: false,
+        mobileCheck: function() {
+            //hack - forces mobile version to be off
+            return false;
+        }
+      });
+    </script>
   </body>
 </html>
