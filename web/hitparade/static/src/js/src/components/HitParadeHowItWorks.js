@@ -7,7 +7,7 @@ const HitParadeHowItWorks = props => {
                   <section>
                     <Parallax.Layer
                             offset={2.0}
-                            speed={1}
+                            speed={0.5}
 							onClick={() => props.parallax}>
                          <section className="hp-section-how-h1 niveau-grotesk-black">WHY HIT PARADE</section>
                       <section className="hp-why-header-divider">
@@ -40,7 +40,7 @@ const HitParadeHowItWorks = props => {
                       </Parallax.Layer>
                     <Parallax.Layer
                             offset={3.0}
-                            speed={1}
+                            speed={0.5}
 							onClick={() => props.parallax}>
                         <section className="hp-section-how-h1  niveau-grotesk-black"  style={{marginTop: '40px'}}>HOW IT WORKS</section>
                        <section className="hp-why-header-divider">

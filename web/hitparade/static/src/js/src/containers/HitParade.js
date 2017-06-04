@@ -12,25 +12,7 @@ import HitParadeMailChimp from '../components/HitParadeMailChimp';
 import HitParadeLogo from '../components/HitParadeLogo';
 import HitParadeButton from '../components/HitParadeButton';
 import Parallax from 'react-springy-parallax';
-/**
- *
 
-
-<Parallax ref='parallax' pages={3}>
-
-
-
-
-
-
-<Parallax.Layer offset={0.85} speed={-0.2} style={{  zIndex: '2', backgroundSize: '100% 100%', backgroundRepeat: 'norepeat'}} >
-                                <div className="img-parallax-overlay"></div>
-                                <div className="img-parallax"><img src={imgRoot + 'parallax1.svg'}/></div>
-                            </Parallax.Layer>
-
-
-
- */
 class HitParade extends Component {
   static propTypes = {
       playersInCart: PropTypes.number.isRequired,

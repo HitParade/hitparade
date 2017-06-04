@@ -5,7 +5,7 @@ const HitParadeSectionWhy = props => {
   return (
        <Parallax.Layer
                             offset={1.1}
-                            speed={0.3}
+                            speed={-0.1}
 							onClick={() => props.parallax}>
 
 								  <div className="hp-why-content">
