@@ -90,6 +90,4 @@ ENV/
 
 # Project specific ignores
 web/mysql-data
-web/hitparade/entrypoint.sh
-
-data/postgres-data
+web/hitparade/entrypoint*

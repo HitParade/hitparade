@@ -5,6 +5,32 @@ from django.conf import settings
 
 from hitparade.models import *
 
+
+class GameStatPlayerFilter(admin.SimpleListFilter):
+
+    title = 'Player'
+
+    # Parameter for the filter that will be used in the URL query.
+    parameter_name = 'player'
+
+    def lookups(self, request, model_admin):
+
+        retval = []
+        distinct_players = GameStat.objects.values('player', 'player__name').distinct()
+
+        for p in distinct_players:
+            retval.append((p['player'], p['player__name']))
+
+        return retval
+
+    def queryset(self, request, queryset):
+
+        if self.value() is None:
+            return queryset
+        else:
+            return queryset.filter(player=self.value())
+
+
 class GameStatusFilter(admin.SimpleListFilter):
 
     title = 'Status'
@@ -89,7 +115,9 @@ class GameAdmin(TimeStampedAdmin):
 class GameStatAdmin(TimeStampedAdmin):
     # status is required, but I don't know what for. - CH
     status = None
-    list_display = ('__unicode__', 'game_date', )
+    list_per_page = 50
+    list_display = ('__unicode__', 'player', 'car_game_num', 'game_date',)
+    list_filter = (TeamFilter, GameStatPlayerFilter, )
     ordering = ('-game_date', 'team')
 
     # TODO: Set game filter once game is properly linked.
