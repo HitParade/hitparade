@@ -1,14 +1,93 @@
+@media screen and (min-width: @hp-mobile-min) and (max-width: @hp-mobile-current-min) {
+    section.hp-why-header-divider {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+    div.hp-panel-row-container {
+       div.hp-panel-relative {
+         position: absolute;
+         top: 0px;
+         min-height: 200px;
+         max-height: 200px;
+       }
+       div.hp-panel-row-start,
+       div.hp-panel-row-end {
+          max-height: 200px;
+          min-height: 200px;
+         div.hp-rectangle,
+         div.hp-rectangle-ls {
+          max-height: 200px;
+          min-height: 200px;
+          top: 0px;
+        }
+       }
+    }
+    nav.header  {
+      div.header-top {
+              div.hp-right-bar {
+                width: 60%;
+              }
+      }
+    }
+  section.hp-section-how-it-works-container-first {
+    section.hp-section-how-h1 {
+      font-size: 20px;
+      margin-top: 350px;
+    }
+  }
+    section.hp-section-how-it-works-container-second {
+      section.hp-section-how-h1  {
+        font-size: 20px;
+        margin-top: 450px;
+      }
+    }
+}
 @media screen and (min-width: @hp-mobile-min) and (max-width: @hp-mobile-max) {
 
-          section.hp-hero-image-container {
+   section.hp-hero-image-container {
 		    background-image: url(/static/dist/images/heroImageMobile.svg);
-        }
-
-
-        div.hp-why-content-container::after {
+    }
+    div.hp-why-content-container::after {
           background-image: url(/static/dist/images/mobileHero2.png);
-        }
-
+     }
+    .header  {
+      div.header-top {
+              div.hp-right-bar {
+                width: 80%;
+              }
+      }
+    }
+    div.hp-panel-row-end {
+      margin-top: 20px;
+    }
+    div.hp-panel-relative  {
+      min-height: 300px;
+      max-height: 300px;
+    }
+    div.hp-rectangle,
+    div.hp-rectangle-ls {
+      top: 60px;
+      max-height: 290px;
+      min-height: 290px;
+    }
+     div.hp-hero-text-elem {
+       margin-top: 20px;
+     }
+     div.hp-logo-hero-img-container {
+       margin-top: 20px;
+     }
+     section.hp-hero-image-overlay  {
+       justify-content: space-around;
+       top: 55px;
+     }
+     div.hp-header-item {
+            div.hp-header-item-text {
+             display: none;
+           }
+            img {
+              display: none;
+            }
+     }
     div.hp-footer-logo-ph {
       .hp-flex;
       justify-content: center;
@@ -199,7 +278,15 @@
         section.hp-why-content-container::after {
           background-image: url(/static/dist/images/mobileHero2.png);
         }
-
+  nav.header  {
+     div.header-top {
+        .hp-flex;
+        width: 100%;
+        div.hp-right-bar {
+          width: 38%;
+        }
+    }
+  }
 
     div#root {
         div {
@@ -247,14 +334,6 @@
   		padding-left: 1px;
   		padding-right: 1px;
   	}
-	nav.header {
-      div.header-top {
-        div.hp-right-bar {
-          width: 70%;
-          margin-right: 10px;
-        }
-      }
-    }
 	footer{
       div.hp-footer-menu {
         div.hp-footer-menu-bar {
@@ -342,14 +421,6 @@
     footer.hp-section-why-footer {
   		padding-bottom: 0px;
   		margin-top: 40px;
-  	}
-	nav.header {
-      div.header-top {
-        div.hp-right-bar {
-          width: 70%;
-  		  margin-right: 10px;
-        }
-      }
   	}
     img.hp-why-coin-image{
  			max-width: 125px;

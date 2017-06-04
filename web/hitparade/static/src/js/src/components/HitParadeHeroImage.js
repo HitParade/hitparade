@@ -16,14 +16,14 @@ const HitParadeHeroImage = props => {
                                                  </section>
                                                  <section className="hp-hero-image-container-overlay">
                                                  </section>
-                    <section className="hp-hero-image-overlay" data-center="top: 0px; opacity: 1" data--150-top="top: -1200px; opacity: 1" data-anchor-target="#slide1 .hp-hero-image-overlay">
-                    <section className="hp-hero-overlay-text hp-hero-overlay-small-text niveau-grotesk-black">
+                                                <section className="hp-hero-image-overlay" data-center="top: 0px; opacity: 1" data--150-top="top: -1200px; opacity: 1" data-anchor-target="#slide1 .hp-hero-image-overlay">
+                                                <section className="hp-hero-overlay-text hp-hero-overlay-small-text niveau-grotesk-black">
                                                 <div className="hp-hero-text-elem">START YOUR  </div><div className="hp-logo-hero-img-container"><HitParadeLogo className="hp-logo-hero-img" logoColor="#ffffff" logoWidth="206px" logoHeight="71px" logoViewBox="0 0 126 43"/></div>
                                                 <div className="hp-hero-text-elem">TODAY AND</div></section>
-                    <section className="hp-hero-overlay-text hp-hero-overlay-large-text niveau-grotesk-black"><div className="hp-hero-text-elem">WIN THE  </div><div className="hp-hero-text-elem">$5.6 </div>
-                    </section>
-                    <section className="hp-hero-overlay-text hp-hero-overlay-medium-text niveau-grotesk-black"><div className="hp-hero-text-elem">MILLION PRIZE</div></section>
-                                            <section className="hp-hero-overlay-text hp-hero-bottom-overlay">
+                                                <section className="hp-hero-overlay-text hp-hero-overlay-large-text niveau-grotesk-black"><div className="hp-hero-text-elem">WIN THE  </div><div className="hp-hero-text-elem">$5.6 </div>
+                                                </section>
+                                                <section className="hp-hero-overlay-text hp-hero-overlay-medium-text niveau-grotesk-black"><div className="hp-hero-text-elem">MILLION PRIZE</div></section>
+                                                <section className="hp-hero-overlay-text hp-hero-bottom-overlay">
                                                 <HitParadeButton
                                                 className="hp-homepage-button niveau-grotesk-black"
                                                 buttonText="SEE THE PLAYERS"
