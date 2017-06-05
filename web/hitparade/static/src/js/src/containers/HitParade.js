@@ -4,15 +4,11 @@ import { connect } from 'react-redux';
 import ReactModal from 'react-modal';
 import * as HitParadeActionCreators from '../actions/hitparade';
 import HitParadeHeader from '../components/HitParadeHeader';
-import HitParadeFooter from '../components/HitParadeFooter';
 import HitParadeHeroImage from '../components/HitParadeHeroImage';
 import HitParadeSectionWhy from '../components/HitParadeSectionWhy';
 import HitParadeHowItWorks from '../components/HitParadeHowItWorks';
 import HitParadeMailChimp from '../components/HitParadeMailChimp';
-import HitParadeLogo from '../components/HitParadeLogo';
-import HitParadeButton from '../components/HitParadeButton';
 import Parallax from 'react-springy-parallax';
-
 class HitParade extends Component {
   static propTypes = {
       playersInCart: PropTypes.number.isRequired,
@@ -20,11 +16,13 @@ class HitParade extends Component {
       heroImageMobile: PropTypes.string.isRequired,
       svgs: PropTypes.object.isRequired,
       showModal: PropTypes.bool.isRequired,
-  };
+  }; 
+
   render() {
       const { dispatch, imgRoot, playersInCart, heroImage, heroImageMobile, svgs, showModal } = this.props;
       const selectPlayer = bindActionCreators(HitParadeActionCreators.selectPlayer, dispatch);
       const removePlayer = bindActionCreators(HitParadeActionCreators.removePlayer, dispatch);
+
 
       /**
       *   NAVIGATION
@@ -57,16 +55,25 @@ class HitParade extends Component {
             fontSize: 14,
             lineHeight: '10px',
             color: 'white',
-            display: 'flex', alignItems: 'center', justifyContent: 'center'
+            display: 'flex', alignItems: 'center',
+            justifyContent: 'center',
+            contentHeaderMenuLink: {
+                textDecoration: 'none',
+                color: 'white',
+                padding: 8,
+              },
+              content: {
+                padding: '16px',
+              },
         };
 
-  		return (<div className="hp-hero-parallax-overlay">
+  		return (
+  		    <div className="hp-hero-parallax-overlay">
                         <HitParadeHeader isLive='false' playersInCart={playersInCart} svgs={svgs} navs={navigationMethods} imgRoot={imgRoot} />
 
                         <Parallax  ref='parallax'
                                    pages={5}
                                    className="hp-hero-parallax">
-
 
 
 
@@ -89,7 +96,7 @@ class HitParade extends Component {
                             <HitParadeMailChimp closeModal={closeModal} subscribe={closeModal}  imgRoot={imgRoot} />
                   </ReactModal>
 
-                </div>)
+                </div> )
   }
 }
 const mapStateToProps = state => ({

@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 
 import HitParadeLogo from './HitParadeLogo';
 import HitParadeLeftMenuItem from './HitParadeLeftMenuItem';
-import HitParadeRightMenuItem from './HitParadeRightMenuItem';
 import HitParadeButton from './HitParadeButton';
 import HitParadeShoppingCart from './HitParadeShoppingCart';
 
