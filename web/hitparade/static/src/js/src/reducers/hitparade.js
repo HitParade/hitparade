@@ -5,13 +5,13 @@ const svgShare = {
   	height: '16px',
   	maxHeight: '16px',
   };
-  const svgContact = {
+const svgContact = {
 	 	img: 'copy.svg',
 	  	width: '15px',
 	  	height: '16px',
 	  	maxHeight: '16px',
   } ;
-  const svgCart = {
+const svgCart = {
   		img: 'cart.png',
   		width: '20px',
   		height: '20px',
@@ -21,14 +21,14 @@ const initialState = {
 	imgRoot: '/static/dist/images/',
 	cart: [{}],
 	playersInCart: 4,
-	heroImage: 'HeroImage.svg',
+	heroImage: 'Hero.png',
 	heroImageMobile: 'heroImageMobile.svg',
 	showModal: false,
 	svgs: {
 		svgContact: svgContact,
 		svgShare: svgShare,
 		svgCart: svgCart,
-	}
+	},
 };
 export default function HitParade(state=initialState, action) {
 	switch(action.type) {

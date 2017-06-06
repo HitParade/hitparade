@@ -1,3 +1,12 @@
+.hp-section-how-container {
+    .hp-flex;
+    .hp-flex-row;
+    .hp-flex-wrap;
+    .hp-flex-centered;
+	width: 100%;
+	height: 100vh;
+	position: relative;
+}
 .boldText {
 	font-weight: bold;
 }
@@ -17,6 +26,12 @@
   margin-top: 40px;
   width: 100%;
   max-width: 980px;
+}
+.hp-panel-row-container  {
+  .hp-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 .hp-panel-relative {
   .hp-flex;
@@ -38,12 +53,21 @@
   width: 100%;
   max-width: 980px;
 }
+.hp-section-how-graphics-panel-container {
+    .hp-flex;
+    .hp-flex-row;
+    .hp-flex-wrap;
+    .hp-flex-centered;
+    width: 100%;
+}
 .hp-section-how-graphics-panel {
     .hp-flex;
     .hp-flex-row;
     .hp-flex-wrap;
     .hp-flex-centered;
+    width: 100%;
 	max-width: 980px;
+    margin-top: 20px;
 }
 .hp-section-how {
     .hp-flex;
@@ -51,8 +75,9 @@
     .hp-flex-nowrap;
     .hp-flex-centered;
 	background-color: #F3F3ED;
-	padding-top: 50px;
-	padding-bottom: 50px;
+	position: relative;
+	top: 55px;
+	z-index: 21;
 	width: 100%;
 	height: auto;
 }
@@ -60,12 +85,13 @@
     .hp-flex;
     .hp-flex-row;
     .hp-flex-centered;
-	width: 395px;
+	width: 100%;
 	height: 42px;
 	font-size: 42px;
 	line-height: 1.0;
 	text-align: center;
 	color: #2d2d2d;
+    margin-top: 130px;
 }
 .hp-section-how-ct {
    .hp-flex;
@@ -75,7 +101,7 @@
     line-height: 1.33;
 	color: #2d2d2d;
     margin-bottom: 12px;
-	max-width: 780px;
+    width: 100%;
     text-align: center;
 }
 .hp-img-panel {
