@@ -11,8 +11,9 @@ class Modal extends Component {
     const { isOpen } = this.props;
 
     return (
-      <div className={`modal-overlay ${isOpen ? 'show' : ''}`}>
-        <div className="modal-container">
+      <div className={`modal-container ${isOpen ? 'show' : ''}`}>
+        <div className='modal-overlay'></div>
+        <div className="modal-content-container">
           {this.props.children}
         </div>
       </div>
