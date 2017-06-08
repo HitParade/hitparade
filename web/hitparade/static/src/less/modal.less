@@ -1,10 +1,8 @@
 @transitionLength: 0.4s;
-.modal-overlay {
+
+.modal-container {
     position: fixed;
     z-index: 100;
-    background: #3B3B3B;
-    opacity: 0;
-    transition: all @transitionLength;
     overflow-y: hidden;
     overflow-x: scroll;
     top: 0;
@@ -15,20 +13,35 @@
 
     &.show {
         visibility: visible;
-        opacity: 0.8;
+        
 
-        .modal-container {
+        .modal-overlay {
+            opacity: 0.8;
+        }
+        .modal-content-container {
+            opacity: 1;
             transform: translate(-50%, -50%);
         }
     }
 }
+.modal-overlay {
+    position: absolute;
+    background: #3B3B3B;
+    opacity: 0;
+    transition: all @transitionLength;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
 
-.modal-container {
+.modal-content-container {
     position: absolute;
     top: 50%;
     left: 50%;
     margin: auto;
     transform: translate(-50%, -70%);
-    max-width: 95%;
+    max-width: 90%;
+    opacity: 0;
     transition: all @transitionLength;
 }
