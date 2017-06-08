@@ -38,7 +38,7 @@ footer.footer {
     .hp-flex-column;
     .hp-flex-nowrap;
     .hp-flex-start;
-    justify-content: space-between;
+    height: 100%;
 	width: 100%;
 }
 .hp-footer-menu-bar {
@@ -76,8 +76,8 @@ footer.footer {
     .hp-flex-row;
     .hp-flex-nowrap;
     justify-content: space-between;
+    flex-grow: 1;
     align-items: center;
-	padding-bottom: 10px;
 	width: 100%;
 }
 .hp-footer-divider {
@@ -89,15 +89,12 @@ footer.footer {
   	left: 25px;
 }
 .hp-copyright {
-  content:"\00a9  Hit Parade 2017";
-  color: rgba(255,255,255,0.5);
-  font-size: 14px;
-
-  	flex-wrap: nowrap;
+    content:"\00a9  Hit Parade 2017";
+    color: rgba(255,255,255,0.5);
+    font-size: 14px;
+    flex-wrap: nowrap;
     justify-content: flex-end;
     align-items:  flex-end;
-
- 	padding-top: 8px;
     -webkit-justify-content: flex-end;
     -webkit-align-items:  flex-end;
 }
