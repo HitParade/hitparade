@@ -17,7 +17,7 @@ jobs:
           command: |
             pwd
             ls -l /hitparade/
-            cp /hitparade/hitparade/web/.env.example /hitparade/hitparade/web/.env
+            cp /hitparade/web/.env.skel /hitparade/web/.env
 
       # This should go into custom primary image, here's only for the sake of explanation
       - run:
