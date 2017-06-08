@@ -9,6 +9,7 @@ import HitParadeSectionWhy from '../components/HitParadeSectionWhy';
 import HitParadeHowItWorks from '../components/HitParadeHowItWorks';
 import HitParadeMailChimp from '../components/HitParadeMailChimp';
 import Parallax from 'react-springy-parallax';
+import Modal from '../components/Modal';
 class HitParade extends Component {
   static propTypes = {
       playersInCart: PropTypes.number.isRequired,
@@ -90,11 +91,11 @@ class HitParade extends Component {
 
 
                   </Parallax>
-                   <ReactModal
-                   isOpen={showModal}
-                   contentLabel="Minimal Modal Example" >
-                            <HitParadeMailChimp closeModal={closeModal} subscribe={closeModal}  imgRoot={imgRoot} />
-                  </ReactModal>
+                  <Modal
+                    isOpen={showModal}
+                  >
+                     <HitParadeMailChimp closeModal={closeModal} subscribe={closeModal}  imgRoot={imgRoot} />
+                  </Modal>
 
                 </div> )
   }
