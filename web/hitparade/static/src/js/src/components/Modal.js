@@ -2,17 +2,19 @@ import React, { PropTypes, Component } from 'react';
 
 class Modal extends Component {
   static propTypes = {
-  	// closeModal: PropTypes.func.isRequired ,
-  	// subscribe:  PropTypes.func.isRequired ,
+  	closeModal: PropTypes.func.isRequired ,
   	isOpen:  PropTypes.bool,
   };
 
   render () {
-    const { isOpen } = this.props;
+    const { isOpen, closeModal } = this.props;
 
     return (
       <div className={`modal-container ${isOpen ? 'show' : ''}`}>
-        <div className='modal-overlay'></div>
+        <div 
+          className='modal-overlay'
+          onClick={() => closeModal()}
+        ></div>
         <div className="modal-content-container">
           {this.props.children}
         </div>
