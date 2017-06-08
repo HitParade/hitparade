@@ -93,6 +93,7 @@ class HitParade extends Component {
                   </Parallax>
                   <Modal
                     isOpen={showModal}
+                    closeModal={closeModal}
                   >
                      <HitParadeMailChimp closeModal={closeModal} subscribe={closeModal}  imgRoot={imgRoot} />
                   </Modal>
