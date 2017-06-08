@@ -40,7 +40,6 @@ services:
       RABBIT_HOST: rabbit
     volumes:
       - ./web/hitparade/:/code/
-      - ./web/docker/entrypoint-web.sh:/code/entrypoint-web.sh
     ports:
       - "80:80"
     depends_on:
