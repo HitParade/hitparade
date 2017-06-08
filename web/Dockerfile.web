@@ -18,6 +18,8 @@ ADD docker/hitparade-uwsgi-params /etc/nginx/
 ADD docker/hitparade-uwsgi.ini /etc/uwsgi/
 ADD hitparade/ /code/
 
+RUN chmod +x /code/entrypoint-web.sh
+
 EXPOSE 80
 
 CMD ["/code/entrypoint-web.sh"]
