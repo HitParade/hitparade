@@ -1,0 +1,102 @@
+@import "./mixins.scss";
+
+.hp-copyright {
+  @extend .hp-flex;
+  @extend .hp-flex-nowrap;
+  @extend .hp-flex-end;
+  content:"\00a9  Hit Parade 2017";
+  color: rgba(255,255,255,0.5);
+  font-size: 14px;
+  padding-top: 8px;
+}
+.hp-privacy-statement {
+	text-decoration: none;
+  	font-size: 14px;
+}
+.hp-privacy-statement:hover,
+.hp-privacy-statement:active,
+.hp-privacy-statement:focus {
+	cursor: pointer;
+	text-decoration: underline;
+}
+footer.footer {
+	background-color: #2d2d2d;
+    bottom: 0px;
+	height: 128px;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    z-index: 10000;
+    opacity: 1;
+}
+.hp-footer-logo-ph {
+	@extend .hp-flex;
+  	width: 126px;
+  	height: 43px;
+}
+.hp-footer-menu {
+    @extend .hp-flex;
+    @extend .hp-flex-column;
+    @extend .hp-flex-nowrap;
+    @extend .hp-flex-start;
+    height: 100%;
+	width: 100%;
+}
+.hp-footer-menu-bar {
+    @extend .hp-flex;
+    @extend .hp-flex-row;
+    @extend .hp-flex-nowrap;
+    justify-content: flex-start;
+    align-items: center;
+	padding-bottom: 10px;
+	width: 100%;
+    min-width: 100%;
+}
+.hp-signup-button-footer, .hp-signup-button{
+	min-width: 120px;
+}
+.hp-footer-spacer {
+    @extend .hp-flex;
+    @extend .hp-flex-row;
+    @extend .hp-flex-nowrap;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.hp-left-bar {
+    @extend .hp-flex;
+    @extend .hp-flex-row;
+    @extend .hp-flex-nowrap;
+  	justify-content: flex-start;
+	align-items: center;
+    width: 50%;
+}
+.hp-footer-menu-bar-desktop,
+.hp-footer-menu-bar-mobile {
+    @extend .hp-flex;
+    @extend .hp-flex-row;
+    @extend .hp-flex-nowrap;
+    justify-content: space-between;
+    flex-grow: 1;
+    align-items: center;
+	width: 100%;
+}
+.hp-footer-divider {
+    @extend .hp-flex;
+  	width: 75%;
+  	height: 1px;
+  	background-color: rgba(255,255,255,0.5);
+  	position: relative;
+  	left: 25px;
+}
+.hp-copyright {
+    content:"\00a9  Hit Parade 2017";
+    color: rgba(255,255,255,0.5);
+    font-size: 14px;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items:  flex-end;
+    -webkit-justify-content: flex-end;
+    -webkit-align-items:  flex-end;
+}
