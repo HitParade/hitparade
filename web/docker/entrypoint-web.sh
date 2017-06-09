@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo `pwd`
+
 set -e
 
 # write the env to disk for cron jobs

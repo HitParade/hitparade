@@ -39,12 +39,12 @@ jobs:
 
       - run:
           name: Build service
-          command: docker-compose build
+          command: docker-compose build web
 
       - run:
           name: Start services and run unit tests
           command: |
             set -x
-            docker-compose up -d
+            docker-compose up -d web
             docker-compose exec web py.test -s
 
