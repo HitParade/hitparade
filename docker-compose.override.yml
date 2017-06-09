@@ -1,0 +1,21 @@
+version: '3'
+services:
+  web:
+    build:
+      dockerfile: Dockerfile.web
+      context: ./web/
+    env_file: ./web/.env
+    environment:
+      MYSQL_HOST: web-db
+      REDIS_HOST: redis
+      RABBIT_HOST: rabbit
+    volumes:
+      - ./web/hitparade/:/code/
+    ports:
+      - "80:80"
+    depends_on:
+      - rabbit
+      - web-db
+    links:
+      - rabbit
+      - web-db

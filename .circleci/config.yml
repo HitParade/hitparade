@@ -1,0 +1,52 @@
+version: 2
+jobs:
+  build:
+    docker:
+      # using custom image, see .circleci/images/primary/Dockerfile
+      - image: circleci/cci-demo-docker-primary:0.0.2
+
+    working_directory: /hitparade/
+
+    steps:
+      - checkout
+
+      - setup_remote_docker
+
+      - run:
+          name: Move .env into place
+          command: |
+            pwd
+            ls -l /hitparade/
+            cp /hitparade/web/.env.skel /hitparade/web/.env
+            sed -i -e 's/DJANGO_SETTINGS_MODULE=hitparade.settings.dev/DJANGO_SETTINGS_MODULE=hitparade.settings.test/' /hitparade/web/.env
+
+      # This should go into custom primary image, here's only for the sake of explanation
+      - run:
+          name: Install Docker client
+          command: |
+            set -x
+            VER="17.03.0-ce"
+            curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
+            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+            mv /tmp/docker/* /usr/bin
+
+      # This should go into custom primary image, here's only for the sake of explanation
+      - run:
+          name: Install Docker Compose
+          command: |
+            set -x
+            curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+            chmod +x /usr/local/bin/docker-compose
+
+      - run:
+          name: Build service
+          command: docker-compose build web
+
+      - run:
+          name: Start services and run unit tests
+          command: |
+            set -x
+            docker-compose -f docker-compose.yml up -d web
+            docker-compose -f docker-compose.yml ps
+            docker-compose -f docker-compose.yml exec web ./test.sh
+

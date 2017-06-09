@@ -1,5 +1,7 @@
 # Hit Parade
 
+[![CircleCI](https://circleci.com/gh/HitParade/hitparade/tree/master.svg?style=svg)](https://circleci.com/gh/HitParade/hitparade/tree/master)
+
 This repo contains all the services to run HitParade.
 
 ## Getting Started
@@ -36,7 +38,7 @@ docker-compose exec web ./manage.py load-atbats
 
 ## Run tests
 ```bash
-docker-compose exec web py.test -s
+docker-compose exec web ./test.sh
 ```
 
 ## Installing new Python modules
