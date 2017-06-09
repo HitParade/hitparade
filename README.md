@@ -84,7 +84,7 @@ docker-compose logs web
 
 ## Common problems
 
-After large PRs are merged, they may contain changes to the code or dependencies that require a rebuild. If a python container contains an error along the lines of `ImportError: No module named celery`, it's most likely because the container needs to be rebuilt. Should that not solve the issue, googling the module and installing may solve. Looking through closed PRs may also shed some light on the issue.
+After large PRs are merged, they may contain changes to the code or dependencies that require rebuilding the container (`docker-copmose build <service>`). If a python container contains an error along the lines of `ImportError: No module named celery`, it's most likely because the container needs to be rebuilt. Should that not solve the issue, googling the module and installing may solve. Looking through closed PRs may also shed some light on the issue.
 
 Occasionally, when your computer is shutdown, the docker VM may experience clock lag. This will cause certain time-sensitive operations to error. For example, calls to the AWS API are dependent on the issuing machine's clock being correct. To rememdy this, you need to restart the Docker service, which can be done from the tray icon.
 
