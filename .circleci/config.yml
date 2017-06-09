@@ -45,6 +45,6 @@ jobs:
           name: Start services and run unit tests
           command: |
             set -x
-            docker-compose up -d web
-            docker-compose exec web py.test -s
+            docker-compose -f docker-compose.yml up -d web
+            docker-compose -f docker-compose.yml exec web py.test -s
 
