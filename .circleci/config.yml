@@ -46,5 +46,6 @@ jobs:
           command: |
             set -x
             docker-compose -f docker-compose.yml up -d web
+            docker-compose -f docker-compose.yml ps
             docker-compose -f docker-compose.yml exec web ./test.sh
 
