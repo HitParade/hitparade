@@ -1,0 +1,54 @@
+.footer,
+.header
+ {
+    @extend .hp-flex;
+    @extend .hp-flex-nowrap;
+	padding-left: 120px;
+	padding-right: 120px;
+    justify-content: space-between;
+	align-items: center;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+.footer {
+    background-color: #2d2d2d;
+    bottom: 0px;
+    height: 128px;
+    left: 0px;
+    right: 0px;
+}
+.hp-login-button,
+.hp-signup-button,
+.hp-signup-button-footer,
+.hp-login-button-footer {
+	letter-spacing: 0.5px;
+	font-size: 14px;
+	width: 90px;
+	height: 36px;
+	border-radius: 2px;
+	border: solid 1px #ffffff;
+	background-color: rgba( 255,255,255, 0);
+	margin-left: 20px;
+	color: rgba( 255,255,255, 1);
+	text-transform: uppercase;
+    flex-direction: row;
+}
+.hp-signup-button-footer:focus,
+.hp-signup-button-footer:active
+.hp-login-button-footer:focus,
+.hp-login-button-footer:active,
+.hp-signup-button:focus,
+.hp-signup-button:active,
+.hp-login-button:active,
+.hp-login-button:focus {
+	outline: none;
+	cursor: pointer;
+}
+
+.hp-login-button-footer:hover,
+.hp-signup-button-footer:hover  {
+	cursor: pointer;
+	background-color: rgba( 255,255,255, 1);
+	color: #2d2d2d;
+	border: solid 1px #2d2d2d;
+}

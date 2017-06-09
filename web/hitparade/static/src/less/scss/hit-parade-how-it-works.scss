@@ -1,0 +1,187 @@
+.hp-section-how-container {
+    @extend .hp-flex;
+    @extend .hp-flex-row;
+    @extend .hp-flex-wrap;
+    @extend .hp-flex-centered;
+	width: 100%;
+	height: 100vh;
+	position: relative;
+}
+.boldText {
+	font-weight: bold;
+}
+.hp-diamond-bullet {
+	position: relative;
+	width: 20px;
+	height: 20px;
+	left: -40px;
+}
+.hp-panel-row-end {
+  @extend .hp-flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: 400px;
+  max-height: 400px;
+  position: relative;
+  margin-top: 40px;
+  width: 100%;
+  max-width: 980px;
+}
+.hp-panel-row-container  {
+  @extend .hp-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.hp-panel-relative {
+  @extend .hp-flex;
+  @extend .hp-flex-centered;
+  @extend .hp-flex-wrap;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 400px;
+  max-height: 400px;
+}
+.hp-panel-row-start {
+  @extend .hp-flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 400px;
+  max-height: 400px;
+  position: relative;
+  margin-top: 40px;
+  width: 100%;
+  max-width: 980px;
+}
+.hp-section-how-graphics-panel-container {
+    @extend .hp-flex;
+    @extend .hp-flex-row;
+    @extend .hp-flex-wrap;
+    @extend .hp-flex-centered;
+    width: 100%;
+}
+.hp-section-how-graphics-panel {
+    @extend .hp-flex;
+    @extend .hp-flex-row;
+    @extend .hp-flex-wrap;
+    @extend .hp-flex-centered;
+    width: 100%;
+	max-width: 980px;
+    margin-top: 20px;
+}
+.hp-section-how {
+    @extend .hp-flex;
+    @extend .hp-flex-column;
+    @extend .hp-flex-nowrap;
+    @extend .hp-flex-centered;
+	background-color: #F3F3ED;
+	position: relative;
+	top: 55px;
+	z-index: 21;
+	width: 100%;
+	height: auto;
+}
+.hp-section-how-h1 {
+    @extend .hp-flex;
+    @extend .hp-flex-row;
+    @extend .hp-flex-centered;
+	width: 100%;
+	height: 42px;
+	font-size: 42px;
+	line-height: 1.0;
+	text-align: center;
+	color: #2d2d2d;
+    margin-top: 130px;
+}
+.hp-section-how-ct {
+   @extend .hp-flex;
+   @extend .hp-flex-row;
+   @extend .hp-flex-centered;
+   @extend .hp-flex-wrap;
+    line-height: 1.33;
+	color: #2d2d2d;
+    margin-bottom: 12px;
+    width: 100%;
+    text-align: center;
+}
+.hp-img-panel {
+  @extend .hp-flex;
+  visibility: hidden;
+  position: relative;
+   min-width: 50%;
+  max-width: 75%;
+  min-height: 300px;
+  max-height: 300px;
+  z-index: 5;
+  img {
+	position:relative;
+	z-index: 6;
+  }
+}
+.hp-panel-text {
+  @extend .hp-flex;
+  @extend .hp-flex-column;
+  @extend .hp-flex-nowrap;
+  @extend .hp-flex-start;
+  top: 10px;
+  position: relative;
+  min-width: 250px;
+  max-width: 25%;
+  width: 25%;
+}
+.hp-panel-text-h1 {
+    @extend .hp-flex;
+    @extend .hp-flex-start;
+    min-width: 100%;
+    max-width: 100%;
+    position: relative;
+    font-weight: bold;
+    font-size: 24px;
+}
+.hp-panel-text-desc {
+    @extend .hp-flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    font-size: 16px;
+}
+.hp-rectangle,
+.hp-rectangle-ls {
+  @extend .hp-flex;
+  @extend .hp-flex-row;
+  border: solid 6px #e3e3db;
+  color: #2d2d2d;
+  max-height: 380px;
+  min-height: 380px;
+  position: absolute;
+  top: 0px;
+  width: 50%;
+  z-index: 4;
+}
+ .hp-rectangle-ls {
+    @extend .hp-flex;
+    @extend .hp-flex-nowrap;
+    @extend .hp-flex-centered;
+    left: -20px;
+	min-width: 50%;
+	font-size: 34px;
+	line-height: 1.06;
+	letter-spacing: -0.5px;
+}
+
+ .hp-rectangle {
+    @extend .hp-flex;
+    @extend .hp-flex-nowrap;
+    @extend .hp-flex-centered;
+	border: solid 6px #e3e3db;
+	color: #2d2d2d;
+	display: flex;
+	flex-direction: row;
+	font-size: 34px;
+	height: 400px;
+    left: 50%;
+	letter-spacing: -0.5px;
+	line-height: 1.06;
+	min-width: 50%;
+	position: absolute;
+}
