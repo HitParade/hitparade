@@ -12,6 +12,5 @@ COPY hitparade/requirements.txt /code/
 RUN pip install -r /code/requirements.txt
 
 ADD hitparade/ /code/
-ADD docker/entrypoint-celery.py /code/
 
-CMD ["/usr/local/bin/python", "/code/entrypoint-celery.py"]
+CMD ["/usr/local/bin/python", "/code/cmd-celery.py"]
