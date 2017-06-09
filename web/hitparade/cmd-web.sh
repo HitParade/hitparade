@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo `pwd`
-
 set -e
 
 # write the env to disk for cron jobs
@@ -27,7 +25,7 @@ then
   if [ "$TIER" == "dev" ]
   then
     echo "Fixturizing"
-    python manage.py loaddata fixtures/accounts.json
+    # python manage.py loaddata fixtures/accounts.json
   elif [ "$TIER" == "stage" ] || [ "$TIER" == "prod" ]
   then
     echo "We're in $TIER, not Fixturizing"

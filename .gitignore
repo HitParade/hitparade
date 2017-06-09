@@ -91,3 +91,4 @@ ENV/
 # Project specific ignores
 web/mysql-data
 web/hitparade/entrypoint*
+hitparade.db
