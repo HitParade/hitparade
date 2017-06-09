@@ -1,6 +1,6 @@
 # Hit Parade
 
-CI Status [![CircleCI](https://circleci.com/gh/HitParade/hitparade/tree/master.svg?style=svg)](https://circleci.com/gh/HitParade/hitparade/tree/master)
+[![CircleCI](https://circleci.com/gh/HitParade/hitparade/tree/master.svg?style=svg)](https://circleci.com/gh/HitParade/hitparade/tree/master)
 
 This repo contains all the services to run HitParade.
 
