@@ -38,8 +38,6 @@ services:
       MYSQL_HOST: web-db
       REDIS_HOST: redis
       RABBIT_HOST: rabbit
-    volumes:
-      - ./web/hitparade/:/code/
     ports:
       - "80:80"
     depends_on:
