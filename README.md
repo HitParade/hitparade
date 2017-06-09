@@ -36,7 +36,7 @@ docker-compose exec web ./manage.py load-atbats
 
 ## Run tests
 ```bash
-docker-compose exec web py.test -s
+docker-compose exec web ./test.sh
 ```
 
 ## Installing new Python modules
