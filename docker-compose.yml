@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
 
   redis:
@@ -58,7 +58,6 @@ services:
       RABBIT_HOST: rabbit
     volumes:
       - ./web/hitparade/:/code/
-      - ./web/docker/entrypoint-celery.py:/code/entrypoint-celery.py
     links:
       - web-db
       - rabbit
