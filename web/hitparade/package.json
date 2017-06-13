@@ -9,13 +9,12 @@
     "copy:images": "cp -r static/src/images/* static/dist/images/ 2>/dev/null || :",
     "watch:test": "onchange static/src/js/**/*.js -- npm run test",
     "watch:lint": "onchange static/src/js/**/*.js -- npm run lint",
-    "watch:js": "onchange static/src/js/**/*.js -- npm run build:webpack",
-    "watch:css": "onchange static/src/less/**/*.less -- npm run build:webpack",
     "build": "npm run clean && concurrently \"npm run build:webpack\" \"npm run copy:fonts\" \"npm run copy:images\"",
-    "build:webpack": "./node_modules/webpack/bin/webpack.js --config webpack.config.js --progress --profile --colors",
-    "watch": "concurrently --raw \"npm rebuild node-sass --force\"  \"npm run watch:lint\" \"npm run watch:js\" \"npm run watch:cssnpm \"",
+    "build:webpack": "./node_modules/webpack/bin/webpack.js --config webpack.config.js --progress --profile --colors --watch",
+    "watch": "concurrently --raw \"npm run watch:lint\"",
     "lint": "eslint static/src/**/**/*.js",
-    "test": "mocha --recursive --compilers js:babel-register static/src/tests/index.js"
+    "test": "mocha --recursive --compilers js:babel-register static/src/tests/index.js",
+    "start": "npm run build && npm run watch"
   },
   "license": "UNLICENSED",
   "dependencies": {
