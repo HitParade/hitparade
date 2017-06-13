@@ -28,7 +28,16 @@ const HitParadeHeroImage = props => {
                                                 className="hp-homepage-button niveau-grotesk-black"
                                                 buttonText="SEE THE PLAYERS"
                                                 clickMethod={props.parallax}/>
-                                                <div className="animated infinite bounce"><img  onClick={props.parallax.bind(this)}  src={props.imgRoot+'arrow.svg'} /></div>
+                                                <div
+                                                    className="hp-homepage-arrow-container"
+                                                    onClick={props.parallax.bind(this)}
+                                                >
+                                                    <div 
+                                                        className="animated infinite bounce"
+                                                    >
+                                                        <img src={props.imgRoot+'arrow.svg'} />
+                                                    </div>
+                                                </div>
                                             </section>
                     </section>
                </Parallax.Layer>

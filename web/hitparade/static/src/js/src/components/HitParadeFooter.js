@@ -29,7 +29,7 @@ const HitParadeFooter = props => {
                   <HitParadeButton buttonText="Beta Sign Up" className="hp-signup-button-footer niveau-grotesk-black" clickMethod={props.navs.click.navSignup}/>
             </div>
       </div>
-         <div className="hp-footer-menu-bar-mobile">
+         <div className="hp-footer-menu-bar-mobile hp-border-bottom">
             <div className="hp-left-bar">  </div>
             <div className="hp-right-bar">
                 <HitParadeButton buttonText="Beta Sign Up" className="hp-signup-button-footer niveau-grotesk-black" clickMethod={props.navs.click.navSignup}/>
@@ -37,10 +37,10 @@ const HitParadeFooter = props => {
          </div>
         <div className="hp-footer-menu-bar-mobile">
 
-          <div className="hp-left-bar hp-privacy-statement hp-border-top ">
+          <div className="hp-left-bar hp-privacy-statement">
               <HitParadeLeftMenuItem imgRoot={props.imgRoot} menuItemText="Privacy Statement" classNames="hp-privacy-statement hp-footer-font-size hp-footer-item proxima-nova-regular" clickMethod={props.navs.click.navPrivacyStatement} />
           </div>
-          <div className="hp-footer-font-size hp-right-bar hp-copyright proxima-nova-regular hp-border-top ">
+          <div className="hp-footer-font-size hp-right-bar hp-copyright proxima-nova-regular">
               &copy; Hit Parade LLC {fullYear}
           </div>
 
