@@ -35,7 +35,7 @@
 		animation-fill-mode: forwards;
 }
 .hp-hero-image-container {
-		background-image: url('/static/dist/images/Hero.png');
+		background-image: url( $imageRoot + 'Hero.png');
 		background-repeat: no-repeat;
     	background-attachment: fixed;
     	background-size: 100% 100%;
