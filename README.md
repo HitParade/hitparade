@@ -55,7 +55,7 @@ via PyPi. We've asked Stattleship to do this.
 
 The admin section is available at [http://localhost/admin](http://localhost/admin).
 
-The username / password is; `info@hitparade.co / password`
+The username / password is; `info@hitparade.co / changeme`
 
 ## Debugging
 
