@@ -51,6 +51,10 @@ After installing, the stattlepy line needs to be edited back to the github
 install. This is because stattlepy currently doesn't have the package available
 via PyPi. We've asked Stattleship to do this.
 
+## API Docs
+
+Docs for the API can found at `/docs`.
+
 ## Admin section
 
 The admin section is available at [http://localhost/admin](http://localhost/admin).
