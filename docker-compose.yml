@@ -19,7 +19,7 @@ services:
       context: ./web/
     volumes:
       - ./web/hitparade/:/code/
-    command: ["/usr/local/bin/npm", "run", "watch"]
+    command: ["/usr/local/bin/npm", "run", "start"]
 
   web-db:
     image: mysql:latest
