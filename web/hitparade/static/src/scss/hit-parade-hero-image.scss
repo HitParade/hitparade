@@ -1,3 +1,4 @@
+
 .hp-56mil-svg {
 	width: 300px;
     height: 114px;
@@ -31,14 +32,13 @@
 		animation-name: dropOverlay;
     	animation-duration: 1s;
 		animation-delay: 1s;
-		background-color: rgba(255, 85, 79, 0.35);
+		background-color: rgba(238,60,64,.6);
 		animation-fill-mode: forwards;
 }
 .hp-hero-image-container {
-		background-image: url('/static/dist/images/Hero.png');
-		background-repeat: no-repeat;
+		background: url('/static/dist/images/Hero.png') center no-repeat;
     	background-attachment: fixed;
-    	background-size: 100% 100%;
+    	background-size: cover;
     	height: 100vh;
     	width: 100vw;
 		color: #ffffff;
@@ -60,7 +60,6 @@
 }
 .hp-hero-overlay-medium-text {
 	font-size:  40px;
-	line-height: 0.8;
 	letter-spacing: 7px;
 	animation-name: showText;
 	animation-duration: 0.1s;
@@ -68,12 +67,10 @@
 	animation-fill-mode: forwards;
 }
 .hp-hero-text-elem {
-  @extend .hp-flex;
-  margin-right: 4px;
+	text-align: center;
 }
 .hp-hero-overlay-large-text {
     font-size: 60px;
-	line-height: 0.83;
 	letter-spacing: 6.3px;
 	animation-name: showText;
 	animation-duration: 0.3s;
@@ -83,21 +80,11 @@
 .hp-logo-hero-img {
 	width: 206px;
 	height: 71px;
-  margin-right: 8px;
-  position: relative;
-  top:-4px;
+	margin: 0 18px;
 }
-.hp-logo-hero-img-container {
-	display: flex;
-	-o-display: flex;
-	-webkit-display: flex;
-	-ms-display: flex;
-	-moz-display: flex;
-}
+
 .hp-hero-image-overlay {
-  @extend .hp-flex;
-  @extend .hp-flex-nowrap;
-  @extend .hp-flex-centered;
+	display: flex;
 	position: absolute;
 	flex-direction: column;
 	z-index: 10;
@@ -111,11 +98,9 @@
    @extend .hp-flex;
    @extend .hp-flex-centered;
    @extend .hp-flex-nowrap;
-	margin-top: 50px;
-	min-width: 100%;
-	max-width: 100%;
-	width: 100%;
-    padding: 6px 0;
+   $margin-top: 50px;
+	margin-top: $margin-top;
+    padding: 6px 20px;
 	font-weight: normal;
 	font-style: normal;
 	font-stretch: normal;
@@ -126,11 +111,15 @@
 	animation-duration: 0.1s;
 	animation-delay: 1.5s;
 	animation-fill-mode: forwards;
+
+	&:first-child {
+		margin-top: $margin-top + $nav-spacing-desk-tablet
+	}
 }
 .hp-hero-overlay-small-text {
 	font-size:  30px;
-	line-height: 0.8;
 	letter-spacing: 7px;
+	font-weight: 100;
 	animation-name: showText;
 	animation-duration: 0.2s;
 	animation-delay: 1.5s;
@@ -151,7 +140,7 @@
 	color: #ffffff;
 	cursor: pointer;
 	font-size: 16px;
-	height: 60px;
+	min-height: 60px;
 	letter-spacing: 0.5px;
 	object-fit: contain;
 	outline: none;

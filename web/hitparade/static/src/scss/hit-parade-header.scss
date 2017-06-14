@@ -35,14 +35,15 @@
     width: 100%;
     div.hp-right-bar {
       width: 28%;
+      flex-grow: 1;
     }
 }
 .hp-header-item {
 	min-width: 30px;
 }
 .hp-hero-text-elem {
-  @extend .hp-flex;
-  margin-right: 4px;
+//   @extend .hp-flex;
+//   margin-right: 4px;
 }
 .hp-right-header-item:hover {
 	text-decoration: underline;

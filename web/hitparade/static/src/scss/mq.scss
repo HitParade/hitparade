@@ -73,14 +73,18 @@
       min-height: 290px;
     }
      div.hp-hero-text-elem {
-       margin-top: 20px;
+       margin-top: 0;
+
+       &:first-child {
+         margin-top: 20px;
+       }
      }
-     div.hp-logo-hero-img-container {
-       margin-top: 20px;
+     div.hp-logo-hero-img {
+       margin-top: 5px;
+       width: 144px;
      }
      section.hp-hero-image-overlay  {
        justify-content: space-around;
-       top: 55px;
      }
      div.hp-header-item {
             div.hp-header-item-text {
@@ -106,6 +110,7 @@
       padding: 10px;
     }
      nav.header {
+        padding: 0 10px;
             button.hp-signup-button {
                 font-size: 12px;
                 padding: 0px;
@@ -126,7 +131,7 @@
       font-size: 50px;
     }
     section.hp-hero-overlay-small-text {
-      font-size: 20px;
+      font-size: 24px;
     }
     img.hp-diamond-bullet {
       display: none;
@@ -206,9 +211,13 @@
 	section.hp-hero-overlay-text {
 		    flex-direction: column;
         margin-top: 0px;
+
+        &:first-child {
+		margin-top: 10px + $nav-spacing-desk-tablet
 	}
-  	div.hp-left-bar {
-  		width: 20%;
+	}
+  div.hp-left-bar {
+      display: none;
    }
 
   div.hp-footer-menu-bar:nth-child(2) {
@@ -259,13 +268,38 @@
           top: 0px;
         }
   }
+
+  .hp-hero-bottom-overlay .hp-homepage-button {
+    margin-bottom: 10px;
+  }
 }
+
+
+@media only screen and (max-width: 736px) and (min-width: 320px) and (orientation: landscape) {
+	section.hp-hero-overlay-text {	
+		flex-direction: row;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    &:last-child {
+      flex-direction: column;
+    }
+	}
+
+  div.hp-hero-text-elem:first-child {
+    margin: 0;
+  }
+
+  .hp-hero-bottom-overlay .hp-homepage-button {
+    margin: 10px 0 0 0;
+  }
+
+  .hp-homepage-arrow-container {
+    display: none;
+  }
+}
+
 @media screen and (min-width: $hp-tablet-min) and (max-width: $hp-tablet-max) {
-
-
-          section.hp-hero-image-container {
-		    background-image: url('/static/dist/images/heroImageMobile.svg');
-        }
 
 
         section.hp-why-content-container::after {
@@ -279,12 +313,6 @@
         }
     }
   }
-
-    div#root {
-        div {
-            //max-height: 2011px;
-        }
-    }
    div.ReactModal__Content div.ReactModal__Content--after-open {
       max-width: 70%;
       top: 0px;
@@ -381,9 +409,6 @@
   		margin-right: 0px;
   		margin: 0px;
   	}
-  	div.hp-left-bar {
-  		width: 50%;
-  	}
 }
 @media screen and (max-width: $hp-desktop)  {
     div.hp-img-panel {
@@ -396,9 +421,6 @@
   		width: 90%;
         left: 0%;
         margin-left: 15px;
-  	}
-    .hp-left-bar {
-  		width: 20%;
   	}
     footer.footer {
       div.hp-footer-menu {
