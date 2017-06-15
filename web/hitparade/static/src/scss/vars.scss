@@ -4,34 +4,34 @@ $hp-mobile-max: 736px;
 $hp-tablet-min: 768px;
 $hp-tablet-max: 1024px;
 $hp-desktop: 1025px;
+$landscape: 'landscape';
 
+$media: (
+	mobile: ($hp-mobile-min, $hp-mobile-max),
+	mobile-landscape: ($hp-mobile-min, $hp-mobile-max, $landscape),
+	tablet: ($hp-tablet-min, $hp-tablet-max),
+	mobile-tablet: ($hp-mobile-min, $hp-tablet-max),
+	tablet-desktop: ($hp-tablet-min),
+	desktop: ($hp-desktop)
+);
 
-@mixin responsive($media) {
-  @if $media == mobile {
-	@include screen-size($hp-mobile-min, $hp-mobile-max) {
-	  @content;
+@mixin responsive($mediaType) {
+	$vals: map-get($media, $mediaType);
+	$length: length($vals);
+
+	@if ($length == 3) {
+		@include screen-size-orientation(nth($vals, 1), nth($vals, 2), nth($vals, 3)) {
+			@content;
+		}
+	} @else if ($length == 2) {
+		@include screen-size(nth($vals, 1), nth($vals, 2)) {
+			@content;
+		}
+	} @else {
+		@media only screen and (min-width: $vals) {
+			@content;
+		}
 	}
-  } @else if $media == mobile-landscape {
-		@include screen-size-orientation($hp-tablet-min, $hp-tablet-max, 'landscape') {
-			@content;
-		}
-  } @else if $media == tablet {
-		@include screen-size($hp-tablet-min, $hp-tablet-max) {
-			@content;
-		}
-  } @else if $media == mobile-tablet {
-		@include screen-size($hp-mobile-min, $hp-tablet-max) {
-			@content;
-		}
-  } @else if $media == tablet-desktop {
-		@media only screen and (min-width: $hp-tablet-min) {
-			@content;
-		}
-  } @else if $media == desktop {
-	@media only screen and (min-width: $hp-desktop-min) {
-	  @content;
-	}
-  }
 }
 
 @mixin screen-size($minWidth, $maxWidth) {
