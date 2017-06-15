@@ -50,22 +50,24 @@
 	}
 .hp-hero-bottom-overlay {
 	flex-direction: column;
-	div {
-		margin: 40px;
-		cursor: pointer;
-	}
+	// div {
+	// 	margin: 40px;
+	// 	cursor: pointer;
+	// }
 	button {
 		margin: 40px;
+		margin-top: 17px;
 	}
 }
 .hp-hero-overlay-medium-text {
 	font-size:  40px;
-	letter-spacing: 7px;
+	letter-spacing: 4.8px;
 	animation-name: showText;
 	animation-duration: 0.1s;
 	animation-delay: 1.5s;
 	animation-fill-mode: forwards;
 }
+
 .hp-hero-text-elem {
 	text-align: center;
 }
@@ -98,9 +100,9 @@
    @extend .hp-flex;
    @extend .hp-flex-centered;
    @extend .hp-flex-nowrap;
-   $margin-top: 50px;
+   $margin-top: 13px;
 	margin-top: $margin-top;
-    padding: 6px 20px;
+    padding: 6px;
 	font-weight: normal;
 	font-style: normal;
 	font-stretch: normal;
@@ -113,7 +115,7 @@
 	animation-fill-mode: forwards;
 
 	&:first-child {
-		margin-top: $margin-top + $nav-spacing-desk-tablet
+		margin-top: 30px + $margin-top + $nav-spacing-desk-tablet
 	}
 }
 .hp-hero-overlay-small-text {
@@ -157,7 +159,40 @@
 	max-height: 600px;
 }
 
-.hp-hero-bottom-overlay .hp-homepage-arrow-container {
-	margin: 0;
-	cursor: pointer;
+.hp-homepage-arrow-container {
+	div {
+		margin: 40px;
+		cursor: pointer;
+	}
+
+	@include responsive('mobile') {
+		div {
+			margin: 30px 50px 0;
+		}
+	}
+}
+
+.hp-hero-text-elm-large {
+	letter-spacing: 6.3px;
+
+	@include responsive('mobile') {
+		font-size: 36px;
+		letter-spacing: 2.4px;
+	}
+}
+
+.hp-hero-millions-number {
+	margin-left: 18px;
+	width: 301px;
+
+	@include responsive('mobile') {
+		width: 225px;
+		margin-left: 0;
+		margin-top: 5px;
+	}
+
+	@include responsive('mobile-landscape') {
+		margin-left: 18px;
+		margin-bottom: 10px;
+	}
 }

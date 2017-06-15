@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import HitParadeLogo from './HitParadeLogo';
 import HitParadeButton from './HitParadeButton';
 import Parallax from 'react-springy-parallax';
+import siteContent from '../../siteContent';
 const HitParadeHeroImage = props => {
   return (
         <div className="">
@@ -27,7 +28,9 @@ const HitParadeHeroImage = props => {
                                     TODAY AND
                                 </div>
                             </section>
-                            <section className="hp-hero-overlay-text hp-hero-overlay-large-text niveau-grotesk-black"><div className="hp-hero-text-elem">WIN THE  </div><div className="hp-hero-text-elem">$5.6 </div>
+                            <section className="hp-hero-overlay-text hp-hero-overlay-large-text niveau-grotesk-black">
+                                <div className="hp-hero-text-elem hp-hero-text-elm-large">WIN THE  </div>
+                                <img src={siteContent.assets.winNumber} className="hp-hero-millions-number"/>
                             </section>
                             <section className="hp-hero-overlay-text hp-hero-overlay-medium-text niveau-grotesk-black"><div className="hp-hero-text-elem">MILLION PRIZE</div></section>
                             <section className="hp-hero-overlay-text hp-hero-bottom-overlay">
