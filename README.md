@@ -53,7 +53,7 @@ via PyPi. We've asked Stattleship to do this.
 
 ## API Docs
 
-Docs for the API can found at `/docs`.
+Docs for the API can found at [http://localhost/docs](http://localhost/docs) or [http://127.0.0.1/admin](http://127.0.0.1/admin)
 
 ## Admin section
 
