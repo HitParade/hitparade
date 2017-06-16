@@ -2,7 +2,7 @@
 .hp-signup-button,
 .hp-signup-button-footer,
 .hp-login-button-footer {
-    .hp-flex-row;
+    @extend .hp-flex-row;
 	letter-spacing: 0.5px;
 	font-size: 14px;
 	width: 90px;

@@ -1,8 +1,8 @@
 .footer,
 .header
  {
-    .hp-flex;
-    .hp-flex-nowrap;
+    @extend .hp-flex;
+    @extend .hp-flex-nowrap;
 	padding-left: 120px;
 	padding-right: 120px;
     justify-content: space-between;

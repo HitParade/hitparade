@@ -1,7 +1,9 @@
+@import "./mixins.scss";
+
 .hp-copyright {
-  .hp-flex;
-  .hp-flex-nowrap;
-  .hp-flex-end;
+  @extend .hp-flex;
+  @extend .hp-flex-nowrap;
+  @extend .hp-flex-end;
   content:"\00a9  Hit Parade 2017";
   color: rgba(255,255,255,0.5);
   font-size: 14px;
@@ -29,22 +31,22 @@ footer.footer {
     opacity: 1;
 }
 .hp-footer-logo-ph {
-	.hp-flex;
+	@extend .hp-flex;
   	width: 126px;
   	height: 43px;
 }
 .hp-footer-menu {
-    .hp-flex;
-    .hp-flex-column;
-    .hp-flex-nowrap;
-    .hp-flex-start;
+    @extend .hp-flex;
+    @extend .hp-flex-column;
+    @extend .hp-flex-nowrap;
+    @extend .hp-flex-start;
     height: 100%;
 	width: 100%;
 }
 .hp-footer-menu-bar {
-    .hp-flex;
-    .hp-flex-row;
-    .hp-flex-nowrap;
+    @extend .hp-flex;
+    @extend .hp-flex-row;
+    @extend .hp-flex-nowrap;
     justify-content: flex-start;
     align-items: center;
 	padding-bottom: 10px;
@@ -55,33 +57,33 @@ footer.footer {
 	min-width: 120px;
 }
 .hp-footer-spacer {
-    .hp-flex;
-    .hp-flex-row;
-    .hp-flex-nowrap;
+    @extend .hp-flex;
+    @extend .hp-flex-row;
+    @extend .hp-flex-nowrap;
 	justify-content: flex-start;
 	align-items: center;
 }
 
 .hp-left-bar {
-    .hp-flex;
-    .hp-flex-row;
-    .hp-flex-nowrap;
+    @extend .hp-flex;
+    @extend .hp-flex-row;
+    @extend .hp-flex-nowrap;
   	justify-content: flex-start;
 	align-items: center;
     width: 50%;
 }
 .hp-footer-menu-bar-desktop,
 .hp-footer-menu-bar-mobile {
-    .hp-flex;
-    .hp-flex-row;
-    .hp-flex-nowrap;
+    @extend .hp-flex;
+    @extend .hp-flex-row;
+    @extend .hp-flex-nowrap;
     justify-content: space-between;
     flex-grow: 1;
     align-items: center;
 	width: 100%;
 }
 .hp-footer-divider {
-    .hp-flex;
+    @extend .hp-flex;
   	width: 75%;
   	height: 1px;
   	background-color: rgba(255,255,255,0.5);

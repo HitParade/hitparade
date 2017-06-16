@@ -9,9 +9,9 @@
 	position: fixed;
 }
 .hp-footer-item-text {
-    .hp-flex;
-    .hp-flex-centered;
-    .hp-flex-nowrap;
+    @extend .hp-flex;
+    @extend .hp-flex-centered;
+    @extend .hp-flex-nowrap;
 	font-size: 14px;
 }
 .hp-header-item {
@@ -30,7 +30,7 @@
 	min-width: 100px;
 }
 .header-top {
-	.hp-flex;
+	@extend .hp-flex;
     justify-content: space-between;
     width: 100%;
     div.hp-right-bar {
@@ -41,7 +41,7 @@
 	min-width: 30px;
 }
 .hp-hero-text-elem {
-  .hp-flex;
+  @extend .hp-flex;
   margin-right: 4px;
 }
 .hp-right-header-item:hover {

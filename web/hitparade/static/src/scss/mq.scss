@@ -1,4 +1,6 @@
-@media screen and (min-width: @hp-mobile-min) and (max-width: @hp-mobile-current-min) {
+@import "./mixins.scss";
+
+@media screen and (min-width: $hp-mobile-min) and (max-width: $hp-mobile-current-min) {
     section.hp-why-header-divider {
       margin-top: 5px;
       margin-bottom: 5px;
@@ -42,13 +44,13 @@
       }
     }
 }
-@media screen and (min-width: @hp-mobile-min) and (max-width: @hp-mobile-max) {
+@include responsive('mobile') {
 
    section.hp-hero-image-container {
-		    background-image: url(/static/dist/images/heroImageMobile.svg);
+		    background-image: url($imageRoot + 'heroImageMobile.svg');
     }
     div.hp-why-content-container::after {
-          background-image: url(/static/dist/images/mobileHero2.png);
+          background-image: url( $imageRoot + 'mobileHero2.png');
      }
     .header  {
       div.header-top {
@@ -89,7 +91,6 @@
             }
      }
     div.hp-footer-logo-ph {
-      .hp-flex;
       justify-content: center;
       align-items: flex-start;
       margin: 0px;
@@ -113,8 +114,9 @@
             }
     }
     footer.footer {
-        .hp-flex-column;
-        .hp-flex-centered;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         width: 99%;
     }
     section.hp-hero-overlay-medium-text {
@@ -146,9 +148,8 @@
       display: none;
     }
     div.hp-footer-menu-bar-mobile {
-      .hp-flex;
-      .hp-flex-centered;
-      .hp-flex-column;
+      @extend .hp-flex-centered-mobile;
+      flex-direction: column;
       align-items: center;
       border: none;
       justify-content: center;
@@ -178,14 +179,12 @@
         justify-content: center;
         align-items: center;
         div.hp-footer-menu-bar {
-          .hp-flex;
-          .hp-flex-centered;
+          @extend .hp-flex-centered-mobile;
           width: 100%;
           div.hp-right-bar {
                   margin-right: 0px;
                   width: 98%;
-                  .hp-flex;
-                  .hp-flex-centered;
+                  @extend .hp-flex-centered-mobile;
           }
         }
       }
@@ -205,8 +204,7 @@
     font-size: 12px;
   }
 	section.hp-hero-overlay-text {
-        .hp-flex;
-		.hp-flex-column;
+		    flex-direction: column;
         margin-top: 0px;
 	}
   	div.hp-left-bar {
@@ -215,21 +213,18 @@
 
   div.hp-footer-menu-bar:nth-child(2) {
     width:100%;
-    .hp-flex;
-    .hp-flex-centered;
-    .hp-flex-column;
+    @extend .hp-flex-centered-mobile;
+    flex-direction: column;
   }
   div.hp-footer-menu-bar:nth-child(2) {
     div.hp-left-bar {
       width: 100%;
-      .hp-flex;
-      .hp-flex-start;
+      @extend .hp-flex-start-mobile;
     }
   }
   div.hp-footer-menu-bar:nth-child(2) {
       div.hp-footer-font-size {
-        .hp-flex;
-        .hp-flex-end;
+        @extend .hp-flex-end-mobile;
          border: none;
          margin-right: 100px;
          width: 100%;
@@ -237,8 +232,7 @@
   }
   div.hp-footer-menu-bar {
     width: 100%;
-    .hp-flex;
-    .hp-flex-start;
+    @extend .hp-flex-start-mobile;
 
   }
   div.hp-footer-menu-bar > div.hp-left-bar {
@@ -250,8 +244,7 @@
         div.hp-right-bar {
                 margin-right: 0px;
                 width: 100%;
-                .hp-flex;
-                .hp-flex-start;
+                @extend .hp-flex-start-mobile;
         }
       }
     }
@@ -267,20 +260,19 @@
         }
   }
 }
-@media screen and (min-width: @hp-tablet-min) and (max-width: @hp-tablet-max) {
+@media screen and (min-width: $hp-tablet-min) and (max-width: $hp-tablet-max) {
 
 
           section.hp-hero-image-container {
-		    background-image: url(/static/dist/images/heroImageMobile.svg);
+		    background-image: url( $imageRoot + 'heroImageMobile.svg');
         }
 
 
         section.hp-why-content-container::after {
-          background-image: url(/static/dist/images/mobileHero2.png);
+          background-image: url( $imageRoot + 'mobileHero2.png');
         }
   nav.header  {
      div.header-top {
-        .hp-flex;
         width: 100%;
         div.hp-right-bar {
           width: 38%;
@@ -393,7 +385,7 @@
   		width: 50%;
   	}
 }
-@media screen and (max-width: @hp-desktop)  {
+@media screen and (max-width: $hp-desktop)  {
     div.hp-img-panel {
   		display: none;
   	}
