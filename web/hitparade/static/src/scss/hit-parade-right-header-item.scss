@@ -1,6 +1,6 @@
 .hp-right-header-item {
-    .hp-flex;
-    .hp-flex-row;
+    @extend .hp-flex;
+    @extend .hp-flex-row;
 	color: #ffffff;
 	font-size: 12px;
 	line-height: 1.25;

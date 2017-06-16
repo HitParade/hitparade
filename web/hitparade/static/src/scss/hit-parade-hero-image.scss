@@ -11,8 +11,8 @@
     to {opacity: 1;}
 }
 .hp-hero-image {
-  .hp-flex;
-  .hp-flex-nowrap;
+  @extend .hp-flex;
+  @extend .hp-flex-nowrap;
   justify-content: center;
   align-items: flex-start;
   background-color: rgba(0,0,0,0.2);
@@ -35,7 +35,7 @@
 		animation-fill-mode: forwards;
 }
 .hp-hero-image-container {
-		background-image: url(/static/dist/images/Hero.png);
+		background-image: url( $imageRoot + 'Hero.png');
 		background-repeat: no-repeat;
     	background-attachment: fixed;
     	background-size: 100% 100%;
@@ -52,7 +52,7 @@
 	flex-direction: column;
 	div {
 		margin: 40px;
-		cusror: pointer;
+		cursor: pointer;
 	}
 	button {
 		margin: 40px;
@@ -68,7 +68,7 @@
 	animation-fill-mode: forwards;
 }
 .hp-hero-text-elem {
-  .hp-flex;
+  @extend .hp-flex;
   margin-right: 4px;
 }
 .hp-hero-overlay-large-text {
@@ -95,9 +95,9 @@
 	-moz-display: flex;
 }
 .hp-hero-image-overlay {
-  .hp-flex;
-  .hp-flex-nowrap;
-  .hp-flex-centered;
+  @extend .hp-flex;
+  @extend .hp-flex-nowrap;
+  @extend .hp-flex-centered;
 	position: absolute;
 	flex-direction: column;
 	z-index: 10;
@@ -108,9 +108,9 @@
 	height: 100%;
 }
 .hp-hero-overlay-text {
-   .hp-flex;
-   .hp-flex-centered;
-   .hp-flex-nowrap;
+   @extend .hp-flex;
+   @extend .hp-flex-centered;
+   @extend .hp-flex-nowrap;
 	margin-top: 50px;
 	min-width: 100%;
 	max-width: 100%;
