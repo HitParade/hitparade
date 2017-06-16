@@ -1,11 +1,9 @@
 FROM node:7.10.0-alpine
 
 RUN mkdir -p /code/
+WORKDIR /code
 
 ADD hitparade/ /code/
-
-ADD package.json ./
-WORKDIR /code
 
 RUN npm install
 
