@@ -16,14 +16,14 @@ p.login-signup {
 }
 
 .feature-columns {
-    .make-row();
+    @include make-row();
 
     > div {
         i.fa {
             margin-bottom: 0.2em;
         }
-        .make-sm-column(4);
-        .text-center;
+        @include make-sm-column(4);
+        @extend .text-center;
         margin: 2em 0;
     }
 }

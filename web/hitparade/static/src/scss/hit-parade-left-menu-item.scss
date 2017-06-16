@@ -1,8 +1,8 @@
 .hp-header-item-text,
 .hp-header-item-text-right {
-    .hp-flex;
-    .hp-flex-nowrap;
-    .hp-flex-centered;
+    @extend .hp-flex;
+    @extend .hp-flex-nowrap;
+    @extend .hp-flex-centered;
 	margin-top: 5px;
 	font-size: 16px;
 }
@@ -15,8 +15,8 @@
 }
 .hp-header-item,
 .hp-header-item-right {
-    .hp-flex;
-    .hp-flex-centered;
+    @extend .hp-flex;
+    @extend .hp-flex-centered;
 	color: #ffffff;
 	flex-direction: row;
 	font-size: 12px;

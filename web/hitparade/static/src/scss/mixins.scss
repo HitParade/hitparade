@@ -12,6 +12,17 @@
   -ms-flex-direction: column;
   -o-flex-direction: column;
 }
+
+@include responsive('mobile') {
+  .hp-flex-column-mobile {
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+  }
+}
+
 .hp-flex-row {
   flex-direction: row;
   -webkit-flex-direction: row;
@@ -37,6 +48,14 @@
   justify-content: center;
   align-items: center;
 }
+
+@include responsive('mobile') {
+  .hp-flex-centered-mobile {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 .hp-flex-start {
   justify-content: flex-start;
   align-items: flex-start;
@@ -53,7 +72,33 @@
   -o-justify-content: flex-start;
   -o-align-items: flex-start;
 }
+
+@include responsive('mobile') {
+  .hp-flex-start-mobile {
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    -webkit-justify-content: flex-start;
+    -webkit-align-items: flex-start;
+
+    -moz-justify-content: flex-start;
+    -moz-align-items: flex-start;
+
+    -ms-justify-content: flex-start;
+    -ms-align-items: flex-start;
+
+    -o-justify-content: flex-start;
+    -o-align-items: flex-start;
+  }
+}
+
 .hp-flex-end {
   justify-content: flex-end;
   align-items: flex-end;
+}
+@include responsive('mobile') {
+  .hp-flex-end-mobile {
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
 }

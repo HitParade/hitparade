@@ -1,4 +1,4 @@
-@transitionLength: 0.4s;
+$transitionLength: 0.4s;
 
 .modal-container {
     position: fixed;
@@ -28,7 +28,7 @@
     position: absolute;
     background: #3B3B3B;
     opacity: 0;
-    transition: all @transitionLength;
+    transition: all $transitionLength;
     top: 0;
     bottom: 0;
     left: 0;
@@ -43,5 +43,5 @@
     transform: translate(-50%, -70%);
     max-width: 90%;
     opacity: 0;
-    transition: all @transitionLength;
+    transition: all $transitionLength;
 }
