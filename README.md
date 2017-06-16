@@ -59,7 +59,7 @@ Docs for the API can found at [http://localhost/docs](http://localhost/docs) or 
 
 The admin section is available at [http://localhost/admin](http://localhost/admin).
 
-The username / password is; `info@hitparade.co / password`
+The username / password is; `info@hitparade.co / changeme`
 
 ## Debugging
 
