@@ -32,7 +32,7 @@
 		animation-name: dropOverlay;
     	animation-duration: 1s;
 		animation-delay: 1s;
-		background-color: rgba(238,60,64,.6);
+		background-color: rgba(238,60,64,.7);
 		animation-fill-mode: forwards;
 }
 .hp-hero-image-container {
@@ -142,6 +142,7 @@
 	color: #ffffff;
 	cursor: pointer;
 	font-size: 16px;
+	font-weight: 100;
 	min-height: 60px;
 	letter-spacing: 0.5px;
 	object-fit: contain;
@@ -178,6 +179,7 @@
 	@include responsive('mobile') {
 		font-size: 36px;
 		letter-spacing: 2.4px;
+		margin-bottom: 5px;
 	}
 }
 
@@ -194,5 +196,6 @@
 	@include responsive('mobile-landscape') {
 		margin-left: 18px;
 		margin-bottom: 10px;
+		margin-top: 0;
 	}
 }

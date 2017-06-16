@@ -47,7 +47,8 @@
 @include responsive('mobile') {
 
    section.hp-hero-image-container {
-		    background-image: url('/static/dist/images/heroImageMobile.svg');
+		    // background-image: url('/static/dist/images/heroImageMobile.svg');
+        background-position: 63% 68px;
     }
     div.hp-why-content-container::after {
           background-image: url('/static/dist/images/mobileHero2.png');
@@ -74,10 +75,6 @@
     }
      div.hp-hero-text-elem {
        margin-top: 0;
-
-       &:first-child {
-         margin-top: 20px;
-       }
      }
      div.hp-logo-hero-img {
        margin-top: 5px;
@@ -125,14 +122,18 @@
         width: 99%;
     }
     section.hp-hero-overlay-medium-text {
-      font-size: 36px;
+      font-size: 33px;
       letter-spacing: 2.4px;
     }
     section.hp-hero-overlay-large-text {
-      font-size: 50px;
+      div {
+        margin-top: 10px;
+        font-size: 36px;
+      }
     }
     section.hp-hero-overlay-small-text {
       font-size: 24px;
+      letter-spacing: 5.3px;
     }
     img.hp-diamond-bullet {
       display: none;
@@ -210,12 +211,13 @@
     font-size: 12px;
   }
 	section.hp-hero-overlay-text {
-		    flex-direction: column;
-        margin-top: 0px;
+      flex-direction: column;
+      margin-top: 0px;
+      font-weight: 300;
 
-        &:first-child {
-		margin-top: 10px + $nav-spacing-desk-tablet
-	}
+      &:first-child {
+        margin-top: 10px + $nav-spacing-desk-tablet
+      }
 	}
   div.hp-left-bar {
       display: none;
@@ -272,6 +274,7 @@
 
   .hp-hero-bottom-overlay .hp-homepage-button {
     margin-bottom: 10px;
+    margin-top: 0;
   }
 }
 
@@ -286,10 +289,6 @@
       flex-direction: column;
     }
 	}
-
-  div.hp-hero-text-elem:first-child {
-    margin: 0;
-  }
 
   .hp-hero-bottom-overlay .hp-homepage-button {
     margin: 10px 0 0 0;
