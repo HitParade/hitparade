@@ -13,7 +13,6 @@ const HitParadeHeroImage = props => {
 
                     <section className="hp-hero-image-container"
                                 data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -100px;" data-anchor-target="#slide1">
-
                             </section>
                             <section className="hp-hero-image-container-overlay">
                             </section>
@@ -48,7 +47,7 @@ const HitParadeHeroImage = props => {
                                     <img src={props.imgRoot+'arrow.svg'} />
                                 </div>
                             </div>
-                        </section>`
+                        </section>
                     </section>
                </Parallax.Layer>
             </div>

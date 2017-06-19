@@ -36,7 +36,7 @@
 		animation-fill-mode: forwards;
 }
 .hp-hero-image-container {
-		background: url('/static/dist/images/Hero.png') center no-repeat;
+		background-image: url( $imageRoot + 'Hero.png');
     	background-attachment: fixed;
     	background-size: cover;
     	height: 100vh;
@@ -50,10 +50,6 @@
 	}
 .hp-hero-bottom-overlay {
 	flex-direction: column;
-	// div {
-	// 	margin: 40px;
-	// 	cursor: pointer;
-	// }
 	button {
 		margin: 40px;
 		margin-top: 17px;
@@ -159,6 +155,7 @@
 	height: auto;
 	max-height: 600px;
 }
+
 
 .hp-homepage-arrow-container {
 	div {
