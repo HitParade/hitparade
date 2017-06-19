@@ -41,7 +41,7 @@ DEBUG = True
 
 # SECURITY WARNING: THIS MUST BE COMPLETELY OVERRIDEN IN STAGE & PROD
 #   This allows us to use ngrok tunnels for debugging
-ALLOWED_HOSTS = ['.ngrok.io']
+ALLOWED_HOSTS = ['.ngrok.io', 'localhost', '127.0.0.1']
 
 
 # Application definition
