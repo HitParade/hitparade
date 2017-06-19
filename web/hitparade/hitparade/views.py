@@ -61,3 +61,4 @@ class GameStatView(viewsets.ModelViewSet):
             return GameStat.objects.all()
         else:
             return GameStat.objects.filter(**filter_kwargs)
+        
