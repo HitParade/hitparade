@@ -4,7 +4,7 @@ RUN mkdir -p /code/
 
 ADD hitparade/ /code/
 
-ADD package.json ./
+ADD hitparade/package.json ./
 WORKDIR /code
 
 RUN npm install
