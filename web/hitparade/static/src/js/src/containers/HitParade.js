@@ -8,6 +8,7 @@ import HitParadeHeroImage from '../components/HitParadeHeroImage';
 import HitParadeSectionWhy from '../components/HitParadeSectionWhy';
 import HitParadeHowItWorks from '../components/HitParadeHowItWorks';
 import HitParadeMailChimp from '../components/HitParadeMailChimp';
+import HitParadeCharts from '../components/HitParadeCharts';
 import Parallax from 'react-springy-parallax';
 class HitParade extends Component {
   static propTypes = {
@@ -69,6 +70,7 @@ class HitParade extends Component {
 
   		return (
   		    <div className="hp-hero-parallax-overlay">
+
                         <HitParadeHeader isLive='false' playersInCart={playersInCart} svgs={svgs} navs={navigationMethods} imgRoot={imgRoot} />
 
                         <Parallax  ref='parallax'
@@ -88,12 +90,13 @@ class HitParade extends Component {
 
                             <HitParadeHowItWorks  playersInCart={playersInCart} navigationMethods={navigationMethods} svgs={svgs} navs={navigationMethods}  imgRoot={imgRoot} />
 
-
                   </Parallax>
                    <ReactModal
                    isOpen={showModal}
                    contentLabel="Minimal Modal Example" >
                             <HitParadeMailChimp closeModal={closeModal} subscribe={closeModal}  imgRoot={imgRoot} />
+
+
                   </ReactModal>
 
                 </div> )

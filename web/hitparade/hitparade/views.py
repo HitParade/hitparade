@@ -5,7 +5,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.generics import GenericAPIView
 from rest_framework import viewsets, status
 
-from hitparade.models import Team, Game
+from hitparade.models import Team, Game, GameStat
 from hitparade.serializers import *
 
 
@@ -46,3 +46,18 @@ class PlayerListView(viewsets.ModelViewSet):
             return Player.objects.all()
         else:
             return Player.objects.filter(**filter_kwargs)
+
+
+class GameStatView(viewsets.ModelViewSet):
+    serializer_class = GameStatSerializerV1
+    pagination_class = None
+    def get_queryset(self):
+
+        filter_kwargs = {}
+        if 'player_id' in self.request.query_params:
+            filter_kwargs['player__id'] = self.request.query_params['player_id']
+
+        if len(filter_kwargs) == 0:
+            return GameStat.objects.all()
+        else:
+            return GameStat.objects.filter(**filter_kwargs)

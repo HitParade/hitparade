@@ -30,6 +30,7 @@ const HitParadeHeroImage = props => {
                                                 clickMethod={props.parallax}/>
                                                 <div className="animated infinite bounce"><img  onClick={props.parallax.bind(this)}  src={props.imgRoot+'arrow.svg'} /></div>
                                             </section>
+
                     </section>
                </Parallax.Layer>
             </div>
