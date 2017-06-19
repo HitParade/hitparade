@@ -47,11 +47,10 @@
 @include responsive('mobile') {
 
    section.hp-hero-image-container {
-		    // background-image: url('/static/dist/images/heroImageMobile.svg');
         background-position: 63% 68px;
     }
     div.hp-why-content-container::after {
-          background-image: url('/static/dist/images/mobileHero2.png');
+          background-image: url( $imageRoot + 'mobileHero2.png');
      }
     .header  {
       div.header-top {

@@ -5,7 +5,7 @@ import Parallax from 'react-springy-parallax';
 import siteContent from '../../siteContent';
 const HitParadeHeroImage = props => {
   return (
-        <div className="">
+        <div className="parallaxLayer1">
                 <Parallax.Layer
                     offset={0}
                     speed={0.5}
