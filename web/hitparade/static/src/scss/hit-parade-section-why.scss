@@ -1,8 +1,8 @@
 section.hp-why-header-bottom-panel-main {
   @extend .hp-flex;
   @extend .hp-flex-row;
-  align-items: flex-start;
-  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
   width: 95%;
   height: 96px;
 }
