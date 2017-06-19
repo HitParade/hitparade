@@ -60,5 +60,4 @@ class GameStatView(viewsets.ModelViewSet):
         if len(filter_kwargs) == 0:
             return GameStat.objects.all()
         else:
-            return GameStat.objects.filter(**filter_kwargs)
-        
+            return GameStat.objects.filter(**filter_kwargs) 
