@@ -2,12 +2,13 @@ import React, { PropTypes } from 'react';
 import HitParadeHowToPanel from './HitParadeHowToPanel';
 import HitParadeFooter from './HitParadeFooter';
 import Parallax from 'react-springy-parallax';
+import prallaxConfig from '../../parallaxConfig';
 const HitParadeHowItWorks = props => {
   return (
                   <section>
                     <Parallax.Layer
-                            offset={2.0}
-                            speed={1.1}
+                        offset={prallaxConfig.how.offset}
+			      speed={prallaxConfig.how.speed}
 							onClick={() => props.parallax}>
                         <section className="hp-section-how-it-works-container-first">
                               <section className="hp-section-how-h1 niveau-grotesk-black">WHY HIT PARADE</section>
@@ -44,6 +45,8 @@ const HitParadeHowItWorks = props => {
                     <Parallax.Layer
                             offset={3.0}
                             speed={0.5}
+                            offset={prallaxConfig.how2.offset}
+			            speed={prallaxConfig.how2.speed}
 							onClick={() => props.parallax}>
                         <section className="hp-section-how-it-works-container-second">
                         <section className="hp-section-how-h1 niveau-grotesk-black">HOW IT WORKS</section>

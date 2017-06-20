@@ -2,18 +2,23 @@ import React, { PropTypes } from 'react';
 import HitParadeButton from './HitParadeButton';
 import Parallax from 'react-springy-parallax';
 import Diamonds from './Diamonds';
+import { responsive }   from '../../responsive';
+import prallaxConfig from '../../parallaxConfig';
 
 const HitParadeSectionWhy = props => {
+
+  const isMobile = responsive('isMobile');
+  const { offset, speed } = prallaxConfig.why;
   return (
        <Parallax.Layer
-			offset={1.1}
-			speed={-0.1}
+			offset={offset}
+			speed={speed}
 			onClick={() => props.parallax}>
 
 					<div className="hp-why-content">
 						<Diamonds 
 							className="hp-section-why-header"
-							count="11" 
+							count={isMobile ? "5" : "11"}
 							src={props.imgRoot +'diamond.svg'}
 						/>
 					
@@ -50,7 +55,7 @@ const HitParadeSectionWhy = props => {
 						</div>
 					<Diamonds 
 						className="hp-section-why-footer"
-						count="11" 
+						count={isMobile ? "5" : "11"}
 						src={props.imgRoot +'diamond.svg'}
 					/>
 				</div>

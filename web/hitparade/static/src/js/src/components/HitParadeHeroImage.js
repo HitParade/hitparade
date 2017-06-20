@@ -3,12 +3,15 @@ import HitParadeLogo from './HitParadeLogo';
 import HitParadeButton from './HitParadeButton';
 import Parallax from 'react-springy-parallax';
 import siteContent from '../../siteContent';
+import prallaxConfig from '../../parallaxConfig';
+
 const HitParadeHeroImage = props => {
+    const { offset, speed } = prallaxConfig.hero;
   return (
         <div className="parallaxLayer1">
                 <Parallax.Layer
-                    offset={0}
-                    speed={0.5}
+                    offset={offset}
+			        speed={speed}
                     onClick={() => props.parallax}>
 
                     <section className="hp-hero-image-container"
