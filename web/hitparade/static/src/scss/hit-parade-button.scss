@@ -34,7 +34,8 @@
 .hp-why-register-button,
 .hp-why-register-button:focus,
 .hp-why-register-button:active {
-	width: 245px;
+	width: 100%;
+	max-width: 263px;
 	height: 60px;
 	object-fit: contain;
 	border-radius: 3px;
