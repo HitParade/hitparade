@@ -51,11 +51,15 @@ After installing, the stattlepy line needs to be edited back to the github
 install. This is because stattlepy currently doesn't have the package available
 via PyPi. We've asked Stattleship to do this.
 
+## API Docs
+
+Docs for the API can found at [http://localhost/docs](http://localhost/docs) or [http://127.0.0.1/admin](http://127.0.0.1/admin)
+
 ## Admin section
 
 The admin section is available at [http://localhost/admin](http://localhost/admin).
 
-The username / password is; `info@hitparade.co / password`
+The username / password is; `info@hitparade.co / changeme`
 
 ## Debugging
 

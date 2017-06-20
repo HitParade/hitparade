@@ -1,1 +1,39 @@
-[{"model": "account.account", "pk": 1, "fields": {"user": 1, "timezone": "", "language": "en-us"}}, {"model": "account.emailaddress", "pk": 1, "fields": {"user": 1, "email": "info@hitparade.co", "verified": false, "primary": true}}]
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$30000$AxyKaehacSGb$eAxO/7ihhTcybEJrrSlg/9n8I2LrQ+3SQUa1o6bPQOs=",
+      "last_login": "2017-06-13T19:38:29.665Z",
+      "is_superuser": true,
+      "username": "info@hitparade.co",
+      "first_name": "",
+      "last_name": "",
+      "email": "info@hitparade.co",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2017-06-13T19:38:18.468Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "account.emailaddress",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "email": "info@hitparade.co",
+      "verified": false,
+      "primary": true
+    }
+  },
+  {
+    "model": "account.account",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "timezone": "",
+      "language": "en-us"
+    }
+  }
+]
