@@ -7,6 +7,7 @@ $max-content-width: 1040px;
 $imageRoot: '/static/dist/images/';
 
 @import "vars.scss";
+@import "colors.scss";
 @import "mixins.scss";
 @import "mq.scss";
 @import "hit-parade-mail-chimp";

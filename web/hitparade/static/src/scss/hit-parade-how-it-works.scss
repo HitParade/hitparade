@@ -1,3 +1,7 @@
+.hp-how-it-works {
+    background-color: #f3f3ed;
+}
+
 .hp-section-how-container {
     @extend .hp-flex;
     @extend .hp-flex-row;
@@ -184,4 +188,115 @@
 	line-height: 1.06;
 	min-width: 50%;
 	position: absolute;
+}
+
+.how-it-works-steps-container {
+    @extend .hp-flex;
+    @extend .hp-flex-column;
+    @extend .hp-flex-centered;
+    margin: 0 20px;
+
+    @include responsive('mobile') {
+        margin: 0 10px;
+    }
+}
+
+$panelImageTranslateAmt: 14px;
+
+.steps-panel {
+    @extend .hp-flex;
+    @extend .hp-flex-row;
+    align-items: center;
+    justify-content: flex-start;
+    max-width: 100%;
+    width: $max-content-width;
+    position: relative;
+    height: 404px;
+    margin-bottom: 50px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &.reverse {
+        .steps-panel-image-container {
+            order: 1;
+            text-align: right;
+        }
+
+        .steps-panel-rectangle {
+            right: auto;
+            left: 0;
+        }
+
+        .steps-panel-text-container {
+            padding-left: 90px;
+        }
+
+        .steps-panel-image {
+            transform: translateX($panelImageTranslateAmt)
+        }
+    }
+}
+
+.steps-panel-rectangle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 50%;
+    border: solid 6px $desert;
+    box-sizing: border-box;
+    z-index: -1;
+}
+
+.steps-panel-text-container {
+    padding-left: 70px;
+    flex: 3 3;
+
+    @include responsive('mobile-tablet') {
+        flex: 2 2;
+    }
+}
+
+.steps-panel-title {
+    position: relative;
+    font-weight: bold;
+    font-size: 24px;
+    color: $charcole;
+    line-height: 1.17;
+
+    &:after {
+        $imageSize: 20px;
+        content: "";
+        content: "";
+        width: $imageSize;
+        height: $imageSize;
+        background: url($imageRoot + "diamondBullet.svg") center no-repeat;
+        background-size: $imageSize $imageSize;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        position: absolute;
+        left: -40px;
+    }
+}
+.steps-panel-body {
+    flex: 1 1;
+    padding-right: 30px;
+    font-size: 18px;
+	line-height: 1.33;
+	color: $charcole;
+}
+
+.steps-panel-image-container {
+    margin: 0;
+    flex: 5 5;
+    text-align: left;
+}
+
+.steps-panel-image {
+    max-width: 595px;
+    width: 100%;
+    transform: translateX(-$panelImageTranslateAmt)
 }

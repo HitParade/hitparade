@@ -27,7 +27,7 @@ const HitParadeSectionWhy = props => {
 									data-170-center="opacity: 1;transform: scale( 1.0 ); "
 									data-200-center="opacity: 1;transform: scale( 1.3 ); "
 									data-220-center="opacity: 0.01; transform:  scale( 0.1 ); ">
-								<img src={props.imgRoot +'coins.svg'}  className="hp-why-coin-image" />
+								<img src={props.imgRoot + 'coins.svg'}  className="hp-why-coin-image" />
 							</div>
 							<section className="hp-why-main-content">
 								<section className="hp-why-header-top niveau-grotesk-black">
