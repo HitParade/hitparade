@@ -278,12 +278,17 @@ $panelImageMobileTransform: translateX(0) scale(1.05);
     @include responsive('mobile') {
         left: 0;
         width: auto;
+        border-width: 4px;
     }
 }
 
 .steps-panel-text-container {
     padding-left: 70px;
     flex: 3 3;
+
+    @include responsive('tablet') {
+        padding-left: 35px;
+    }
 
     @include responsive('mobile-tablet') {
         flex: 2 2;
@@ -334,6 +339,10 @@ $panelImageMobileTransform: translateX(0) scale(1.05);
     margin: 0;
     flex: 5 5;
     text-align: left;
+
+    @include responsive('mobile') {
+        width: 100%;
+    }
 }
 
 .steps-panel-image {
@@ -342,6 +351,7 @@ $panelImageMobileTransform: translateX(0) scale(1.05);
     transform: translateX(-$panelImageTranslateAmt);
 
     @include responsive('mobile') {
+        max-width: 100%;
         transform: $panelImageMobileTransform;
     }
 }

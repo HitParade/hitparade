@@ -9,17 +9,17 @@ import prallaxConfig from '../../parallaxConfig';
 const HitParadeHowItWorks = props => {
       const howItWoksSteps = [
             {
-                  imgSrc: props.imgRoot + 'howItWorks1.svg',
+                  imgSrc: props.imgRoot + 'howItWorks1.png',
                   title: "STEP 1:",
                   body: "Choose a player from our database."
             },
             {
-                  imgSrc: props.imgRoot + 'howItWorks2.svg',
+                  imgSrc: props.imgRoot + 'howItWorks2.png',
                   title: "STEP 2:",
                   body: "View detailed analytics, stats for all of the chosen players history and view our predictions as to whether the player will get a hit."
             },
             {
-                  imgSrc: props.imgRoot + 'howItWorks3.svg',
+                  imgSrc: props.imgRoot + 'howItWorks3.png',
                   title: "STEP 3:",
                   body: "Choose the most probable player(s) to get a hit to Beat the Streak and WIN $5.6 million!"
             }
