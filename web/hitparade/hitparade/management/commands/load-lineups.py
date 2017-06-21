@@ -1,8 +1,10 @@
 import pprint
 
 import requests
+import datetime
+import pytz
 from bs4 import BeautifulSoup
-
+from pytz import timezone
 from django.core.management.base import BaseCommand
 from hitparade.models import Team, Official, Game, GameStat
 
@@ -53,6 +55,8 @@ class Command(BaseCommand):
         r = requests.get('http://www.rotowire.com/baseball/daily_lineups.htm')
 
         soup = BeautifulSoup(r.text, 'html.parser')
+        local = timezone('America/New_York')
+        now = local.localize(datetime.datetime.now())
 
         htmlMatches = [top.parent for top in soup.select("div.dlineups-topbox")]
 
@@ -61,14 +65,21 @@ class Command(BaseCommand):
         #pprint.pprint(matchups)
 
         for matchup in matchups:
-            matchup["Away"] = GameStat.get_team_ref('code', matchup["AwayTeam"])
-            matchup["Home"] = GameStat.get_team_ref('code', matchup["HomeTeam"])
-            matchup["OffKey"], matchup["Off"] = GameStat.get_umpire_ref('name', matchup["Ump"])
+            matchup["throwaway"], matchup["Away"] = GameStat.get_team_ref('code', matchup["AwayTeam"])
+            matchup["throwaway"], matchup["Home"] = GameStat.get_team_ref('code', matchup["HomeTeam"])
+            matchup["throwaway"], matchup["Off"] = GameStat.get_umpire_ref('name', matchup["Ump"])
 
             for person in matchup["AwayLineup"]:
-                person["Player"] = GameStat.get_player_ref('player', person["Name"])
+                matchup["throwaway"], person["Player"] = GameStat.get_player_ref('player', person["Name"])
 
             for person in matchup["HomeLineup"]:
-                person["Player"] = GameStat.get_player_ref('player', person["Name"])
+                matchup["throwaway"], person["Player"] = GameStat.get_player_ref('player', person["Name"])
 
-        pprint.pprint(matchups)
+            game = Game.objects.filter(season = now.year
+                ,on = now.strftime("on %B %d, %Y")
+                ,home_team = matchup["Home"]
+                ,away_team = matchup["Away"])
+
+            pprint.pprint(now)
+            pprint.pprint(now.strftime("on %B %d, %Y"))
+            #pprint.pprint(game)
