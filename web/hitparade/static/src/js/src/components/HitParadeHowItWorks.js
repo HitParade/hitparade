@@ -8,8 +8,8 @@ import prallaxConfig from '../../parallaxConfig';
 import siteContent from '../../siteContent.js';
 
 const HitParadeHowItWorks = props => {
-  const { header, subHeader, panels } = siteContent.content.howItWorksWhy
-  const { howItWorksSteps } = siteContent.content
+  const { header, subHeader, panels } = siteContent.content.howItWorksWhy;
+  const { howItWorksSteps } = siteContent.content;
   return (
                   <section className="hp-how-it-works">
                     <Parallax.Layer

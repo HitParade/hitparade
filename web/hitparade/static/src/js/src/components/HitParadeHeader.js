@@ -34,8 +34,10 @@ const HitParadeHeader = props => {
   return (
 
     <nav className="header">
-      <HitParadeLogo imgRoot={props.imgRoot} logoColor="#FFFFFF" className="hp-header-item-logo" logoWidth="126px" logoHeight="43px" logoViewBox="0 0 126 43"/>
-      {top_menu}
+      <div className="site-content-max-width header-content">
+        <HitParadeLogo imgRoot={props.imgRoot} logoColor="#FFFFFF" className="hp-header-item-logo" logoWidth="126px" logoHeight="43px" logoViewBox="0 0 126 43"/>
+        {top_menu}
+      </div>
     </nav>
   );
 };

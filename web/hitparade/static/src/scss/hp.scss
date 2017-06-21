@@ -24,6 +24,11 @@ div#skrollr-body {
 	height: 100vh;
 }
 
+.site-content-max-width {
+	max-width: $max-content-width;
+	width: 100%;
+}
+
 .hp-bottom-bar-text {
 	color: rgba(255,255,255,0.5);
 }
@@ -263,19 +268,6 @@ div#skrollr-body {
 	color: #2d2d2d;
 	font-size: 20px;
 }
-
-// .hp-why-header-bottom {
-//   @extend .hp-flex;
-//   @extend .hp-flex-start;
-//   @extend .hp-flex-nowrap;
-//   @extend .hp-flex-column;
-// 	// width: 684px;
-// 	height: auto;
-// 	font-size: 18px;
-// 	line-height: 1.33;
-// 	color: #2d2d2d;
-// }
-
 
 .hp-section-2 {
 	height: 600px;

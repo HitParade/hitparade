@@ -2,6 +2,11 @@
 .header
  {
     @extend .hp-flex;
+    justify-content: center;
+ }
+.footer-content,
+.header-content {
+    @extend .hp-flex;
     @extend .hp-flex-nowrap;
 	padding-left: 120px;
 	padding-right: 120px;
@@ -9,7 +14,18 @@
 	align-items: center;
     padding-left: 40px;
     padding-right: 40px;
+	height: 100%;
 }
+
+.footer-content {
+	@include responsive('mobile') {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 99%;
+	}
+}
+
 .footer {
     background-color: #2d2d2d;
     bottom: 0px;
