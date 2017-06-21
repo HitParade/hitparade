@@ -5,25 +5,10 @@ import HowItWorksStepsPanel from './HowItWorksStepsPanel';
 import HitParadeFooter from './HitParadeFooter';
 import Parallax from 'react-springy-parallax';
 import prallaxConfig from '../../parallaxConfig';
+import siteContent from '../../siteContent.js';
 
 const HitParadeHowItWorks = props => {
-      const howItWoksSteps = [
-            {
-                  imgSrc: props.imgRoot + 'howItWorks1.png',
-                  title: "STEP 1:",
-                  body: "Choose a player from our database."
-            },
-            {
-                  imgSrc: props.imgRoot + 'howItWorks2.png',
-                  title: "STEP 2:",
-                  body: "View detailed analytics, stats for all of the chosen players history and view our predictions as to whether the player will get a hit."
-            },
-            {
-                  imgSrc: props.imgRoot + 'howItWorks3.png',
-                  title: "STEP 3:",
-                  body: "Choose the most probable player(s) to get a hit to Beat the Streak and WIN $5.6 million!"
-            }
-      ]
+
   return (
                   <section className="hp-how-it-works">
                     <Parallax.Layer
@@ -33,7 +18,7 @@ const HitParadeHowItWorks = props => {
                         <section className="hp-section-how-it-works-container-first">
                               <section className="hp-section-how-h1 niveau-grotesk-black">WHY HIT PARADE</section>
                               <section className="hp-why-header-divider">
-                                    <img src={props.imgRoot+'divider.svg'}   className="hp-divider" />
+                                    <img src={siteContent.assets.divider}   className="hp-divider" />
                               </section>
                               <section className="hp-section-how-ct proxima-nova-regular">
                                 Use <span className="boldText">&nbsp;HitParade&nbsp;</span> to help shift the odds of <span className="boldText">&nbsp;Beat the Streak&nbsp;</span> in your favor!
@@ -69,13 +54,13 @@ const HitParadeHowItWorks = props => {
                         <section className="hp-section-how-it-works-container-second">
                         <section className="hp-section-how-h1 niveau-grotesk-black">HOW IT WORKS</section>
                         <section className="hp-why-header-divider">
-                            <img src={props.imgRoot+'divider.svg'}  className="hp-divider" />
+                            <img src={siteContent.assets.divider}  className="hp-divider" />
                         </section>
                               <section
                                     className="how-it-works-steps-container"
                               >
                                     {
-                                          _.map(howItWoksSteps, (panel, i) => 
+                                          _.map(siteContent.content.howItWorksSteps, (panel, i) => 
                                                 (<HowItWorksStepsPanel 
                                                       key={panel.title}
                                                       reverse={i % 2 !== 0}
