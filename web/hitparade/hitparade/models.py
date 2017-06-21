@@ -296,7 +296,7 @@ class GameStat(HitparadeModel):
             player = Player.objects.get_or_none(name=value)
 
             # Try the nickname
-            if value:
+            if player:
                 split_name = value.split(" ")
                 if player is None and len(split_name) > 1:
                     player = Player.objects.get_or_none(nickname=split_name[0], last_name=split_name[1])
@@ -460,6 +460,8 @@ class GameStat(HitparadeModel):
         u"BOS": "BOS",
         u"CHA": "CHW",
         u"CHN": "CHC",
+        u"CHC": "CHC",
+        u"CWS": "CHW",
         u"CIN": "CIN",
         u"CLE": "CLE",
         u"COL": "COL",
@@ -469,6 +471,7 @@ class GameStat(HitparadeModel):
         u"KC": "KC",
         u"LA": "LA",
         u"LAN": "LA",
+        u"LAD": "LA",
         u"LAA": "LAA",
         u"MIA": "MIA",
         u"MIL": "MIL",
@@ -477,9 +480,11 @@ class GameStat(HitparadeModel):
         # u"MON": "",
         u"NYA": "NYY",
         u"NYN": "NYM",
+        u"NYY": "NYY",
+        u"NYM": "NYM",
         u"OAK": "OAK",
         u"PHI": "PHI",
-        u"PIT": "PHI",
+        u"PIT": "PIT",
         u"SD": "SD",
         u"SEA": "SEA",
         u"SF": "SF",
