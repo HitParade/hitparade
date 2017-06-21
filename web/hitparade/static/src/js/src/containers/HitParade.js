@@ -7,6 +7,7 @@ import HitParadeHeader from '../components/HitParadeHeader';
 import HitParadeHeroImage from '../components/HitParadeHeroImage';
 import HitParadeSectionWhy from '../components/HitParadeSectionWhy';
 import HitParadeHowItWorks from '../components/HitParadeHowItWorks';
+import HitParadeFooter from '../components/HitParadeFooter';
 import HitParadeMailChimp from '../components/HitParadeMailChimp';
 import Parallax from 'react-springy-parallax';
 import Modal from '../components/Modal';
@@ -72,9 +73,9 @@ class HitParade extends Component {
   		    <div className="hp-hero-parallax-overlay">
                         <HitParadeHeader isLive='false' playersInCart={playersInCart} svgs={svgs} navs={navigationMethods} imgRoot={imgRoot} />
 
-                        <Parallax  ref='parallax'
+                        {/*<Parallax  ref='parallax'
                                    pages={5}
-                                   className="hp-hero-parallax">
+                                   className="hp-hero-parallax">*/}
 
 
 
@@ -87,10 +88,21 @@ class HitParade extends Component {
 
                             <HitParadeSectionWhy   parallax={() => this.refs.parallax.scrollTo(2)} refs={this.refs}  navs={navigationMethods} imgRoot={imgRoot}  />
 
-                            <HitParadeHowItWorks  playersInCart={playersInCart} navigationMethods={navigationMethods} svgs={svgs} navs={navigationMethods}  imgRoot={imgRoot} />
+                            <HitParadeHowItWorks  
+                              playersInCart={playersInCart} 
+                              navigationMethods={navigationMethods} 
+                              svgs={svgs} 
+                              navs={navigationMethods}  
+                              imgRoot={imgRoot} 
+                            />
+                             <HitParadeFooter 
+                              playersInCart={playersInCart} 
+                              svgs={svgs} 
+                              navs={navigationMethods}  
+                              imgRoot={imgRoot} 
+                            />
 
-
-                  </Parallax>
+                  {/*</Parallax>*/}
                   <Modal
                     isOpen={showModal}
                     closeModal={closeModal}

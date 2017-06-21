@@ -66,6 +66,7 @@ section.hp-why-header-bottom-panel-main {
     @extend .hp-flex-row;
     @extend .hp-flex-wrap;
     @extend .hp-flex-centered;
+	padding: 35px 0;
 }
 .hp-why-coin-image-container {
     @extend .hp-flex;

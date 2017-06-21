@@ -44,14 +44,7 @@ div#skrollr-body {
 	font-size: 14px;
 	color: rgba(255,255,255,0.5);
 }
-.hp-right-bar {
-  @extend .hp-flex;
-  @extend .hp-flex-row;
-  @extend .hp-flex-nowrap;
- 	justify-content: flex-end;
-	align-items: center;
-    width: 20%;
-}
+
 .removed {
 	display: none;
 }
@@ -198,7 +191,6 @@ div#skrollr-body {
     @extend .hp-flex-nowrap;
 	justify-content: flex-end;
 	align-items: center;
-    width: 20%;
 }
 
 .removed {
