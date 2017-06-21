@@ -1,66 +1,73 @@
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
+import Parallax from 'react-springy-parallax';
 import HitParadeHowToPanel from './HitParadeHowToPanel';
 import HowItWorksStepsPanel from './HowItWorksStepsPanel';
 import HitParadeFooter from './HitParadeFooter';
-import Parallax from 'react-springy-parallax';
 import prallaxConfig from '../../parallaxConfig';
 import siteContent from '../../siteContent.js';
 
 const HitParadeHowItWorks = props => {
-
+  const { header, subHeader, panels } = siteContent.content.howItWorksWhy
+  const { howItWorksSteps } = siteContent.content
   return (
                   <section className="hp-how-it-works">
                     <Parallax.Layer
                         offset={prallaxConfig.how.offset}
 			      speed={prallaxConfig.how.speed}
-							onClick={() => props.parallax}>
+                        onClick={() => props.parallax}
+                    >
                         <section className="hp-section-how-it-works-container-first">
-                              <section className="hp-section-how-h1 niveau-grotesk-black">WHY HIT PARADE</section>
+                              <section className="hp-section-how-h1 niveau-grotesk-black">
+                                    {header}
+                              </section>
                               <section className="hp-why-header-divider">
-                                    <img src={siteContent.assets.divider}   className="hp-divider" />
+                                    <img 
+                                          src={siteContent.assets.divider}   
+                                          className="hp-divider" 
+                                    />
                               </section>
                               <section className="hp-section-how-ct proxima-nova-regular">
-                                Use <span className="boldText">&nbsp;HitParade&nbsp;</span> to help shift the odds of <span className="boldText">&nbsp;Beat the Streak&nbsp;</span> in your favor!
+                                {subHeader[0]} 
+                                <span className="boldText">
+                                      &nbsp;
+                                          {subHeader[1]}
+                                      &nbsp;
+                                </span> 
+                                {subHeader[2]} 
+                                <span className="boldText">
+                                      &nbsp;
+                                          {subHeader[3]}
+                                      &nbsp;
+                                </span> 
+                                {subHeader[4]}
                               </section>
                                 <section className="hp-section-how-graphics-panel-container">
                                    <section className="hp-section-how-graphics-panel">
-                                      <HitParadeHowToPanel
-                                        imgRoot={props.imgRoot}
-                                        svg="detailedStats.svg"
-                                        h1Text="Detailed Statistics"
-                                        descText="HitParade visualizes both detailed historical and upcoming game stats to surface the best picks." />
-
-                                      <HitParadeHowToPanel
-                                        imgRoot={props.imgRoot}
-                                        svg="predictiveEngine.svg"
-                                        h1Text="Predictive Engine"
-                                        descText="HitParade uses a custom predictive engine to predict if a player will get a hit in an upcoming game." />
-
-                                      <HitParadeHowToPanel
-                                        imgRoot={props.imgRoot}
-                                        svg="confidenceLevel.svg"
-                                        h1Text="Confidence Level"
-                                        descText="We will give you a detailed data visualization and Confidence Level in how likely our prediction is to occur." />
+                                    {
+                                          _.map(panels, (panel) => 
+                                                (<HitParadeHowToPanel
+                                                      key={panel.h1Text}
+                                                      { ...panel }
+                                                />))
+                                    }
                                    </section>
-                                    </section>
-                                </section>
-
+                              </section>
+                        </section>
                       </Parallax.Layer>
                     <Parallax.Layer
-                            offset={prallaxConfig.how2.offset}
-			            speed={prallaxConfig.how2.speed}
-							onClick={() => props.parallax}>
+                        offset={prallaxConfig.how2.offset}
+                        speed={prallaxConfig.how2.speed}
+                        onClick={() => props.parallax}
+                    >
                         <section className="hp-section-how-it-works-container-second">
-                        <section className="hp-section-how-h1 niveau-grotesk-black">HOW IT WORKS</section>
+                        <section className="hp-section-how-h1 niveau-grotesk-black">{howItWorksSteps.header}</section>
                         <section className="hp-why-header-divider">
                             <img src={siteContent.assets.divider}  className="hp-divider" />
                         </section>
-                              <section
-                                    className="how-it-works-steps-container"
-                              >
+                              <section className="how-it-works-steps-container">
                                     {
-                                          _.map(siteContent.content.howItWorksSteps, (panel, i) => 
+                                          _.map(howItWorksSteps.steps, (panel, i) => 
                                                 (<HowItWorksStepsPanel 
                                                       key={panel.title}
                                                       reverse={i % 2 !== 0}
@@ -70,16 +77,19 @@ const HitParadeHowItWorks = props => {
                               </section>
                         </section>
 
-
                       </Parallax.Layer>
-                      <HitParadeFooter playersInCart={props.playersInCart} svgs={props.svgs} navs={props.navigationMethods}  imgRoot={props.imgRoot} />
+                      <HitParadeFooter 
+                        playersInCart={props.playersInCart} 
+                        svgs={props.svgs} navs={props.navigationMethods}  
+                        imgRoot={props.imgRoot} 
+                      />
 
                     </section>
 
         );
 }
 HitParadeHowItWorks.propTypes = {
-	navs: PropTypes.object.isRequired,
+    navs: PropTypes.object.isRequired,
     playersInCart: PropTypes.number.isRequired,
     imgRoot: PropTypes.string.isRequired,
     svgs: PropTypes.object.isRequired,
