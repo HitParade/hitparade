@@ -39,7 +39,9 @@ SECRET_KEY = get_env_variable('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# SECURITY WARNING: THIS MUST BE COMPLETELY OVERRIDEN IN STAGE & PROD
+#   This allows us to use ngrok tunnels for debugging
+ALLOWED_HOSTS = ['.ngrok.io', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -187,8 +189,7 @@ STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesSto
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = [
-    # "django.contrib.staticfiles.finders.FileSystemFinder",
-    # "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
 # VERRRRY temporary
