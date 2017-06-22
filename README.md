@@ -27,13 +27,9 @@ The app will be available at either [http://localhost/](localhost) or [http://12
 ## Additional steps to load base data
 
 Load teams, players & BIS Data
+
 ```bash
-docker-compose exec web ./manage.py load-teams
-docker-compose exec web ./manage.py load-players
-docker-compose exec web ./manage.py load-games
-docker-compose exec web ./manage.py load-bis-historical
-docker-compose exec web ./manage.py load-bis-daily --date 20170301
-docker-compose exec web ./manage.py load-atbats
+docker-compose exec web ./manage.py load-initial
 ```
 
 ## Run tests
