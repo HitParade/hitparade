@@ -19,7 +19,8 @@ const HitParadeHowItWorks = props => {
                               className="hp-divider" 
                         />
                   </section>
-                  <section className="hp-section-how-ct proxima-nova-regular">
+                  <section 
+                        className="hp-section-how-ct proxima-nova-regular">
                         {subHeader[0]} 
                         <span className="boldText">
                               &nbsp;
@@ -46,7 +47,10 @@ const HitParadeHowItWorks = props => {
                         </section>
                   </section>
             </section>
-            <section className="hp-section-how-it-works-container-second">
+            <section 
+                  id="howItWorksStepsReactScrollName"
+                  className="hp-section-how-it-works-container-second"
+            >
             <section className="hp-section-how-h1 niveau-grotesk-black">{howItWorksSteps.header}</section>
             <section className="hp-why-header-divider">
                   <img src={siteContent.assets.divider}  className="hp-divider" />
@@ -68,10 +72,6 @@ const HitParadeHowItWorks = props => {
 }
 HitParadeHowItWorks.propTypes = {
     navs: PropTypes.object.isRequired,
-    playersInCart: PropTypes.number.isRequired,
-    imgRoot: PropTypes.string.isRequired,
-    svgs: PropTypes.object.isRequired,
-    navigationMethods:  PropTypes.object.isRequired,
 };
 
 export default HitParadeHowItWorks;

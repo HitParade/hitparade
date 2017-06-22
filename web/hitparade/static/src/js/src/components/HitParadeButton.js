@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 const HitParadeButton = props => {
   return (
-            <button className={props.className} onClick={() => props.clickMethod()}>
+            <button className={props.className} onClick={() => props.onClick()}>
             		{props.buttonText}
             </button>
         );
@@ -10,7 +10,7 @@ const HitParadeButton = props => {
 HitParadeButton.propTypes = {
 	className: PropTypes.string.isRequired,
 	buttonText: PropTypes.string.isRequired,
-	clickMethod: PropTypes.func.isRequired,
+	onClick: PropTypes.func.isRequired,
 };
 
 export default HitParadeButton;

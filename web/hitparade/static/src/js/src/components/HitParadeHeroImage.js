@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import HitParadeLogo from './HitParadeLogo';
 import HitParadeButton from './HitParadeButton';
 import siteContent from '../../siteContent';
+import { scroller } from 'react-scroll';
 
 const HitParadeHeroImage = props => {
   return (
@@ -31,10 +32,10 @@ const HitParadeHeroImage = props => {
                     <HitParadeButton
                         className="hp-homepage-button niveau-grotesk-black"
                         buttonText="SEE THE PLAYERS"
-                        clickMethod={props.parallax}/>
+                        onClick={() => props.scrollTo.howItWorks()}/>
                     <div
                         className="hp-homepage-arrow-container"
-                        onClick={props.parallax.bind(this)}
+                        onClick={() => props.scrollTo.howItWorks()}
                     >
                         <div 
                             className="animated infinite bounce"
@@ -50,6 +51,6 @@ const HitParadeHeroImage = props => {
 HitParadeHeroImage.propTypes = {
     img: PropTypes.string.isRequired,
     navs: PropTypes.object.isRequired,
-    parallax: PropTypes.func.isRequired,
+    scrollTo: PropTypes.object.isRequired,
 };
 export default HitParadeHeroImage;

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ReactModal from 'react-modal';
+import { scroller } from 'react-scroll';
 import * as HitParadeActionCreators from '../actions/hitparade';
 import HitParadeHeader from '../components/HitParadeHeader';
 import HitParadeHeroImage from '../components/HitParadeHeroImage';
@@ -10,6 +11,11 @@ import HitParadeHowItWorks from '../components/HitParadeHowItWorks';
 import HitParadeFooter from '../components/HitParadeFooter';
 import HitParadeMailChimp from '../components/HitParadeMailChimp';
 import Modal from '../components/Modal';
+
+const scrollTargets = {
+  howItWorks: 'howItWorksStepsReactScrollName'
+}
+
 class HitParade extends Component {
   static propTypes = {
       playersInCart: PropTypes.number.isRequired,
@@ -18,6 +24,18 @@ class HitParade extends Component {
       svgs: PropTypes.object.isRequired,
       showModal: PropTypes.bool.isRequired,
   }; 
+
+  scrollTo(scrollTargetName) {
+      const target = scrollTargets[scrollTargetName];
+      console.log('target', target);
+      scroller.scrollTo(target, {
+          duration: 700,
+          delay: 0,
+          smooth: "easeOutElastic",
+          offset: -100,
+          smooth: true,
+      })
+}
 
   render() {
       const { 
@@ -87,7 +105,9 @@ class HitParade extends Component {
                           imgRoot={imgRoot} 
                         />
                             <HitParadeHeroImage
-                                parallax={() => this.refs.parallax.scrollTo(3)}
+                                scrollTo={{
+                                  howItWorks: () => this.scrollTo('howItWorks')
+                                }}
                                 img={heroImage}
                                 imgMobile={heroImageMobile}
                                 navs={navigationMethods}
@@ -102,11 +122,7 @@ class HitParade extends Component {
                             />
 
                             <HitParadeHowItWorks  
-                              playersInCart={playersInCart} 
-                              navigationMethods={navigationMethods} 
-                              svgs={svgs} 
                               navs={navigationMethods}  
-                              imgRoot={imgRoot} 
                             />
                              <HitParadeFooter 
                               playersInCart={playersInCart} 
