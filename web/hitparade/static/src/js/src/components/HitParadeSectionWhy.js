@@ -1,14 +1,10 @@
 import React, { PropTypes } from 'react';
 import HitParadeButton from './HitParadeButton';
-import Parallax from 'react-springy-parallax';
 import Diamonds from './Diamonds';
 import { responsive }   from '../../responsive';
-import prallaxConfig from '../../parallaxConfig';
 
 const HitParadeSectionWhy = props => {
-
   const isMobile = responsive('isMobile');
-  const { offset, speed } = prallaxConfig.why;
   return (
 		<div className="hp-why-content">
 			<Diamonds 

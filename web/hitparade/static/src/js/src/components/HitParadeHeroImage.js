@@ -1,14 +1,11 @@
 import React, { PropTypes } from 'react';
 import HitParadeLogo from './HitParadeLogo';
 import HitParadeButton from './HitParadeButton';
-import Parallax from 'react-springy-parallax';
 import siteContent from '../../siteContent';
-import prallaxConfig from '../../parallaxConfig';
 
 const HitParadeHeroImage = props => {
-    const { offset, speed } = prallaxConfig.hero;
   return (
-        <div className="parallaxLayer1">
+        <div className="hp-hero">
             <section className="hp-hero-image-container"
                         data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -100px;" data-anchor-target="#slide1">
                     </section>

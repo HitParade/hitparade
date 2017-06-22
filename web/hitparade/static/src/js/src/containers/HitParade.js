@@ -9,7 +9,6 @@ import HitParadeSectionWhy from '../components/HitParadeSectionWhy';
 import HitParadeHowItWorks from '../components/HitParadeHowItWorks';
 import HitParadeFooter from '../components/HitParadeFooter';
 import HitParadeMailChimp from '../components/HitParadeMailChimp';
-import Parallax from 'react-springy-parallax';
 import Modal from '../components/Modal';
 class HitParade extends Component {
   static propTypes = {
@@ -21,7 +20,16 @@ class HitParade extends Component {
   }; 
 
   render() {
-      const { dispatch, imgRoot, playersInCart, heroImage, heroImageMobile, svgs, showModal } = this.props;
+      const { 
+        dispatch, 
+        imgRoot, 
+        playersInCart, 
+        heroImage, 
+        heroImageMobile, 
+        svgs, 
+        showModal 
+      } = this.props;
+
       const selectPlayer = bindActionCreators(HitParadeActionCreators.selectPlayer, dispatch);
       const removePlayer = bindActionCreators(HitParadeActionCreators.removePlayer, dispatch);
 
@@ -71,22 +79,27 @@ class HitParade extends Component {
 
   		return (
   		    <div className="hp-hero-parallax-overlay">
-                        <HitParadeHeader isLive='false' playersInCart={playersInCart} svgs={svgs} navs={navigationMethods} imgRoot={imgRoot} />
+                        <HitParadeHeader 
+                          isLive='false' 
+                          playersInCart={playersInCart} 
+                          svgs={svgs} 
+                          navs={navigationMethods} 
+                          imgRoot={imgRoot} 
+                        />
+                            <HitParadeHeroImage
+                                parallax={() => this.refs.parallax.scrollTo(3)}
+                                img={heroImage}
+                                imgMobile={heroImageMobile}
+                                navs={navigationMethods}
+                                imgRoot={imgRoot} 
+                            />
 
-                        {/*<Parallax  ref='parallax'
-                                   pages={5}
-                                   className="hp-hero-parallax">*/}
-
-
-
-                             <HitParadeHeroImage
-                                 parallax={() => this.refs.parallax.scrollTo(3)}
-                                 img={heroImage}
-                                 imgMobile={heroImageMobile}
-                                 navs={navigationMethods}
-                                 imgRoot={imgRoot} />
-
-                            <HitParadeSectionWhy   parallax={() => this.refs.parallax.scrollTo(2)} refs={this.refs}  navs={navigationMethods} imgRoot={imgRoot}  />
+                            <HitParadeSectionWhy
+                              parallax={() => this.refs.parallax.scrollTo(2)}
+                              refs={this.refs}
+                              navs={navigationMethods}
+                              imgRoot={imgRoot}
+                            />
 
                             <HitParadeHowItWorks  
                               playersInCart={playersInCart} 
@@ -101,13 +114,15 @@ class HitParade extends Component {
                               navs={navigationMethods}  
                               imgRoot={imgRoot} 
                             />
-
-                  {/*</Parallax>*/}
                   <Modal
                     isOpen={showModal}
                     closeModal={closeModal}
                   >
-                     <HitParadeMailChimp closeModal={closeModal} subscribe={closeModal}  imgRoot={imgRoot} />
+                     <HitParadeMailChimp 
+                      closeModal={closeModal} 
+                      subscribe={closeModal}  
+                      imgRoot={imgRoot} 
+                     />
                   </Modal>
 
                 </div> )

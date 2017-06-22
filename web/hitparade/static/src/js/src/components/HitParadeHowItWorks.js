@@ -1,9 +1,7 @@
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
-import Parallax from 'react-springy-parallax';
 import HitParadeHowToPanel from './HitParadeHowToPanel';
 import HowItWorksStepsPanel from './HowItWorksStepsPanel';
-import prallaxConfig from '../../parallaxConfig';
 import siteContent from '../../siteContent.js';
 
 const HitParadeHowItWorks = props => {
