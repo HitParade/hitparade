@@ -32,7 +32,7 @@ const HitParadeHeroImage = props => {
                     <HitParadeButton
                         className="hp-homepage-button niveau-grotesk-black"
                         buttonText="SEE THE PLAYERS"
-                        onClick={() => props.scrollTo.howItWorks()}/>
+                        clickMethod={() => props.scrollTo.howItWorks()}/>
                     <div
                         className="hp-homepage-arrow-container"
                         onClick={() => props.scrollTo.howItWorks()}

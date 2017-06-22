@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 const HitParadeButton = props => {
   return (
-            <button className={props.className} onClick={() => props.onClick()}>
+            <button className={props.className} onClick={() => props.clickMethod()}>
             		{props.buttonText}
             </button>
         );
