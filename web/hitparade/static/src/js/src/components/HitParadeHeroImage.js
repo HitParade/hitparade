@@ -31,7 +31,7 @@ const HitParadeHeroImage = props => {
                     <section className="hp-hero-overlay-text hp-hero-bottom-overlay">
                     <HitParadeButton
                         className="hp-homepage-button niveau-grotesk-black"
-                        buttonText="SEE THE PLAYERS"
+                        buttonText="See How it Works"
                         clickMethod={() => props.scrollTo.howItWorks()}/>
                     <div
                         className="hp-homepage-arrow-container"
