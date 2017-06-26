@@ -324,6 +324,13 @@ class GameStat(HitparadeModel):
         else:
             return key, official
 
+    @staticmethod
+    def get_venue_by_city(city):
+        return Venue.objects.get_or_none(city=city)
+    
+    @staticmethod
+    def get_venue_by_lat_long(lat, long):
+        return Venue.objects.get_or_none(latitude=lat,longitude=long)
 
     @staticmethod
     def get_venue_ref(key, venue_name):
@@ -350,6 +357,9 @@ class GameStat(HitparadeModel):
         else:
             return key, date
 
+    @staticmethod
+    def get_game_by_slug(slug):
+        return Game.objects.filter(slug = slug)
 
     @staticmethod
     def denaive_date(key, date):
