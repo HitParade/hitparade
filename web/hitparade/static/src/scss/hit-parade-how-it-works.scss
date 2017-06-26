@@ -1,3 +1,12 @@
+.hp-how-it-works {
+    background-color: #f3f3ed;
+    padding: 60px 0;
+
+    @include responsive('mobile') {
+        padding: 10px 0;
+    }
+}
+
 .hp-section-how-container {
     @extend .hp-flex;
     @extend .hp-flex-row;
@@ -58,7 +67,7 @@
     @extend .hp-flex-row;
     @extend .hp-flex-wrap;
     @extend .hp-flex-centered;
-    width: 100%;
+    margin: 0 10px;
 }
 .hp-section-how-graphics-panel {
     @extend .hp-flex;
@@ -67,7 +76,6 @@
     @extend .hp-flex-centered;
     width: 100%;
 	max-width: 980px;
-    margin-top: 20px;
 }
 .hp-section-how {
     @extend .hp-flex;
@@ -91,7 +99,6 @@
 	line-height: 1.0;
 	text-align: center;
 	color: #2d2d2d;
-    margin-top: 130px;
 }
 .hp-section-how-ct {
    @extend .hp-flex;
@@ -184,4 +191,179 @@
 	line-height: 1.06;
 	min-width: 50%;
 	position: absolute;
+}
+
+.how-it-works-steps-container {
+    @extend .hp-flex;
+    @extend .hp-flex-column;
+    @extend .hp-flex-centered;
+    margin: 0 20px;
+
+    @include responsive('mobile') {
+        margin: 15px 10px 0;
+    }
+}
+
+.hp-section-how-it-works-container-second {
+    margin-top: 40px;
+}
+
+$panelImageTranslateAmt: 14px;
+$panelImageMobileTransform: translateX(0) scale(1.05);
+
+.steps-panel {
+    @extend .hp-flex;
+    @extend .hp-flex-row;
+    align-items: center;
+    justify-content: flex-start;
+    max-width: 100%;
+    width: $max-content-width;
+    position: relative;
+    min-height: 404px;
+    margin-bottom: 50px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &.reverse {
+        .steps-panel-image-container {
+            order: 1;
+            text-align: right;
+
+        }
+
+        .steps-panel-rectangle {
+            right: auto;
+            left: 0;
+        }
+
+        .steps-panel-text-container {
+            padding-left: 90px;
+        }
+
+        .steps-panel-image {
+            transform: translateX($panelImageTranslateAmt)
+        }
+    }
+
+    @include responsive('mobile') {
+        flex-direction: column;
+        margin-bottom: 20px;
+        min-height: 304px;
+
+         &.reverse {
+            .steps-panel-image-container {
+                order: 0;
+            }
+
+            .steps-panel-rectangle {
+                right: 0;
+            }
+
+            .steps-panel-image {
+                transform: $panelImageMobileTransform;
+            }
+
+            .steps-panel-text-container {
+                padding-left: 20px;
+            }
+        }
+    }
+}
+
+.steps-panel-rectangle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 50%;
+    border: solid 6px $desert;
+    box-sizing: border-box;
+    z-index: 0;
+
+    @include responsive('mobile') {
+        left: 0;
+        width: auto;
+        border-width: 4px;
+    }
+}
+
+.steps-panel-text-container {
+    padding-left: 70px;
+    flex: 3 3;
+
+    @include responsive('mobile-tablet') {
+        flex: 2 2;
+    }
+
+    @include responsive('tablet') {
+        padding-left: 35px;
+    }
+
+    @include responsive('mobile') {    
+        padding-left: 20px;
+        padding-top: 10px;
+        align-self: flex-start;
+    }
+}
+
+.steps-panel-title {
+    position: relative;
+    font-weight: bold;
+    font-size: 24px;
+    color: $charcoal;
+    line-height: 1.17;
+
+    &:after {
+        $imageSize: 20px;
+        content: "";
+        content: "";
+        width: $imageSize;
+        height: $imageSize;
+        background: url($imageRoot + "diamondBullet.svg") center no-repeat;
+        background-size: $imageSize $imageSize;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        position: absolute;
+        left: -40px;
+    }
+
+    @include responsive('mobile') {
+        font-size: 20px;
+        margin-left: 40px;
+    }
+}
+.steps-panel-body {
+    flex: 1 1;
+    padding-right: 30px;
+    font-size: 18px;
+	line-height: 1.33;
+	color: $charcoal;
+
+    @include responsive('mobile') {
+        font-size: 16px;
+    }
+}
+
+.steps-panel-image-container {
+    margin: 0;
+    flex: 5 5;
+    text-align: left;
+
+    @include responsive('mobile') {
+        width: 100%;
+    }
+}
+
+.steps-panel-image {
+    max-width: 595px;
+    width: 100%;
+    transform: translateX(-$panelImageTranslateAmt);
+
+    @include responsive('mobile') {
+        max-width: 100%;
+        transform: $panelImageMobileTransform;
+    }
 }

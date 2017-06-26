@@ -9,10 +9,10 @@ body {
   overflow: hidden;
   overflow-y: auto;
 }
+
 html,
 body,
 section {
-    max-width: 100%;
 	margin: 0px;
 	padding: 0px;
 
@@ -22,6 +22,11 @@ div#root,
 div#skrollr-body {
 	max-height: 100vh;
 	height: 100vh;
+}
+
+.site-content-max-width {
+	max-width: $max-content-width;
+	width: 100%;
 }
 
 .hp-bottom-bar-text {
@@ -39,14 +44,7 @@ div#skrollr-body {
 	font-size: 14px;
 	color: rgba(255,255,255,0.5);
 }
-.hp-right-bar {
-  @extend .hp-flex;
-  @extend .hp-flex-row;
-  @extend .hp-flex-nowrap;
- 	justify-content: flex-end;
-	align-items: center;
-    width: 20%;
-}
+
 .removed {
 	display: none;
 }
@@ -193,7 +191,6 @@ div#skrollr-body {
     @extend .hp-flex-nowrap;
 	justify-content: flex-end;
 	align-items: center;
-    width: 20%;
 }
 
 .removed {
@@ -263,19 +260,6 @@ div#skrollr-body {
 	color: #2d2d2d;
 	font-size: 20px;
 }
-
-.hp-why-header-bottom {
-  @extend .hp-flex;
-  @extend .hp-flex-start;
-  @extend .hp-flex-nowrap;
-  @extend .hp-flex-column;
-	width: 684px;
-	height: auto;
-	font-size: 18px;
-	line-height: 1.33;
-	color: #2d2d2d;
-}
-
 
 .hp-section-2 {
 	height: 600px;

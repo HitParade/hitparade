@@ -23,11 +23,6 @@ footer.footer {
 	background-color: #2d2d2d;
     bottom: 0px;
 	height: 128px;
-    position: absolute;
-    left: 0px;
-    bottom: 0px;
-    right: 0px;
-    z-index: 10000;
     opacity: 1;
 }
 .hp-footer-logo-ph {
@@ -70,7 +65,6 @@ footer.footer {
     @extend .hp-flex-nowrap;
   	justify-content: flex-start;
 	align-items: center;
-    width: 50%;
 }
 .hp-footer-menu-bar-desktop,
 .hp-footer-menu-bar-mobile {

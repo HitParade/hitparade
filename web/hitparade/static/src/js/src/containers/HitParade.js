@@ -2,14 +2,20 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ReactModal from 'react-modal';
+import { scroller } from 'react-scroll';
 import * as HitParadeActionCreators from '../actions/hitparade';
 import HitParadeHeader from '../components/HitParadeHeader';
 import HitParadeHeroImage from '../components/HitParadeHeroImage';
 import HitParadeSectionWhy from '../components/HitParadeSectionWhy';
 import HitParadeHowItWorks from '../components/HitParadeHowItWorks';
+import HitParadeFooter from '../components/HitParadeFooter';
 import HitParadeMailChimp from '../components/HitParadeMailChimp';
-import Parallax from 'react-springy-parallax';
 import Modal from '../components/Modal';
+
+const scrollTargets = {
+  howItWorks: 'howItWorksStepsReactScrollName'
+}
+
 class HitParade extends Component {
   static propTypes = {
       playersInCart: PropTypes.number.isRequired,
@@ -19,8 +25,29 @@ class HitParade extends Component {
       showModal: PropTypes.bool.isRequired,
   }; 
 
+  scrollTo(scrollTargetName) {
+      const target = scrollTargets[scrollTargetName];
+      console.log('target', target);
+      scroller.scrollTo(target, {
+          duration: 700,
+          delay: 0,
+          smooth: "easeOutElastic",
+          offset: -100,
+          smooth: true,
+      })
+}
+
   render() {
-      const { dispatch, imgRoot, playersInCart, heroImage, heroImageMobile, svgs, showModal } = this.props;
+      const { 
+        dispatch, 
+        imgRoot, 
+        playersInCart, 
+        heroImage, 
+        heroImageMobile, 
+        svgs, 
+        showModal 
+      } = this.props;
+
       const selectPlayer = bindActionCreators(HitParadeActionCreators.selectPlayer, dispatch);
       const removePlayer = bindActionCreators(HitParadeActionCreators.removePlayer, dispatch);
 
@@ -70,32 +97,48 @@ class HitParade extends Component {
 
   		return (
   		    <div className="hp-hero-parallax-overlay">
-                        <HitParadeHeader isLive='false' playersInCart={playersInCart} svgs={svgs} navs={navigationMethods} imgRoot={imgRoot} />
+                        <HitParadeHeader 
+                          isLive='false' 
+                          playersInCart={playersInCart} 
+                          svgs={svgs} 
+                          navs={navigationMethods} 
+                          imgRoot={imgRoot} 
+                        />
+                            <HitParadeHeroImage
+                                scrollTo={{
+                                  howItWorks: () => this.scrollTo('howItWorks')
+                                }}
+                                img={heroImage}
+                                imgMobile={heroImageMobile}
+                                navs={navigationMethods}
+                                imgRoot={imgRoot} 
+                            />
 
-                        <Parallax  ref='parallax'
-                                   pages={5}
-                                   className="hp-hero-parallax">
+                            <HitParadeSectionWhy
+                              parallax={() => this.refs.parallax.scrollTo(2)}
+                              refs={this.refs}
+                              navs={navigationMethods}
+                              imgRoot={imgRoot}
+                            />
 
-
-
-                             <HitParadeHeroImage
-                                 parallax={() => this.refs.parallax.scrollTo(3)}
-                                 img={heroImage}
-                                 imgMobile={heroImageMobile}
-                                 navs={navigationMethods}
-                                 imgRoot={imgRoot} />
-
-                            <HitParadeSectionWhy   parallax={() => this.refs.parallax.scrollTo(2)} refs={this.refs}  navs={navigationMethods} imgRoot={imgRoot}  />
-
-                            <HitParadeHowItWorks  playersInCart={playersInCart} navigationMethods={navigationMethods} svgs={svgs} navs={navigationMethods}  imgRoot={imgRoot} />
-
-
-                  </Parallax>
+                            <HitParadeHowItWorks  
+                              navs={navigationMethods}  
+                            />
+                             <HitParadeFooter 
+                              playersInCart={playersInCart} 
+                              svgs={svgs} 
+                              navs={navigationMethods}  
+                              imgRoot={imgRoot} 
+                            />
                   <Modal
                     isOpen={showModal}
                     closeModal={closeModal}
                   >
-                     <HitParadeMailChimp closeModal={closeModal} subscribe={closeModal}  imgRoot={imgRoot} />
+                     <HitParadeMailChimp 
+                      closeModal={closeModal} 
+                      subscribe={closeModal}  
+                      imgRoot={imgRoot} 
+                     />
                   </Modal>
 
                 </div> )

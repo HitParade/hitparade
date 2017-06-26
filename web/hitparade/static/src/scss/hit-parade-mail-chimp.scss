@@ -15,4 +15,25 @@ div.ReactModal__Content div.ReactModal__Content--after-open {
     clear:left;
     font:14px Helvetica,Arial,sans-serif;
     padding: 20px;
+  
+}
+
+#mc-embedded-subscribe {
+  box-sizing: border-box;
+}
+
+#mc_embed_signup_scroll {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+     > * {
+      margin-top: 15px;
+    }
+}
+
+#mce-EMAIL {
+  padding: 10px;
+    border: 1px solid #333;
+    border-radius: 3px;
 }
