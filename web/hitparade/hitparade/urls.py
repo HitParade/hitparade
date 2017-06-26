@@ -27,7 +27,7 @@ urlpatterns = [
     url(r"^admin/", include(admin.site.urls)),
 
     # HitParade
-    url(r"^$", TemplateView.as_view(template_name="homepage.html"), name="home"),
+    url(r"^$|^app/*", TemplateView.as_view(template_name="homepage.html"), name="home"),
     url(r'^favicon.ico$', RedirectView.as_view(url='/static/src/images/favicon.ico', permanent=True), name="favicon"),
 
     # Hit Parade API
