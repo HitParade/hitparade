@@ -18,5 +18,5 @@ class Command(base.BaseCommand):
         call_command('load-players')
         call_command('load-games')
         call_command('load-bis-historical')
-        call_command('load-bis-daily', '--date 20170301')
+        call_command('load-bis-daily', date='20170301')
         call_command('load-atbats')
