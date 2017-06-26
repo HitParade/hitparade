@@ -135,8 +135,19 @@ class PitchAdmin(TimeStampedAdmin):
     ordering = ('-game__started_at', 'hitter__name', 'sequence',)
 
 
+class VenueAdmin(TimeStampedAdmin):
+    status = None
+    list_display = ('__unicode__', 'abbreviation', 'name', 'city', 'field_type',)
+
+
+class TeamAdmin(TimeStampedAdmin):
+    list_display = ('__unicode__', 'name', 'location',)
+
+
 admin.site.register(Player, PlayerAdmin)
 admin.site.register(Game, GameAdmin)
 admin.site.register(GameStat, GameStatAdmin)
 admin.site.register(AtBat, AtBatAdmin)
 admin.site.register(Pitch, PitchAdmin)
+admin.site.register(Venue, VenueAdmin)
+admin.site.register(TeamAdmin, TeamAdmin)
