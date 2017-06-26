@@ -41,7 +41,7 @@ export default class HitParadeMailChimp  extends Component {
 					    	<input type="text" name="b_f083a510f29ff28bf9952fba5_956366c29f" tabIndex="-1" value=""/>
 					    </div>
 					    <div className="clear">
-					    	<input type="submit"   value="Subscribe" name="subscribe" id="mc-embedded-subscribe" className="button"/>
+					    	<input type="submit"   value="Subscribe" name="subscribe" id="mc-embedded-subscribe" className="button hp-homepage-button"/>
 					    	</div>
 					    </div>
 				</form>

@@ -303,6 +303,7 @@ $panelImageMobileTransform: translateX(0) scale(1.05);
 
     @include responsive('mobile') {    
         padding-left: 20px;
+        padding-top: 10px;
         align-self: flex-start;
     }
 }
