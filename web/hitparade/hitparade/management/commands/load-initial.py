@@ -14,7 +14,6 @@ class Command(base.BaseCommand):
     def handle(self, *args, **options):
 
         print "Load All the Thingz!!!!1!"
-
         call_command('load-teams')
         call_command('load-players')
         call_command('load-games')
