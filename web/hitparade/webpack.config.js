@@ -53,15 +53,15 @@ module.exports = {
     new webpack.DefinePlugin({
       __DEV__: false,
       'process.env': {
-        NODE_ENV: JSON.stringify('production')
+        NODE_ENV: JSON.stringify('development')
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        screw_ie8: true,
-        warnings: false
-      }
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compressor: {
+    //     screw_ie8: true,
+    //     warnings: false
+    //   }
+    // }),
     // new webpack.LoaderOptionsPlugin({ options: { postcss: [ autoprefixer ] } }),
     new ExtractTextPlugin('css/site.css')
   ],

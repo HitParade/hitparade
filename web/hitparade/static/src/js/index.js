@@ -1,30 +1,39 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router';
+import { 
+  syncHistoryWithStore, 
+  routerMiddleware 
+} from 'react-router-redux';
 
-import { browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import { 
+  Router,
+  browserHistory 
+} from 'react-router';
 
-import { createStore, combineReducers } from 'redux';
+import { 
+  createStore, 
+  combineReducers,
+  applyMiddleware 
+} from 'redux';
+
 import { routes } from './routes';
-// import HitParadeReducer from './src/reducers/hitparade';
-// import HitParade from './src/containers/HitParade';
-import rootReducer from './reducers';
+import rootReducer from './src/reducers';
 import '../scss/site.scss';
+
+const router = routerMiddleware(browserHistory);
 
 const store = createStore(
   rootReducer,
-  // HitParadeReducer,
-  window.devToolsExtension && window.devToolsExtension()
+  applyMiddleware(router),
+  // window.devToolsExtension && window.devToolsExtension()
 );
 
 const history = syncHistoryWithStore(browserHistory, store);
 
 render(
     <Provider store={store}>
-        {/*<HitParade />*/}
-        <Route history={history} routes={routes}/>
+        <Router history={history} routes={routes}/>
     </Provider>,
   document.getElementById('root')
 );

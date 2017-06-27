@@ -144,13 +144,15 @@ class HitParade extends Component {
                 </div> )
   }
 }
-const mapStateToProps = state => ({
-   playersInCart: state.playersInCart,
-   heroImage: state.heroImage,
-   heroImageMobile: state.heroImageMobile,
-   svgs: state.svgs,
-   showModal: state.showModal,
-   imgRoot: state.imgRoot,
-});
+const mapStateToProps = state => {
+    return {
+      playersInCart: state.hitParade.playersInCart,
+      heroImage: state.hitParade.heroImage,
+      heroImageMobile: state.hitParade.heroImageMobile,
+      svgs: state.hitParade.svgs,
+      showModal: state.hitParade.showModal,
+      imgRoot: state.hitParade.imgRoot,
+    }
+};
 
 export default connect(mapStateToProps)(HitParade);
