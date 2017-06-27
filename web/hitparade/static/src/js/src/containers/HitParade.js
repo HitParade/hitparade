@@ -10,6 +10,7 @@ import HitParadeSectionWhy from '../components/HitParadeSectionWhy';
 import HitParadeHowItWorks from '../components/HitParadeHowItWorks';
 import HitParadeFooter from '../components/HitParadeFooter';
 import HitParadeMailChimp from '../components/HitParadeMailChimp';
+import SocialMediaShare from '../components/SocialMediaShare';
 import Modal from '../components/Modal';
 
 const scrollTargets = {
@@ -35,7 +36,38 @@ class HitParade extends Component {
           offset: -100,
           smooth: true,
       })
-}
+   }
+
+   modalContent(closeModal, showModal) {
+     //TODO move to its own component
+     const { 
+       modalData,
+       imgRoot
+      } = this.props;
+     let element = null;
+     switch (modalData) {
+       case 'signUp':
+        element = (
+          <HitParadeMailChimp 
+                      closeModal={closeModal} 
+                      subscribe={closeModal}  
+                      imgRoot={imgRoot} 
+                     />
+        )
+       break;
+
+       case 'share':
+          element = (
+            <SocialMediaShare
+              closeModal={closeModal} 
+            />
+          )
+       break;
+       default:
+     }
+
+     return element;
+   }
 
   render() {
       const { 
@@ -45,7 +77,8 @@ class HitParade extends Component {
         heroImage, 
         heroImageMobile, 
         svgs, 
-        showModal 
+        showModal,
+        modalData
       } = this.props;
 
       const selectPlayer = bindActionCreators(HitParadeActionCreators.selectPlayer, dispatch);
@@ -134,11 +167,7 @@ class HitParade extends Component {
                     isOpen={showModal}
                     closeModal={closeModal}
                   >
-                     <HitParadeMailChimp 
-                      closeModal={closeModal} 
-                      subscribe={closeModal}  
-                      imgRoot={imgRoot} 
-                     />
+                    {this.modalContent(closeModal, showModal)}
                   </Modal>
 
                 </div> )
@@ -150,6 +179,7 @@ const mapStateToProps = state => ({
    heroImageMobile: state.heroImageMobile,
    svgs: state.svgs,
    showModal: state.showModal,
+   modalData: state.modalData,
    imgRoot: state.imgRoot,
 });
 

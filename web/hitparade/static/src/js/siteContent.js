@@ -3,7 +3,8 @@ const root =  '/static/dist/images';
 export default {
     assets: {
         winNumber: `${root}/fiftySix.svg`,
-        divider: `${root}/divider.svg`
+        divider: `${root}/divider.svg`,
+        facebookF: `${root}/facebook.svg`
     },
     content: {
         howItWorksWhy: {
@@ -55,6 +56,9 @@ export default {
                     body: "Choose the most probable player(s) to get a hit to Beat the Streak and WIN $5.6 million!"
                 }
             ]
+        },
+        share: {
+            header: 'share'
         }
     }
 }

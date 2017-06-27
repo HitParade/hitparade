@@ -24,7 +24,13 @@ const HitParadeHeader = props => {
   ) : (
        <div className="header-top">
     <div className="hp-left-bar ">
-            <HitParadeLeftMenuItem imgRoot={props.imgRoot}  classNames="hp-header-item proxima-nova-regular " menuItemText="Share"  svg={props.svgs.svgShare} clickMethod={props.navs.click.navShare}  />
+            <HitParadeLeftMenuItem 
+              imgRoot={props.imgRoot}  
+              classNames="hp-header-item proxima-nova-regular " 
+              menuItemText="Share"  
+              svg={props.svgs.svgShare} 
+              clickMethod={props.navs.click.navShare}  
+            />
        </div>
       <div className="hp-right-bar ">
            <HitParadeButton imgRoot={props.imgRoot} buttonText="Beta Sign Up" className="hp-signup-button niveau-grotesk-black" clickMethod={props.navs.click.navSignup}/>
