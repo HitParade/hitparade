@@ -5,7 +5,7 @@
     @extend .hp-flex-row;
 	letter-spacing: 0.5px;
 	font-size: 14px;
-	width: 90px;
+	width: auto;
 	height: 36px;
 	border-radius: 2px;
 	border: solid 1px #ffffff;
@@ -14,8 +14,19 @@
 	color: rgba( 255,255,255, 1);
 	text-transform: uppercase;
 }
+
 .hp-signup-button:hover,
-.hp-login-button:hover{
+.hp-login-button:hover,{
+	@include responsive('tablet-desktop') {
+		cursor: pointer;
+		background-color: rgba( 255,255,255, 1);
+		color: #6d490e;
+		border: solid 1px #6d490e;
+	}
+}
+
+.hp-signup-button:active,
+.hp-login-button:active,{
 	cursor: pointer;
 	background-color: rgba( 255,255,255, 1);
 	color: #6d490e;
@@ -34,7 +45,8 @@
 .hp-why-register-button,
 .hp-why-register-button:focus,
 .hp-why-register-button:active {
-	width: 245px;
+	width: 100%;
+	max-width: 263px;
 	height: 60px;
 	object-fit: contain;
 	border-radius: 3px;

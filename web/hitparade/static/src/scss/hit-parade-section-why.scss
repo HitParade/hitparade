@@ -1,10 +1,15 @@
 section.hp-why-header-bottom-panel-main {
   @extend .hp-flex;
   @extend .hp-flex-row;
-  align-items: flex-start;
-  justify-content: center;
-  width: 95%;
-  height: 96px;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+
+  @include responsive('mobile') {
+	  flex-direction: column;
+	  align-items: flex-start;
+	margin-bottom: 25px;
+  }
 }
 .hp-divider {
     @extend .hp-flex;
@@ -26,8 +31,12 @@ section.hp-why-header-bottom-panel-main {
 	height: 24px;
 }
 .hp-why-coin-image {
-	max-width: 264px;
-	max-height: 342px;
+	max-width: 400px;
+	width:100%;
+
+	@include responsive('mobile') {
+		max-width: 171px;
+	}
 }
 .hp-why-content-container {
 	@extend .hp-flex;
@@ -57,71 +66,85 @@ section.hp-why-header-bottom-panel-main {
     @extend .hp-flex-row;
     @extend .hp-flex-wrap;
     @extend .hp-flex-centered;
-	width: 100%;
-	height: 100vh;
+	padding: 35px 0;
 }
 .hp-why-coin-image-container {
     @extend .hp-flex;
-    @extend .hp-flex-nowrap;
-    @extend .hp-flex-end;
-    @extend .hp-flex-row;
-  	align-content: space-around;
+	@extend .hp-flex-centered;
+	flex: 4;
 	position: relative;
-	max-width: 264px;
-	max-height: 342px;
+	margin: 10px;
+
+	@include responsive('mobile') {
+		 padding: 0 75px;
+	}
 }
 .hp-why-header-bottom {
     @extend .hp-flex;
+	@extend .hp-flex-nowrap;
+	@extend .hp-flex-start;
     @extend .hp-flex-column;
-	width: 684px;
-	height: auto;
 	font-size: 18px;
 	line-height: 1.33;
 	color: #2d2d2d;
-    @extend .hp-flex-nowrap;
-    @extend .hp-flex-start;
+    
 }
-.hp-section-why-footer {
-    @extend .hp-flex;
-    @extend .hp-flex-row;
-    @extend .hp-flex-nowrap;
-	width: 100%;
-	min-width: 100%;
-	max-width: 100%;
-	height: 24px;
-	padding-top: 30px;
-	padding-bottom: 30px;
-	justify-content: space-around;
-	align-items: stretch;
-	align-content: space-around;
+
+.hp-why-container {
+	@extend .hp-flex;
+	@extend .hp-flex-row;
+	max-width: $max-content-width;
+	margin: 0 15px;
+
+	@include responsive('mobile') {
+		flex-direction: column;
+		align-items: center;
+	}
 }
+
 .hp-why-header-bottom-panel {
     @extend .hp-flex;
     @extend .hp-flex-column;
 	 margin-right: 25px;
-     width: 40%;
-     height: 96px;
+	 flex: 4;
+
+	 @include responsive('mobile') {
+		 margin-right: 70px;
+		 margin-bottom: 20px;
+		 width: 100%;
+	 }
 }
+
+.hp-why-header-bottom-panel-right {
+	flex: 5;
+
+	 @include responsive('mobile') {
+		 width: 100%;
+	 }
+}
+
 .hp-why-header-bottom-text {
   @extend .hp-flex;
-  width: 100%;
-  height: 64px;
   font-size: 18px;
   margin-bottom: 40px;
+
+  @include responsive('mobile') {
+	  margin-bottom: 20px;
+  }
 }
+
 .hp-section-why-header-diamond {
     @extend .hp-flex;
 	width: 24px;
 	height: 24px;
 }
+
 .hp-why-header-divider {
     @extend .hp-flex;
     @extend .hp-flex-row;
 	flex-direction: row;
-	width: 100%;
 	height: 15px;
-	margin-top: 40px;
-	margin-bottom: 40px;
+	margin: 40px 10px;
 }
 .hp-why-header-top {
     @extend .hp-flex;
@@ -129,27 +152,37 @@ section.hp-why-header-bottom-panel-main {
 	justify-content: center;
 	align-items:  flex-end;
 	align-content:  flex-end;
-	width: 550px;
-	height: 76px;
-	font-size: 34px;
+	margin-bottom: 27px;
+	font-size: 36px;
 	line-height: 1.06;
 	letter-spacing: -0.5px;
 	color: #2d2d2d;
+
+	@include responsive('desktop') {
+		padding-right: 40px;
+		margin-bottom: 20px;
+	}
 }
 .hp-why-main-content {
     @extend .hp-flex;
     @extend .hp-flex-column;
     @extend .hp-flex-nowrap;
-	padding: 55px;
 	justify-content: center;
 	align-items: flex-start;
 	align-content: center;
+	margin-left: 30px;
+	flex: 7;
+
+	@include responsive('mobile') {
+		text-align: center;
+    	max-width: 275px;
+		margin-left: 0;
+	}
 }
 .hp-section-why-header {
 	padding:0px;
 }
-.hp-section-why-footer {
-}
+
 .hp-section-why-footer,
 .hp-section-why-header,
 .hp-section-select-players {
@@ -157,14 +190,7 @@ section.hp-why-header-bottom-panel-main {
     @extend .hp-flex-row;
     @extend .hp-flex-nowrap;
 	width: 100%;
-	min-width: 100%;
-	max-width: 100%;
-	height: 24px;
-	padding-top: 30px;
-	padding-bottom: 30px;
 	justify-content: space-around;
-	align-items: stretch;
-	align-content: space-around;
 }
 .hp-section-why {
     @extend .hp-flex;

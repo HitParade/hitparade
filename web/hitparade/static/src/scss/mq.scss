@@ -31,23 +31,14 @@
               }
       }
     }
-  section.hp-section-how-it-works-container-first {
-    section.hp-section-how-h1 {
-      font-size: 20px;
-      margin-top: 350px;
-    }
+  section.hp-section-how-h1 {
+    font-size: 20px;
   }
-    section.hp-section-how-it-works-container-second {
-      section.hp-section-how-h1  {
-        font-size: 20px;
-        margin-top: 450px;
-      }
-    }
 }
 @include responsive('mobile') {
 
    section.hp-hero-image-container {
-		    background-image: url($imageRoot + 'heroImageMobile.svg');
+        background-position: 63% 64px;
     }
     div.hp-why-content-container::after {
           background-image: url( $imageRoot + 'mobileHero2.png');
@@ -73,14 +64,14 @@
       min-height: 290px;
     }
      div.hp-hero-text-elem {
-       margin-top: 20px;
+       margin-top: 0;
      }
-     div.hp-logo-hero-img-container {
-       margin-top: 20px;
+     div.hp-logo-hero-img {
+       margin-top: 5px;
+       width: 144px;
      }
      section.hp-hero-image-overlay  {
        justify-content: space-around;
-       top: 55px;
      }
      div.hp-header-item {
             div.hp-header-item-text {
@@ -106,6 +97,7 @@
       padding: 10px;
     }
      nav.header {
+        padding: 0 10px;
             button.hp-signup-button {
                 font-size: 12px;
                 padding: 0px;
@@ -113,20 +105,20 @@
                 min-width: 100px;
             }
     }
-    footer.footer {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 99%;
-    }
+
     section.hp-hero-overlay-medium-text {
-      font-size: 30px;
+      font-size: 33px;
+      letter-spacing: 2.4px;
     }
     section.hp-hero-overlay-large-text {
-      font-size: 50px;
+      div {
+        margin-top: 10px;
+        font-size: 36px;
+      }
     }
     section.hp-hero-overlay-small-text {
-      font-size: 20px;
+      font-size: 24px;
+      letter-spacing: 5.3px;
     }
     img.hp-diamond-bullet {
       display: none;
@@ -141,9 +133,7 @@
       right: 0px;
       bottom: 0px;
     }
-  	section.hp-why-header-bottom, section.hp-why-header-divider, section.hp-why-header-top, section.hp-why-main-content {
-		max-width: 320px;
-	}
+
     div.hp-footer-menu-bar-desktop {
       display: none;
     }
@@ -194,9 +184,7 @@
         width: 0%;
       }
     }
-     section.hp-why-header-bottom-panel {
-    display: none;
-  }
+
   div.hp-header-item-text, div.hp-header-item-text-right {
     font-size: 14px;
   }
@@ -204,11 +192,16 @@
     font-size: 12px;
   }
 	section.hp-hero-overlay-text {
-		    flex-direction: column;
-        margin-top: 0px;
+      flex-direction: column;
+      margin-top: 0px;
+      font-weight: 300;
+
+      &:first-child {
+        margin-top: 10px + $nav-spacing-desk-tablet
+      }
 	}
-  	div.hp-left-bar {
-  		width: 20%;
+  div.hp-left-bar {
+      display: none;
    }
 
   div.hp-footer-menu-bar:nth-child(2) {
@@ -254,23 +247,36 @@
       width: 0%;
     }
   }
-  div.hp-why-content {
-        div.hp-why-coin-image-container {
-          top: 0px;
-        }
+  .hp-hero-bottom-overlay .hp-homepage-button {
+    margin-bottom: 10px;
+    margin-top: 0;
   }
 }
+
+@media only screen and (max-width: 736px) and (min-width: 320px) and (orientation: landscape) {
+	section.hp-hero-overlay-text {	
+		flex-direction: row;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    &:last-child {
+      flex-direction: column;
+    }
+	}
+
+  .hp-hero-bottom-overlay .hp-homepage-button {
+    margin: 10px 0 0 0;
+  }
+
+  .hp-homepage-arrow-container {
+    display: none;
+  }
+}
+
 @media screen and (min-width: $hp-tablet-min) and (max-width: $hp-tablet-max) {
-
-
-          section.hp-hero-image-container {
-		    background-image: url( $imageRoot + 'heroImageMobile.svg');
-        }
-
-
-        section.hp-why-content-container::after {
-          background-image: url( $imageRoot + 'mobileHero2.png');
-        }
+  section.hp-why-content-container::after {
+    background-image: url( $imageRoot + 'mobileHero2.png');
+  }
   nav.header  {
      div.header-top {
         width: 100%;
@@ -279,12 +285,6 @@
         }
     }
   }
-
-    div#root {
-        div {
-            //max-height: 2011px;
-        }
-    }
    div.ReactModal__Content div.ReactModal__Content--after-open {
       max-width: 70%;
       top: 0px;
@@ -292,36 +292,13 @@
       right: 0px;
       bottom: 0px;
     }
-    div.hp-why-content {
-      div.hp-why-coin-image-container {
-        top: 50px;
-        width: 100%;
-        justify-content: center;
-        align-items: center;
-      }
-      section.hp-why-main-content {
-          max-width: 45%;
-          section.hp-why-header-top,
-          section.hp-why-header-divider,
-          section.hp-why-header-bottom {
-            max-width: none;
-            width: 100%;
-          }
-      }
-    }
-    section.hp-why-header-bottom, section.hp-why-header-divider, section.hp-why-header-top {
-          max-width: 390px;
-    }
-    section.hp-why-header-bottom-panel {
-      display: none;
-    }
+
   	nav.header, footer.footer {
   		padding-left: 20px;
   		padding-right: 20px;
   	}
   	button.hp-signup-button {
   		font-size: 12px;
-  		margin-right: 15px;
   		margin-left: 0px;
   		padding-left: 1px;
   		padding-right: 1px;
@@ -336,10 +313,7 @@
         }
       }
     }
-  	div.hp-why-coin-image{
- 			max-width: 125px;
- 			max-height: 140px;
-  	}
+ 
   	div.hp-img-panel {
   		display: none;
   	}
@@ -351,14 +325,7 @@
   	div.hp-panel-row-end, div.hp-panel-row-start{
   		justify-content: center;
   	}
-  	img.hp-why-coin-image{
- 			max-width: 125px;
- 			max-height: 140px;
-  	}
-  	div.hp-section-why-header {
-  		padding-top: 0px;
-  		margin-bottom: 40px;
-  	}
+
   	footer.hp-section-why-footer {
   		padding-bottom: 0px;
   		margin-top: 40px;
@@ -366,23 +333,12 @@
   	section.hp-why-header-top {
   		font-size: 25px;
   	}
-  	section.hp-why-main-content {
-      padding: 0px;
-      padding-bottom: 20px;
-      max-width: 600px;
-  	}
+
   	img.hp-desktop-hero-image {
   		display: none;
   	}
   	img.hp-mobile-hero-image {
   		display: block;
-  	}
-  	section.hp-why-header-bottom-panel {
-  		margin-right: 0px;
-  		margin: 0px;
-  	}
-  	div.hp-left-bar {
-  		width: 50%;
   	}
 }
 @media screen and (max-width: $hp-desktop)  {
@@ -396,9 +352,6 @@
   		width: 90%;
         left: 0%;
         margin-left: 15px;
-  	}
-    .hp-left-bar {
-  		width: 20%;
   	}
     footer.footer {
       div.hp-footer-menu {
@@ -414,28 +367,15 @@
   		padding-bottom: 0px;
   		margin-top: 40px;
   	}
-    img.hp-why-coin-image{
- 			max-width: 125px;
- 			max-height: 140px;
-  	}
+
     img.hp-desktop-hero-image {
   		display: none;
   	}
   	img.hp-mobile-hero-image {
   		display: block;
   	}
-    section.hp-why-header-bottom,
-    section.hp-why-header-divider,
-    section.hp-why-header-top,
-    section.hp-why-main-content {
-		max-width: 975px;
-        width: 100%;
-	}
+
     section.hp-why-header-top {
   		font-size: 25px;
-  	}
-  	section.hp-why-main-content {
-  		padding: 0px;
-  		padding-bottom: 20px;
   	}
 }
