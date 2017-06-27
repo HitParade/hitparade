@@ -137,7 +137,7 @@ class PitchAdmin(TimeStampedAdmin):
 
 class VenueAdmin(TimeStampedAdmin):
     status = None
-    list_display = ('__unicode__', 'abbreviation', 'name', 'city', 'field_type',)
+    list_display = ('__unicode__', 'abbreviation', 'name', 'city', 'state', 'field_type',)
 
 
 class TeamAdmin(TimeStampedAdmin):
