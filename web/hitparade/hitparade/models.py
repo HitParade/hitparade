@@ -67,12 +67,36 @@ class Division(HitparadeModel):
     conference = models.ForeignKey(Conference, null=True)
 
 
+class Venue(HitparadeModel):
+    __name__ = "Venue"
+
+
+    ss_id = models.CharField(max_length=36, unique=True)
+    abbreviation = models.CharField(max_length=64)
+    capacity = models.IntegerField(blank=True, null=True)
+    city = models.CharField(max_length=32, null=True)
+    field_type = models.CharField(max_length=16, null=True)
+    name = models.CharField(max_length=64, null=True)
+    slug = models.CharField(max_length=32, null=True)
+    state = models.CharField(max_length=2, null=True)
+    stadium_type = models.CharField(max_length=32, null=True)
+    time_zone = models.CharField(max_length=32, null=True)
+    longitude = models.FloatField(null=True)
+    latitude = models.FloatField(null=True)
+
+
+    @classmethod
+    def clean_ss_data(cls, data):
+        return data
+
+
 class Team(HitparadeModel):
     __name__ = 'Team'
 
 
-    division = models.ForeignKey(Division, null=True)
     ss_id = models.CharField(max_length=36, unique=True)
+    venue = models.OneToOneField(Venue, null=True)
+    division = models.ForeignKey(Division, null=True)
     name = models.CharField(max_length=64)
     slug = models.CharField(max_length=7, unique=True)
     location = models.CharField(max_length=64)
@@ -166,29 +190,6 @@ class Official(HitparadeModel):
 
         data[u'uniform_number'] = data['uniform_number'] or 0
 
-        return data
-
-
-class Venue(HitparadeModel):
-    __name__ = "Venue"
-
-
-    ss_id = models.CharField(max_length=36, unique=True)
-    abbreviation = models.CharField(max_length=64)
-    capacity = models.IntegerField(blank=True, null=True)
-    city = models.CharField(max_length=32, null=True)
-    field_type = models.CharField(max_length=16, null=True)
-    name = models.CharField(max_length=64, null=True)
-    slug = models.CharField(max_length=32, null=True)
-    state = models.CharField(max_length=2, null=True)
-    stadium_type = models.CharField(max_length=32, null=True)
-    time_zone = models.CharField(max_length=32, null=True)
-    longitude = models.FloatField(null=True)
-    latitude = models.FloatField(null=True)
-
-
-    @classmethod
-    def clean_ss_data(cls, data):
         return data
 
 
