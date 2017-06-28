@@ -4,9 +4,18 @@ export default {
     assets: {
         winNumber: `${root}/fiftySix.svg`,
         divider: `${root}/divider.svg`,
-        facebookF: `${root}/facebook.svg`
+        facebookF: `${root}/facebook.svg`,
+        twitter: `${root}/twitter.svg`,
+        closeIcon: `${root}/close.svg`,
+    },
+    externalLinks: {
+        twitterIntentBase: 'https://twitter.com/intent/tweet'
     },
     content: {
+        twitterIntent: {
+            text: 'Checkout Hitparade!',
+            url: 'https://hitparade.co'
+        },
         howItWorksWhy: {
             header: 'WHY HIT PARADE',
             subHeader: [
