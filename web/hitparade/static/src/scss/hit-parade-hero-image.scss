@@ -37,7 +37,7 @@
 }
 .hp-hero-image-container {
 		background-image: url( $imageRoot + 'Hero.png');
-    	background-attachment: fixed;
+    	background-attachment: scroll;
     	background-size: cover;
     	height: 100vh;
     	width: 100vw;
@@ -201,4 +201,12 @@
 
 .hp-hero {
 	position: relative;
+}
+
+.extra-bottom-space {
+
+	//TODO find flexbox solution
+	@include responsive('mobile-landscape') {
+		margin-bottom: 15px;
+	}
 }
