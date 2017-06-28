@@ -1,6 +1,7 @@
 const root =  '/static/dist/images';
 
 export default {
+    url: 'http://hitparade.co',
     assets: {
         winNumber: `${root}/fiftySix.svg`,
         divider: `${root}/divider.svg`,
