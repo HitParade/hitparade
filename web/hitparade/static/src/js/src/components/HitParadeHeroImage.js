@@ -28,7 +28,7 @@ const HitParadeHeroImage = props => {
                         <img src={siteContent.assets.winNumber} className="hp-hero-millions-number"/>
                     </section>
                     <section className="hp-hero-overlay-text hp-hero-overlay-medium-text niveau-grotesk-black"><div className="hp-hero-text-elem">MILLION PRIZE</div></section>
-                    <section className="hp-hero-overlay-text hp-hero-bottom-overlay">
+                    <section className="hp-hero-overlay-text hp-hero-bottom-overlay extra-bottom-space">
                     <HitParadeButton
                         className="hp-homepage-button niveau-grotesk-black"
                         buttonText="See How it Works"
