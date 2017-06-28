@@ -13,7 +13,7 @@ export default {
     },
     content: {
         twitterIntent: {
-            text: 'Checkout Hitparade!',
+            text: 'Check out HitParade for player performance predictions and trends!',
             url: 'https://hitparade.co'
         },
         howItWorksWhy: {
