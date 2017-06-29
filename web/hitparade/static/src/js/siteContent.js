@@ -1,11 +1,22 @@
 const root =  '/static/dist/images';
 
 export default {
+    url: 'http://hitparade.co',
     assets: {
         winNumber: `${root}/fiftySix.svg`,
-        divider: `${root}/divider.svg`
+        divider: `${root}/divider.svg`,
+        facebookF: `${root}/facebook.svg`,
+        twitter: `${root}/twitter.svg`,
+        closeIcon: `${root}/close.svg`,
+    },
+    externalLinks: {
+        twitterIntentBase: 'https://twitter.com/intent/tweet'
     },
     content: {
+        twitterIntent: {
+            text: 'Check out HitParade for player performance predictions and trends!',
+            url: 'https://hitparade.co'
+        },
         howItWorksWhy: {
             header: 'WHY HIT PARADE',
             subHeader: [
@@ -55,6 +66,9 @@ export default {
                     body: "Choose the most probable player(s) to get a hit to Beat the Streak and WIN $5.6 million!"
                 }
             ]
+        },
+        share: {
+            header: 'share'
         }
     }
 }

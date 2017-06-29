@@ -57,6 +57,7 @@ export default function HitParade(state=initialState, action) {
 		return {
 			...state,
 			showModal: true,
+			modalData: 'signUp'
 		};
 	case HitParadeActionTypes.NAV_LOGIN:
 		return {
@@ -81,6 +82,8 @@ export default function HitParade(state=initialState, action) {
 	case HitParadeActionTypes.NAV_SHARE:
 		return {
 			...state,
+			showModal: true,
+			modalData: 'share'
 		}
 	case HitParadeActionTypes.NAV_PRIVACY_STATEMENT:
 		return {

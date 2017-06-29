@@ -1,13 +1,17 @@
+.hp-button {
+	width: auto;
+	height: 36px;
+	border-radius: 2px;
+}
+
 .hp-login-button,
 .hp-signup-button,
 .hp-signup-button-footer,
 .hp-login-button-footer {
     @extend .hp-flex-row;
+	@extend .hp-button;
 	letter-spacing: 0.5px;
 	font-size: 14px;
-	width: auto;
-	height: 36px;
-	border-radius: 2px;
 	border: solid 1px #ffffff;
 	background-color: rgba( 255,255,255, 0);
 	margin-left: 20px;
