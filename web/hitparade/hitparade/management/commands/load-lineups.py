@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 from pytz import timezone
 from django.core.management.base import BaseCommand
-from hitparade.models import Team, Official, Game, GameStat, Venue
+from hitparade.models import Team, Official, Game, GameStat
 
 def findNpop(data, select, contentIndex, arrayIndex = 0):
     item = data.select(select)
@@ -30,19 +30,18 @@ def findlineup(htmlLineup, select):
     
     return lineup
 
-def findGameFromRotoWire(matchup, now):
-    time = datetime.strptime(now.strftime("%B %d, %Y ") + matchup["Time"], '%B %d, %Y %I:%M %p ET')
+def findGameFromRotoWire(matchup, now, index):
+    game = Game.objects.filter(
+        season = now.year,
+        on = now.strftime("on %B %d, %Y"),
+        home_team = matchup["Home"],
+        away_team = matchup["Away"])
 
-    #time is now in EST, gotta convert to venue time
-    game = findGameFromSlug(time.year, matchup["AwayCode"], matchup["HomeCode"], time.strftime('%Y-%m-%d-%H%M'))
+    return game[index]
 
-    return game
+def rotoWireGamesMatch(matchup1, matchup2):
+    return matchup1['AwayTeam'] == matchup2["AwayTeam"] and matchup1['HomeTeam'] == matchup2["HomeTeam"]
 
-def findGameFromSlug(season, awayAbbr, homeAbbr, datetimeStr):
-    slug = 'mlb-' + str(season) + '-' + awayAbbr + '-' + homeAbbr + '-' + datetimeStr
-
-    pprint.pprint(slug)
-    return GameStat.get_game_by_slug(slug)
 
 def findLinkWithHref(html, hrefText):
     return html.findAll(href=hrefText)
@@ -60,8 +59,8 @@ class Command(BaseCommand):
             "Weather": findNpop(htmlMatch, "div.dlineups-topboxcenter-bottomline", 0),
             "AwayPitcher": findNpop(htmlMatch, "div.dlineups-pitchers a", 0),
             "HomePitcher": findNpop(htmlMatch, "div.dlineups-pitchers a", 0, 1),
-            #"AwayLineup": findlineup(htmlMatch.select('.dlineups-half')[0], '.dlineups-vplayer'),
-            #"HomeLineup": findlineup(htmlMatch.select('.dlineups-half')[1], '.dlineups-hplayer'),
+            "AwayLineup": findlineup(htmlMatch.select('.dlineups-half')[0], '.dlineups-vplayer'),
+            "HomeLineup": findlineup(htmlMatch.select('.dlineups-half')[1], '.dlineups-hplayer'),
             "Official": None if not len(ump) else ump[0].text
         }
 
@@ -69,46 +68,27 @@ class Command(BaseCommand):
         r = requests.get('http://www.rotowire.com/baseball/daily_lineups.htm')
 
         soup = BeautifulSoup(r.text, 'html.parser')
-        now = datetime.now(timezone('US/Eastern'))
+        #now = datetime.now(timezone('US/Eastern'))
+        now = datetime.now()
 
         htmlMatches = [top.parent for top in soup.select("div.dlineups-topbox")]
 
         matchups = [self.createTeam(htmlMatch) for htmlMatch in htmlMatches]
 
-
-        games = Game.objects.filter(
-            season = now.year,
-            on = now.strftime("on %B %d, %Y"))
-
-        for game in games:
-            pprint.pprint(game.slug)
-
         for matchup in matchups:
-            matchup["AwayCode"] = GameStat.team_map[matchup["AwayTeam"]]
-            matchup["HomeCode"] = GameStat.team_map[matchup["HomeTeam"]]
             matchup["Away"] = GameStat.get_team_ref('code', matchup["AwayTeam"])[1]
             matchup["Home"] = GameStat.get_team_ref('code', matchup["HomeTeam"])[1]
             matchup["Official"] = GameStat.get_umpire_ref('name', matchup["Official"])[1]
 
-            venue = GameStat.get_venue_by_lat_long(matchup["Home"].latitude, matchup["Home"].longitude)
+            likeItems = [x for x in matchups if rotoWireGamesMatch(x, matchup)]
+            matchupIndex = likeItems.index(matchup)
 
-            if venue is None:
-                venue = GameStat.get_venue_by_city(matchup["Home"].location)
-            
-            matchup['Venue'] = venue
+            for person in matchup["AwayLineup"]:
+                person["Player"] = GameStat.get_player_ref('player', person["Name"])[1]
 
-            pprint.pprint(venue.time_zone)
+            for person in matchup["HomeLineup"]:
+                person["Player"] = GameStat.get_player_ref('player', person["Name"])[1]
 
-            #pprint.pprint("======================")
-
-            #for person in matchup["AwayLineup"]:
-            #    person["Player"] = GameStat.get_player_ref('player', person["Name"])[1]
-
-            #for person in matchup["HomeLineup"]:
-            #    person["Player"] = GameStat.get_player_ref('player', person["Name"])[1]
-
-            #matchup['Game'] = findGameFromRotoWire(matchup, now)
-
-            #pprint.pprint(matchup['Game'])
+            matchup['Game'] = findGameFromRotoWire(matchup, now, matchupIndex)
         
         #pprint.pprint(matchups)
