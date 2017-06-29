@@ -3,7 +3,6 @@ import pprint
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
-from pytz import timezone
 from django.core.management.base import BaseCommand
 from hitparade.models import Team, Official, Game, GameStat
 
@@ -68,7 +67,6 @@ class Command(BaseCommand):
         r = requests.get('http://www.rotowire.com/baseball/daily_lineups.htm')
 
         soup = BeautifulSoup(r.text, 'html.parser')
-        #now = datetime.now(timezone('US/Eastern'))
         now = datetime.now()
 
         htmlMatches = [top.parent for top in soup.select("div.dlineups-topbox")]
