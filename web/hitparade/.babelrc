@@ -7,5 +7,6 @@
   "ignore": [
     "node_modules/",
     "dist/"
-  ]
+  ],
+   "plugins": ["syntax-dynamic-import"]
 }
