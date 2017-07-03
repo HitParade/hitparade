@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ReactModal from 'react-modal';
 import { scroller } from 'react-scroll';
+import responsive from '../../responsive';
 import * as HitParadeActionCreators from '../actions/hitparade';
 import HitParadeHeader from '../components/HitParadeHeader';
 import HitParadeHeroImage from '../components/HitParadeHeroImage';
@@ -11,6 +12,8 @@ import HitParadeHowItWorks from '../components/HitParadeHowItWorks';
 import HitParadeFooter from '../components/HitParadeFooter';
 import HitParadeMailChimp from '../components/HitParadeMailChimp';
 import SocialMediaShare from '../components/SocialMediaShare';
+import MobileDrawer from '../components/MobileDrawer';
+import MobileDrawerContent from '../components/MobileDrawerContent';
 import Modal from '../components/Modal';
 
 const scrollTargets = {
@@ -60,6 +63,7 @@ class HitParade extends Component {
           element = (
             <SocialMediaShare
               closeModal={closeModal} 
+              className="social-media-share-container-background-white"
             />
           )
        break;
@@ -78,12 +82,12 @@ class HitParade extends Component {
         heroImageMobile, 
         svgs, 
         showModal,
-        modalData
+        modalData,
+        showDrawer
       } = this.props;
 
       const selectPlayer = bindActionCreators(HitParadeActionCreators.selectPlayer, dispatch);
       const removePlayer = bindActionCreators(HitParadeActionCreators.removePlayer, dispatch);
-
 
       /**
       *   NAVIGATION
@@ -98,6 +102,7 @@ class HitParade extends Component {
       const cart = bindActionCreators(HitParadeActionCreators.cart, dispatch);
       const navTermsOfUse = bindActionCreators(HitParadeActionCreators.navTermsOfUse, dispatch);
       const navPrivacyStatement = bindActionCreators(HitParadeActionCreators.navPrivacyStatement, dispatch);
+      const toggleHamburger = bindActionCreators(HitParadeActionCreators.toggleHamburger, dispatch);
       const navigationMethods = {
         'click' : {
           'navLogin': navLogin,
@@ -134,7 +139,9 @@ class HitParade extends Component {
                           isLive='false' 
                           playersInCart={playersInCart} 
                           svgs={svgs} 
-                          navs={navigationMethods} 
+                          navs={navigationMethods}
+                          toggleHamburger={toggleHamburger}
+                          showDrawer={showDrawer}
                           imgRoot={imgRoot} 
                         />
                             <HitParadeHeroImage
@@ -170,6 +177,13 @@ class HitParade extends Component {
                     {this.modalContent(closeModal, showModal)}
                   </Modal>
 
+                    <MobileDrawer
+                      isOpen={showDrawer}
+                    >
+                      <MobileDrawerContent/>
+                    </MobileDrawer>
+
+
                 </div> )
   }
 }
@@ -181,6 +195,7 @@ const mapStateToProps = state => ({
    showModal: state.showModal,
    modalData: state.modalData,
    imgRoot: state.imgRoot,
+   showDrawer: state.showDrawer
 });
 
 export default connect(mapStateToProps)(HitParade);

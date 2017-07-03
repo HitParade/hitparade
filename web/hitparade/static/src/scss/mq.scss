@@ -27,7 +27,7 @@
     nav.header  {
       div.header-top {
               div.hp-right-bar {
-                width: 60%;
+                // width: 60%;
               }
       }
     }
@@ -46,7 +46,7 @@
     .header  {
       div.header-top {
               div.hp-right-bar {
-                width: 80%;
+                // width: 80%;
               }
       }
     }
@@ -152,7 +152,7 @@
             align-items: center;
             border: none;
             justify-content: center;
-            width: 100%;
+            // width: 100%;
         .hp-login-button,
         .hp-signup-button,
         .hp-signup-button-footer,
@@ -173,7 +173,7 @@
           width: 100%;
           div.hp-right-bar {
                   margin-right: 0px;
-                  width: 98%;
+                  // width: 98%;
                   @extend .hp-flex-centered-mobile;
           }
         }
@@ -236,7 +236,7 @@
       div.hp-footer-menu-bar {
         div.hp-right-bar {
                 margin-right: 0px;
-                width: 100%;
+                // width: 100%;
                 @extend .hp-flex-start-mobile;
         }
       }
@@ -281,7 +281,7 @@
      div.header-top {
         width: 100%;
         div.hp-right-bar {
-          width: 38%;
+          // width: 38%;
         }
     }
   }
@@ -307,7 +307,7 @@
       div.hp-footer-menu {
         div.hp-footer-menu-bar {
           div.hp-right-bar {
-              width: 45%;
+              // width: 45%;
               margin-right: 100px;
           }
         }
@@ -357,7 +357,7 @@
       div.hp-footer-menu {
         div.hp-footer-menu-bar  {
           div.hp-right-bar {
-            width: 50%;
+            // width: 50%;
   		    margin-right: 10px;
           }
         }

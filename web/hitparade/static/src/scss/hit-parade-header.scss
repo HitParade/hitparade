@@ -1,7 +1,7 @@
 
 .header {
 	background-color: #6d490e;
-	height: 64px;
+	height: $nav-spacing;
     left: 0px;
     right: 0px;
     top: 0px;
@@ -22,19 +22,16 @@
       top: 2px;
   }
 }
-.hp-header-item-logo,
-.hp-footer-logo-ph {
-	margin-right: 35px;
-}
+
 .hp-header-item-right {
 	min-width: 100px;
 }
 .header-top {
 	@extend .hp-flex;
     justify-content: space-between;
-    width: 100%;
+    // width: 100%;
     div.hp-right-bar {
-      width: 28%;
+    //   width: 28%;
       flex-grow: 1;
     }
 }
@@ -45,4 +42,12 @@
 .hp-right-header-item:hover {
 	text-decoration: underline;
 	cursor: pointer;
+}
+
+.hp-hamburger-container {
+    margin-left: 13px;
+
+    @include responsive('tablet-desktop') {
+        display: none;
+    }
 }
