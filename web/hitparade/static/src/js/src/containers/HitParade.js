@@ -48,26 +48,32 @@ class HitParade extends Component {
        imgRoot
       } = this.props;
      let element = null;
-     switch (modalData) {
-       case 'signUp':
-        element = (
+
+      const mailChimp = (
           <HitParadeMailChimp 
                       closeModal={closeModal} 
                       subscribe={closeModal}  
                       imgRoot={imgRoot} 
                      />
         )
-       break;
 
-       case 'share':
-          element = (
+      const socialMediaShare = (
             <SocialMediaShare
               closeModal={closeModal} 
               className="social-media-share-container-background-white"
             />
           )
+
+     switch (modalData) {
+       case 'signUp':
+        element = mailChimp;
+       break;
+
+       case 'share':
+          element = socialMediaShare;
        break;
        default:
+          element = socialMediaShare;
      }
 
      return element;

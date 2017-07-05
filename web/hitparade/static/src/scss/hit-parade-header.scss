@@ -29,9 +29,13 @@
 .header-top {
 	@extend .hp-flex;
     justify-content: space-between;
-    // width: 100%;
+    flex-grow: 1;
+
+    @include responsive('mobile') {
+        flex-grow: 0;
+    }
+    
     div.hp-right-bar {
-    //   width: 28%;
       flex-grow: 1;
     }
 }

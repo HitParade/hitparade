@@ -1,4 +1,6 @@
 .mobile-drawer-content {
+    @extend .hp-flex;
+    justify-content: center;
     height: 100%;
     background: $desert-light;
 }

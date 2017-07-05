@@ -4,10 +4,9 @@ import siteContent from '../../siteContent.js';
 const FacebookShareButton = props => {
   const url = encodeURI(siteContent.url)
   return (
-        <div 
-            className="fb-share-button" 
-            data-href={url} 
-            data-layout="button" data-size="large" data-mobile-iframe="true">
+            <div 
+                className="facebbook-share-button"
+            >
                 <a 
                     className="fb-xfbml-parse-ignore" 
                     target="_blank" 
