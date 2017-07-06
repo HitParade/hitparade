@@ -4,8 +4,11 @@ import HitParadeLogo from './HitParadeLogo';
 import HitParadeLeftMenuItem from './HitParadeLeftMenuItem';
 import HitParadeButton from './HitParadeButton';
 import HitParadeShoppingCart from './HitParadeShoppingCart';
+import Hamburger from './Hamburger';
+import { responsive }   from '../../responsive';
 
 const HitParadeHeader = props => {
+  const isMobile = responsive('isMobile');
   const top_menu = props.isLive === 'true' ? (
      <div className="header-top">
     <div className="hp-left-bar ">
@@ -41,6 +44,12 @@ const HitParadeHeader = props => {
 
     <nav className="header">
       <div className="site-content-max-width header-content">
+        <div className="hp-hamburger-container">
+          <Hamburger
+            onClick={props.toggleHamburger}
+            isOpen={props.showDrawer}
+          />
+        </div>
         <HitParadeLogo imgRoot={props.imgRoot} logoColor="#FFFFFF" className="hp-header-item-logo" logoWidth="126px" logoHeight="43px" logoViewBox="0 0 126 43"/>
         {top_menu}
       </div>
@@ -53,6 +62,8 @@ HitParadeHeader.propTypes = {
   playersInCart: PropTypes.number.isRequired,
   isLive: PropTypes.string.isRequired,
   imgRoot: PropTypes.string,
+  showDrawer: PropTypes.bool,
+  toggleHamburger: PropTypes.func
 };
 
 export default HitParadeHeader;

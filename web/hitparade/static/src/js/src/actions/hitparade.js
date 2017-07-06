@@ -63,3 +63,8 @@ export const navSelectPlayers =  () => {
     type: HitParadeActionTypes.NAV_SELECT_PLAYERS,
   };
 };
+export const toggleHamburger =  () => {
+  return {
+    type: HitParadeActionTypes.TOGGLE_HAMBRUGER,
+  };
+};
