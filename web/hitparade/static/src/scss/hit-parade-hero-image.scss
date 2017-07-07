@@ -39,6 +39,7 @@
 		background-image: url( $imageRoot + 'Hero.png');
     	background-attachment: scroll;
     	background-size: cover;
+		background-position: center;
     	height: 100vh;
     	width: 100vw;
 		color: #ffffff;
@@ -113,7 +114,7 @@
 	animation-fill-mode: forwards;
 
 	&:first-child {
-		margin-top: 30px + $margin-top + $nav-spacing-desk-tablet
+		margin-top: 30px + $margin-top + $nav-spacing
 	}
 }
 .hp-hero-overlay-small-text {

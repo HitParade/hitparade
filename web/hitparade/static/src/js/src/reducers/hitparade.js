@@ -24,6 +24,7 @@ const initialState = {
 	heroImage: 'Hero.png',
 	heroImageMobile: 'heroImageMobile.svg',
 	showModal: false,
+	showDrawer: false,
 	svgs: {
 		svgContact: svgContact,
 		svgShare: svgShare,
@@ -57,6 +58,7 @@ export default function HitParade(state=initialState, action) {
 		return {
 			...state,
 			showModal: true,
+			modalData: 'signUp'
 		};
 	case HitParadeActionTypes.NAV_LOGIN:
 		return {
@@ -81,10 +83,17 @@ export default function HitParade(state=initialState, action) {
 	case HitParadeActionTypes.NAV_SHARE:
 		return {
 			...state,
+			showModal: true,
+			modalData: 'share'
 		}
 	case HitParadeActionTypes.NAV_PRIVACY_STATEMENT:
 		return {
 			...state,
+		}
+	case HitParadeActionTypes.TOGGLE_HAMBRUGER:
+		return {
+			...state,
+			showDrawer: !state.showDrawer
 		}
 	default:
 		return state;

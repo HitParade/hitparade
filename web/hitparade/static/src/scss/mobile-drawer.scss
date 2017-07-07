@@ -1,0 +1,16 @@
+.mobile-drawer {
+    position: fixed;
+    @extend .fixed-absolute-cover;
+    top: $nav-spacing;
+    transition: all 0.4s;
+    transform: translateX(-100%);
+    z-index: 1000;
+
+    &.open {
+        transform: translateX(0);
+    }
+
+    @include responsive('tablet-desktop') {
+        display: none;
+    }
+}

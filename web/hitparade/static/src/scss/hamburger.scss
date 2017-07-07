@@ -1,0 +1,47 @@
+.hamburger {
+    width: 31px;
+    height: 22px;
+    position: relative;
+    cursor: pointer;
+
+    &.open {
+        .line-1 {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        .line-2 {
+            transform: translateY(-50%) rotate(45deg);
+        }
+        
+        .line-3 {
+            transform: translateY(-50%) rotate(-45deg);
+        }
+
+        .line-4 {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+    }
+}
+
+.line {
+    height: 3px;
+    border-radius: 3px;
+    background: $white;
+    position: absolute;
+    left: 0;
+    right: 0;
+    transition: all 0.4s;
+    opacity: 1;
+}
+
+.line-3, .line-2 {
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+}
+
+.line-4 {
+    bottom: 0;
+}
+

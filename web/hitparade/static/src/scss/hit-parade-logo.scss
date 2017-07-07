@@ -6,4 +6,8 @@
 	font-size: 12px;
 	line-height: 1.25;
 	min-height: 20px;
+
+	@include responsive('tablet-desktop') {
+		margin-right: 30px;
+	}
 }

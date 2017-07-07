@@ -269,6 +269,25 @@ class Game(HitparadeModel):
 
         return data
 
+class GameBattingLineup(HitparadeModel):
+    __name__ = "GameBattingLineup"
+
+    HANDEDNESS_SWITCH = 'S'
+    HANDEDNESS_LEFT = 'L'
+    HANDEDNESS_RIGHT = 'R'
+
+    HANDEDNESS_CHOICES = [
+        HANDEDNESS_LEFT,
+        HANDEDNESS_RIGHT,
+        HANDEDNESS_SWITCH
+    ]
+
+    game = models.ForeignKey(Game, related_name='game', null=True)
+    player = models.ForeignKey(Player, related_name='player', null=True)
+    team = models.ForeignKey(Team, related_name='team', null=True)
+    position = models.CharField(max_length=4, null=True)
+    handedness = models.CharField(max_length=4, null=True)
+    order = models.IntegerField(blank=True, null=True)
 
 class GameStat(HitparadeModel):
     __name__ = "GameStat"
