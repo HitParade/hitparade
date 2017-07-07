@@ -282,9 +282,9 @@ class GameBattingLineup(HitparadeModel):
         HANDEDNESS_SWITCH
     ]
 
-    game = models.ForeignKey(Game, related_name='game', null=True)
-    player = models.ForeignKey(Player, related_name='player', null=True)
-    team = models.ForeignKey(Team, related_name='team', null=True)
+    game = models.ForeignKey(Game, null=True)
+    player = models.ForeignKey(Player, null=True)
+    team = models.ForeignKey(Team, null=True)
     position = models.CharField(max_length=4, null=True)
     handedness = models.CharField(max_length=4, null=True)
     order = models.IntegerField(blank=True, null=True)
