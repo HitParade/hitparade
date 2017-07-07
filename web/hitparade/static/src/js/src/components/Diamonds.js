@@ -1,11 +1,15 @@
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 import {times} from 'lodash';
 
 const Diamonds = props => {
     const elements = []
-    times(props.count, () => {
+    times(props.count, (i) => {
               elements.push(
-                  <div className='hp-section-diamond'>
+                  <div 
+                    key={i}
+                    className='hp-section-diamond'
+                  >
                     <img src={props.src} className="hp-section-why-header-diamond" />
                   </div>
                 )

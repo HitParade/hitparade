@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 
 const HitParadeLeftMenuItem = props => {
   const svg_value = props.svg?<img src={props.imgRoot +props.svg.img} style={{width: props.svg.width ,height: props.svg.height, maxHeight: props.svg.maxHeight}} />:undefined;

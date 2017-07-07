@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     # external
+    "anymail",
     "account",
     "pinax.eventlog",
     "pinax.webanalytics",
@@ -192,8 +193,16 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-# VERRRRY temporary
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#############################################
+# Mail configuration
+ANYMAIL = {
+    # (exact settings here depend on your ESP...)
+    "MAILGUN_API_KEY": get_env_variable('MAILGUN_API_TOKEN'),
+    "MAILGUN_SENDER_DOMAIN": 'mg.hitparade.co',  # your Mailgun domain, if needed
+}
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
+DEFAULT_FROM_EMAIL = "info@hitparade.co"  # if you don't already have this in settings
+#############################################
 
 ACCOUNT_OPEN_SIGNUP = True
 ACCOUNT_EMAIL_UNIQUE = True

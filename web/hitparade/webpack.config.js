@@ -71,16 +71,16 @@ module.exports = {
         context: sourcePath,
       },
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        screw_ie8: true,
-        warnings: false
-      }
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compressor: {
+    //     screw_ie8: true,
+    //     warnings: false
+    //   }
+    // }),
     /* run on dev build only */
-    new BundleAnalyzerPlugin({
-            analyzerMode: 'static'
-    }),
+    // new BundleAnalyzerPlugin({
+    //         analyzerMode: 'static'
+    // }),
     new ExtractTextPlugin('css/site.css')
   ],
 

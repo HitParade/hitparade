@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 const HowItWorksStepsPanel = props => {
@@ -28,9 +29,9 @@ const HowItWorksStepsPanel = props => {
 }
 
 HowItWorksStepsPanel.propTypes = {
-	imgSrc: PropTypes.string.isRequired,
+	  imgSrc: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    body: PropTypes.string.required,
+    body: PropTypes.string.isRequired,
     reverse: PropTypes.bool
 };
 

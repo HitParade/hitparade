@@ -57,6 +57,16 @@ The admin section is available at [http://localhost/admin](http://localhost/admi
 
 The username / password is; `info@hitparade.co / changeme`
 
+## Previewing local via ngrok
+
+Sometimes it's helpful to pipe your local environment from to the internet. ngrok makes this easy.
+
+```bash
+ngrok http -subdomain=hp-local 80
+```
+
+Additionally, Typekit has been whitelisted for hp-local.hitparade.co, so all fonts will appear as they do in production.
+
 ## Debugging
 
 Things go wrong. Often. Here's a few tips on how to determine what may be happening.

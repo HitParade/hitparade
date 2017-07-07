@@ -1,0 +1,48 @@
+
+
+.share-button {
+    @extend .hp-button;
+    height: auto;
+    margin: 0 20px;
+}
+
+.share-button-icon {
+    width: 50px;
+    padding: 10px 0;
+}
+
+.fb-share-button {
+    @extend .share-button;
+    background: $facebookBlue;
+    margin-bottom: 10px;
+}
+
+.share-link {
+    display: block;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fb-share-button-icon {
+    width: 50px;
+    padding: 10px 0;
+}
+
+.fb-xfbml-parse-ignore {
+    @extend .share-link;
+}
+
+.twitter-share-link {
+    @extend .share-link;
+}
+
+.twitter-share-button {
+    @extend .share-button;
+    background: $twitterBlue;
+}
+
+.twitter-share-button-icon {
+    @extend .share-button-icon;
+}

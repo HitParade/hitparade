@@ -119,6 +119,7 @@ const HitParade = {
 		return {
 			...state,
 			showModal: true,
+			modalData: 'signUp'
 		};
 	},
 	[SELECT_PLAYER]: (state, action) => {
@@ -132,6 +133,7 @@ const HitParade = {
 			...state,
 			playersInCart: (state.playersInCart-1),
 		};
+
 	},
 	[NAV_LOGIN]: (state, action) => state,
 	[NAV_SELECT_PLAYERS]: (staet, action) => state,
@@ -139,7 +141,13 @@ const HitParade = {
 	[NAV_CONTACT]: (state, action) => state,
 	[TERMS_OF_USE]: (state, action) => state,
 	[CART]: (state, action) => state,
-	[NAV_SHARE]: (state, action) => state,
+	[NAV_SHARE]: (state, action) => {
+		return {
+			...state,
+			showModal: true,
+			modalData: 'share'
+		}
+	},
 	[NAV_PRIVACY_STATEMENT]: (state, action) => state,
   }
 };

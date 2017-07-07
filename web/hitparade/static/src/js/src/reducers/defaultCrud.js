@@ -10,7 +10,6 @@ import {
  * @returns {{}}
  */
 const defaultCrud = function (reducerName) {
-console.log('reducerName', reducerName);
 const CREATE_OR_UPDATE = `${reducerName.toUpperCase()}${_CREATE_OR_UPDATE}`;
 const DELETE = `${reducerName.toUpperCase()}${_DELETE}`;
 
