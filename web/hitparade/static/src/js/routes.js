@@ -13,18 +13,21 @@ function errorLoading(error) {
 }
 
 export const routePaths = {
-  base: '/'
+  base: '/',
+  test: '/app/test'
 }
 
 export const routes = (
   <Route component={App}>
-    {/*<Route path={routePaths.base} component={HitParade}/>*/}
     <Route path={routePaths.base} getComponent={(location, cb) => {
         import(/* webpackMode: "lazy" */'./src/containers/HitParade')
           .then(loadRoute(cb, false))
           .catch(errorLoading);
       }}/>
-
-    <Route path={'app/test'} component={Test}/>
+    <Route path={routePaths.test} getComponent={(location, cb) => {
+        import(/* webpackMode: "lazy" */'./src/containers/Test')
+          .then(loadRoute(cb, false))
+          .catch(errorLoading);
+      }}/>
   </Route>
 );

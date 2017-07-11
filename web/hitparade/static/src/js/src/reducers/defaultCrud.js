@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Immute from 'object-path-immutable';
 import {
   _DELETE,
   _CREATE_OR_UPDATE
@@ -18,26 +19,26 @@ const DELETE = `${reducerName.toUpperCase()}${_DELETE}`;
       [`${reducerName.toUpperCase()}${_CREATE_OR_UPDATE}`]: (state, action) => {
         // will merge an array of items or an individual object
         if (_.isArray(action.data)) {
-          state = state.mergeDeep(_.keyBy(action.data, 'id'));
+          state = Immute.set(state, _.keyBy(action.data, 'id'))
         } else if (_.isObject(action.data)) {
 
           let val = {};
           val[action.data.id] = action.data;
-          state = state.mergeDeep(val);
+          state = Immute.set(state, val);
         }
 
         return state;
       },
 
       [DELETE]: (state, action) => {
-
+        state = Immute.set(state);
         // will merge an array of items or an individual object
         if (_.isArray(action.data)) {
           action.data.forEach((key) => {
-            state = state.delete(key);
+            delete state[key] ;
           });
         } else {
-          state = state.delete(actoin.data);
+          delete state[actoin.data];
         }
 
         return state;

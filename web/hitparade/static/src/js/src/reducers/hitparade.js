@@ -44,67 +44,6 @@ const initialState = {
 		svgCart: svgCart,
 	},
 };
-// export default function HitParade(state=initialState, action) {
-// 	switch(action.type) {
-// 	case HitParadeActionTypes.NAV_SELECT_PLAYERS:
-// 		return {
-// 			...state,
-// 		};
-// 	case HitParadeActionTypes.NAV_FAQ:
-// 		return {
-// 			...state,
-// 		};
-// 	case HitParadeActionTypes.NAV_CONTACT:
-// 		return {
-// 			...state,
-// 		};
-// 	case HitParadeActionTypes.TERMS_OF_USE:
-// 		return {
-// 			...state,
-// 		};
-// 	case HitParadeActionTypes.NAV_CLOSE_MODAL:
-// 		return {
-// 			...state,
-// 			showModal: false,
-// 		};
-// 	case HitParadeActionTypes.NAV_SIGNUP:
-// 		return {
-// 			...state,
-// 			showModal: true,
-// 		};
-// 	case HitParadeActionTypes.NAV_LOGIN:
-// 		return {
-// 			...state,
-// 		};
-// 	case HitParadeActionTypes.NAV_CONTACT:
-// 		return {
-// 			...state,
-// 		};
-// 	case HitParadeActionTypes.SELECT_PLAYER:
-// 		state.playersInCart += 1;
-// 		return state;
-// 	case HitParadeActionTypes.REMOVE_PLAYER:
-// 		return {
-// 			...state,
-// 			playersInCart: (state.playersInCart-1),
-// 		};
-// 	case HitParadeActionTypes.CART:
-// 		return {
-// 			...state,
-// 		};
-// 	case HitParadeActionTypes.NAV_SHARE:
-// 		return {
-// 			...state,
-// 		}
-// 	case HitParadeActionTypes.NAV_PRIVACY_STATEMENT:
-// 		return {
-// 			...state,
-// 		}
-// 	default:
-// 		return state;
-// 	}
-// }
-
 
 const HitParade = {
   state: initialState, 
