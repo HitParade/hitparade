@@ -1,0 +1,55 @@
+.component-form-factory {
+  @mixin shared() {
+	display: inline-block;
+	vertical-align: top;
+	box-sizing: border-box;
+
+	@include responsive('mobile') {
+	  width: 100%;
+	}
+  }
+  .ff-container {
+	&.two-column {
+	  > * {
+		width: 50%;
+		@include shared();
+	  }
+	}
+
+	&.three-column {
+	  > * {
+		width: 33.33%;
+		@include shared();
+	  }
+	}
+
+	&.four-column {
+	  > * {
+		width: 25%;
+		@include shared();
+	  }
+	}
+
+	&.five-column {
+	  > * {
+		width: 20%;
+		@include shared();
+	  }
+	}
+
+	&.six-column {
+	  > * {
+		width: 16.66%;
+		@include shared();
+	  }
+	}
+  }
+
+  .ff-information {
+	position: relative;
+	&:after {
+	  content: '';
+
+	}
+  }
+}

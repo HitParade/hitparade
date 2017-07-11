@@ -5,10 +5,12 @@ import * as reducerConst from '../constants/Reducers';
 import createReducer from '../../utils/createReducer';
 import defaultCrud from './defaultCrud';
 import hitParade from './hitParade';
+import forms from './forms';
 
 
 const combineReducerConfigs = {
-    hitParade
+    hitParade,
+    forms
 }
 
 // create default actions for reducer constatns

@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { 
   syncHistoryWithStore, 
@@ -25,7 +26,7 @@ const router = routerMiddleware(browserHistory);
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(router),
+  applyMiddleware(thunk, router),
   // window.devToolsExtension && window.devToolsExtension()
 );
 
