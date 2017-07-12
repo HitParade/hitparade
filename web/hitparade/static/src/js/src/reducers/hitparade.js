@@ -11,6 +11,7 @@ import {
 	CART,
 	NAV_SHARE,
 	NAV_PRIVACY_STATEMENT,
+	TOGGLE_HAMBRUGER,
 } from '../actiontypes/hitparade';
 
 const svgShare = {
@@ -38,6 +39,7 @@ const initialState = {
 	heroImage: 'Hero.png',
 	heroImageMobile: 'heroImageMobile.svg',
 	showModal: false,
+	showDrawer: false,
 	svgs: {
 		svgContact: svgContact,
 		svgShare: svgShare,
@@ -74,6 +76,13 @@ const HitParade = {
 		};
 
 	},
+	[TOGGLE_HAMBRUGER]: (state, action) => {
+		return {
+			...state,
+			showDrawer: !state.showDrawer
+		};
+
+	},
 	[NAV_LOGIN]: (state, action) => state,
 	[NAV_SELECT_PLAYERS]: (staet, action) => state,
 	[NAV_FAQ]: (state, action) => state,
@@ -91,5 +100,3 @@ const HitParade = {
   }
 };
 
-
-export default HitParade;

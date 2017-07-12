@@ -15,6 +15,11 @@
     padding-left: 40px;
     padding-right: 40px;
 	height: 100%;
+
+	@include responsive('mobile') {
+		padding-left: 0;
+    	padding-right: 0;
+	}
 }
 
 .footer-content {

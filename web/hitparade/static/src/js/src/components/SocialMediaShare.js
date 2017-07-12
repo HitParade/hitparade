@@ -6,7 +6,7 @@ import siteContent from '../../siteContent.js';
 
 const SocialMediaShare = props => {
   return (
-            <div className="social-media-share-container">
+            <div className={`social-media-share-container ${props.className || ''}`}>
                 <img 
                   src={siteContent.assets.closeIcon}  
                   className="social-media-share-close" 
@@ -24,6 +24,7 @@ const SocialMediaShare = props => {
 }
 
 SocialMediaShare.propTypes = {
+  className: PropTypes.string
 };
 
 export default SocialMediaShare;

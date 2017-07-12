@@ -2,7 +2,7 @@
 $font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-family-serif:       Georgia, "Times New Roman", Times, serif;
 $font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
-$nav-spacing-desk-tablet: 65px;
+$nav-spacing: 65px;
 $max-content-width: 1040px;
 $imageRoot: '/static/dist/images/';
 
@@ -29,3 +29,6 @@ $imageRoot: '/static/dist/images/';
 @import "social-media-share.scss";
 @import "share-buttons.scss";
 @import "form-factory.scss";
+@import "mobile-drawer.scss";
+@import "mobile-drawer-content.scss";
+@import "hamburger.scss";

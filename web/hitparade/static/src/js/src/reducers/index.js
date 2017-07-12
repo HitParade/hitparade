@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { routerReducer as routing } from 'react-router-redux';
+import { routerReducer } from 'react-router-redux';
 import _ from 'lodash';
 import * as reducerConst from '../constants/Reducers';
 import createReducer from '../../utils/createReducer';
@@ -30,7 +30,7 @@ const createdReducers = _.fromPairs(
 
 const rootReducer = combineReducers({
     ...createdReducers, 
-    routing
+    routerReducer
 });
 
 

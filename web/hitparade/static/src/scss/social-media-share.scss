@@ -2,9 +2,15 @@
     max-width: 100%;
     width: 400px;
     min-height: 100px;
-    background: $white;
     padding: 1px 0 20px;
     border-radius: 2px;
+
+    &.social-media-share-close-hidden {
+        //TODO refactor close button to modal
+        .social-media-share-close {
+            display: none;
+        }
+    }
 }
 
 .social-media-share-container-header {
@@ -23,3 +29,8 @@
     position: absolute;
     cursor: pointer;
 }
+
+.social-media-share-container-background-white {
+    background: $white;
+}   
+

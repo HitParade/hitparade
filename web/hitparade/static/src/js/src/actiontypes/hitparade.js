@@ -10,3 +10,4 @@ export const NAV_PRIVACY_STATEMENT = 'hp.player/nav/NAV_PRIVACY_STATEMENT';
 export const NAV_SELECT_PLAYERS = 'hp.player/nav/SELECT_PLAYERS';
 export const NAV_CLOSE_MODAL  = 'hp.player/nav/NAV_CLOSE_MODAL';
 export const CART = 'hp.player/nav/CART';
+export const TOGGLE_HAMBRUGER = 'hp.player/nav/TOGGLE_HAMBRUGER';
