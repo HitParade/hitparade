@@ -100,3 +100,4 @@ const HitParade = {
   }
 };
 
+export default HitParade;
