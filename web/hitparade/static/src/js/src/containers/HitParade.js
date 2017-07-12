@@ -202,6 +202,7 @@ const mapStateToProps = state => {
       svgs: state.hitParade.svgs,
       showModal: state.hitParade.showModal,
       imgRoot: state.hitParade.imgRoot,
+      showDrawer: state.hitParade.showDrawer,
     }
 };
 
