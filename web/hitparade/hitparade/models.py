@@ -183,6 +183,18 @@ class Official(HitparadeModel):
     last_name = models.CharField(max_length=32)
     name = models.CharField(max_length=64)
     uniform_number = models.IntegerField(blank=True, null=True)
+    games = models.IntegerField(blank=True, null=True)
+    innings = models.FloatField(blank=True, null=True)
+    strike_outs = models.IntegerField(blank=True, null=True)
+    base_on_balls = models.IntegerField(blank=True, null=True)
+    runs_scored = models.IntegerField(blank=True, null=True)
+    strikes_per_inning = models.FloatField(blank=True, null=True)
+    base_on_balls_per_inning = models.FloatField(blank=True, null=True)
+    batting_average = models.FloatField(blank=True, null=True)
+    slugging_average = models.FloatField(blank=True, null=True)
+    runs = models.FloatField(blank=True, null=True)
+    on_base_plus_slugging  = models.FloatField(blank=True, null=True)
+    on_base_percentage = models.FloatField(blank=True, null=True)
 
 
     @classmethod
@@ -210,6 +222,9 @@ class Game(HitparadeModel):
     away_team = models.ForeignKey(Team, related_name='away_game', null=True)
     winning_team = models.ForeignKey(Team, related_name='winning_game', null=True)
     venue = models.ForeignKey(Venue, null=True)
+    home_pitcher = models.ForeignKey(Player, null=True)
+    away_pitcher = models.ForeignKey(Player, null=True)
+    official = models.ForeignKey(Official, null=True)
 
     ss_id = models.CharField(max_length=36, unique=True)
     season = models.IntegerField(blank=True, null=True)
@@ -288,6 +303,27 @@ class GameBattingLineup(HitparadeModel):
     position = models.CharField(max_length=4, null=True)
     handedness = models.CharField(max_length=4, null=True)
     order = models.IntegerField(blank=True, null=True)
+
+    def __unicode__(self):
+        return str(self.id)
+
+class RotowireScrapeLineupLog(HitParadeManager):
+    __name__ = "RotowireScrapeLineupLog"
+
+    started_at = models.DateTimeField(blank=True, null=True)
+    ended_at = models.DateTimeField(blank=True, null=True)
+    was_rotowire_scraped = models.BooleanField(blank=True, null=True)
+    was_data_complete = models.BooleanField(blank=True, null=True)
+    error_text = models.CharField(max_length=2000, blank=True, null=True)
+
+class RotowireScrapeOfficialLog(HitParadeManager):
+    __name__ = "RotowireScrapeOfficialLog"
+
+    started_at = models.DateTimeField(blank=True, null=True)
+    ended_at = models.DateTimeField(blank=True, null=True)
+    was_rotowire_scraped = models.BooleanField(blank=True, null=True)
+    was_data_complete = models.BooleanField(blank=True, null=True)
+    error_text = models.CharField(max_length=2000, blank=True, null=True)
 
 class GameStat(HitparadeModel):
     __name__ = "GameStat"
@@ -394,6 +430,17 @@ class GameStat(HitparadeModel):
         else:
             return key, date
 
+    @staticmethod
+    def WasRotowireLineupScraped(datetime = datetime.now()):
+        return RotowireScrapeLineupLog.objects.filter(
+            was_data_complete = true,
+            started_at__date = datetime.date()).exists()
+
+    @staticmethod
+    def WasRotowireOfficialScraped(datetime = datetime.now()):
+        return RotowireScrapeOfficialLog.objects.filter(
+            was_data_complete = true,
+            started_at__date = datetime.date()).exists()
 
     # Both of these are here so we can continue to support older files that
     #    don't have mlbam_id
