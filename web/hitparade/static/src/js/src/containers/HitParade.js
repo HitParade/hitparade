@@ -203,6 +203,7 @@ const mapStateToProps = state => {
       showModal: state.hitParade.showModal,
       imgRoot: state.hitParade.imgRoot,
       showDrawer: state.hitParade.showDrawer,
+      modalData: state.hitParade.modalData,
     }
 };
 
