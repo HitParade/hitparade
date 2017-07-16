@@ -3,6 +3,7 @@ import dateutil.parser
 import datetime
 import pytz
 
+from datetime import datetime as dt
 from django.db import models
 from django_mysql.models import Model
 from django_mysql.models.fields.json import JSONField
@@ -222,8 +223,8 @@ class Game(HitparadeModel):
     away_team = models.ForeignKey(Team, related_name='away_game', null=True)
     winning_team = models.ForeignKey(Team, related_name='winning_game', null=True)
     venue = models.ForeignKey(Venue, null=True)
-    home_pitcher = models.ForeignKey(Player, null=True)
-    away_pitcher = models.ForeignKey(Player, null=True)
+    starting_home_pitcher = models.ForeignKey(Player, related_name='home_pitcher', null=True)
+    starting_away_pitcher = models.ForeignKey(Player, related_name='away_pitcher', null=True)
     official = models.ForeignKey(Official, null=True)
 
     ss_id = models.CharField(max_length=36, unique=True)
@@ -307,22 +308,22 @@ class GameBattingLineup(HitparadeModel):
     def __unicode__(self):
         return str(self.id)
 
-class RotowireScrapeLineupLog(HitParadeManager):
+class RotowireScrapeLineupLog(HitparadeModel):
     __name__ = "RotowireScrapeLineupLog"
 
     started_at = models.DateTimeField(blank=True, null=True)
     ended_at = models.DateTimeField(blank=True, null=True)
-    was_rotowire_scraped = models.BooleanField(blank=True, null=True)
-    was_data_complete = models.BooleanField(blank=True, null=True)
+    was_rotowire_scraped = models.BooleanField(blank=True, null=False)
+    was_data_complete = models.BooleanField(blank=True, null=False)
     error_text = models.CharField(max_length=2000, blank=True, null=True)
 
-class RotowireScrapeOfficialLog(HitParadeManager):
+class RotowireScrapeOfficialLog(HitparadeModel):
     __name__ = "RotowireScrapeOfficialLog"
 
     started_at = models.DateTimeField(blank=True, null=True)
     ended_at = models.DateTimeField(blank=True, null=True)
-    was_rotowire_scraped = models.BooleanField(blank=True, null=True)
-    was_data_complete = models.BooleanField(blank=True, null=True)
+    was_rotowire_scraped = models.BooleanField(blank=True, null=False)
+    was_data_complete = models.BooleanField(blank=True, null=False)
     error_text = models.CharField(max_length=2000, blank=True, null=True)
 
 class GameStat(HitparadeModel):
@@ -431,15 +432,15 @@ class GameStat(HitparadeModel):
             return key, date
 
     @staticmethod
-    def WasRotowireLineupScraped(datetime = datetime.now()):
+    def wasRotowireLineupScraped(datetime = dt.now()):
         return RotowireScrapeLineupLog.objects.filter(
-            was_data_complete = true,
+            was_data_complete = True,
             started_at__date = datetime.date()).exists()
 
     @staticmethod
-    def WasRotowireOfficialScraped(datetime = datetime.now()):
+    def wasRotowireOfficialScraped(datetime = dt.now()):
         return RotowireScrapeOfficialLog.objects.filter(
-            was_data_complete = true,
+            was_data_complete = True,
             started_at__date = datetime.date()).exists()
 
     # Both of these are here so we can continue to support older files that

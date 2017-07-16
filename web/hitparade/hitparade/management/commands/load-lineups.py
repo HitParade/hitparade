@@ -1,17 +1,19 @@
 import pprint
 
 import requests
+import sys
 from bs4 import BeautifulSoup
 from datetime import datetime
+from django.utils import timezone
 from django.core.management.base import BaseCommand
-from hitparade.models import Team, Official, Game, GameStat, GameBattingLineup
+from hitparade.models import Team, Official, Game, GameStat, GameBattingLineup, RotowireScrapeLineupLog
 
 def findNpop(data, select, contentIndex, arrayIndex = 0):
     item = data.select(select)
 
     return item[arrayIndex].contents[contentIndex].strip()
 
-def findNpopTitle(data, select, contentIndex, arrayIndex = 0):
+def findNpopTitle(data, select, arrayIndex = 0):
     item = data.select(select)
 
     return item[arrayIndex]['title']
@@ -30,14 +32,13 @@ def findlineup(htmlLineup, select):
     return lineup
 
 def findGameFromRotoWire(matchup, now, index):
-
-    #pprint.pprint(now.strftime("on %B %d, %Y"))
-    #pprint.pprint(matchup)
-    game = Game.objects.filter(
+    games = Game.objects.filter(
         season = now.year,
         on = now.strftime("on %B %d, %Y"),
         home_team = matchup["Home"],
         away_team = matchup["Away"])
+
+    return games[index]
 
 
 def rotoWireGamesMatch(matchup1, matchup2):
@@ -47,7 +48,7 @@ def rotoWireGamesMatch(matchup1, matchup2):
 def findLinkWithHref(html, hrefText):
     return html.findAll(href=hrefText)
 
-def createTeam(self, htmlMatch):
+def createTeam(htmlMatch):
     ump = findLinkWithHref(htmlMatch, '/daily/mlb/umpire_stats.php')
 
     return {
@@ -66,19 +67,24 @@ def scrapeRotowire():
     r = requests.get('http://www.rotowire.com/baseball/daily_lineups.htm')
     soup = BeautifulSoup(r.text, 'html.parser')
     now = datetime.now()
-    complete = true;
+    complete = True;
 
     htmlMatches = [top.parent for top in soup.select("div.dlineups-topbox")]
 
     matchups = [createTeam(htmlMatch) for htmlMatch in htmlMatches]
 
     for matchup in matchups:
-        if matchup["Official"]:
-            complete = false #there should be a better way to check each needed item for completeness
+        comeplete = (matchup["Official"]
+            and matchup["HomePitcher"]
+            and matchup["AwayPitcher"]
+            and matchup["AwayLineup"]
+            and matchup["HomeLineup"])
 
         matchup["Away"] = GameStat.get_team_ref('code', matchup["AwayTeam"])[1]
         matchup["Home"] = GameStat.get_team_ref('code', matchup["HomeTeam"])[1]
-        matchup["Official"] = GameStat.get_umpire_ref('name', matchup["Official"])[1]
+        matchup["StartingOfficial"] = GameStat.get_umpire_ref('name', matchup["Official"])[1]
+        matchup["StartingHomePitcher"] = GameStat.get_player_ref('player', matchup["HomePitcher"])[1]
+        matchup["StartingAwayPitcher"] = GameStat.get_player_ref('player', matchup["AwayPitcher"])[1]
 
         likeItems = [x for x in matchups if rotoWireGamesMatch(x, matchup)]
 
@@ -86,51 +92,59 @@ def scrapeRotowire():
 
         matchup['Game'] = findGameFromRotoWire(matchup, now, matchupIndex)
 
+        if (matchup['Game'].official is None
+            and matchup['StartingOfficial']):
+            matchup['Game'].official = matchup['StartingOfficial']
+
+        if (not matchup['Game'].starting_home_pitcher 
+            and matchup['StartingHomePitcher']):
+            matchup['Game'].starting_home_pitcher = matchup['StartingHomePitcher']
+
+        if (not matchup['Game'].starting_away_pitcher 
+            and matchup['StartingAwayPitcher']):
+            matchup['Game'].starting_away_pitcher = matchup['StartingAwayPitcher']
+
         for person in matchup["AwayLineup"]:
             person["Player"] = GameStat.get_player_ref('player', person["Name"])[1]
 
-            gbl = GameBattingLineup.objects.create(game=matchup['Game'], 
+            gbl = GameBattingLineup.objects.get_or_create(game=matchup['Game'], 
                 team=matchup['Away'], 
                 player= person['Player'],
                 position=person['Pos'],
                 handedness=person['Handedness'],
                 order=person['Order'])
 
-            return
-
         for person in matchup["HomeLineup"]:
             person["Player"] = GameStat.get_player_ref('player', person["Name"])[1]
 
-            gbl = GameBattingLineup.objects.create(game=matchup['Game'], 
+            gbl = GameBattingLineup.objects.get_or_create(game=matchup['Game'], 
                 team=matchup['Home'], 
                 player= person['Player'],
                 position=person['Pos'],
                 handedness=person['Handedness'],
                 order=person['Order'])
-
-    #pprint.pprint(matchups)
-    return true
+    return True
 
 class Command(BaseCommand):
     help = 'Grabs lineup data from Rotowire.'
 
     def handle(self, *args, **options):
         errorText = ''
-        start = datetime.now()
-        wasScraped = false
-        wasScrapeFull = false
+        start = timezone.now()
+        wasScraped = False
+        wasScrapeFull = False
 
         try:
             wasScraped = GameStat.wasRotowireLineupScraped(start)
 
-            if !wasScraped:
+            if not wasScraped:
                 wasScrapeFull = scrapeRotowire()
-                wasScraped = true;
+                wasScraped = True;
         except:
             errorText = "Unexpected error:", sys.exc_info()[0]
-            pprint.pprint(errorText)
+            pprint.pprint(sys.exc_info())
 
-        end = datetime.now()
+        end = timezone.now()
 
         log = RotowireScrapeLineupLog.objects.create(
             started_at=start,
