@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
-import _ from 'lodash';
+import map from 'lodash/map';
+import fromPairs from 'lodash/fromPairs';
+import merge from 'lodash/merge';
 import * as reducerConst from '../constants/Reducers';
 import createReducer from '../../utils/createReducer';
 import defaultCrud from './defaultCrud';
@@ -14,16 +16,16 @@ const combineReducerConfigs = {
 }
 
 // create default actions for reducer constatns
-const reducerDefaultCRUD = _.fromPairs(
-    _.map(reducerConst , reducer =>  [reducer, defaultCrud(reducer)])
+const reducerDefaultCRUD =  fromPairs(
+     map(reducerConst , reducer =>  [reducer, defaultCrud(reducer)])
 );
 
 // merge all reducer configs
-const reducersReadyToBeCreated = _.merge(reducerDefaultCRUD, combineReducerConfigs)
+const reducersReadyToBeCreated =  merge(reducerDefaultCRUD, combineReducerConfigs)
 
 // create reducers
-const createdReducers = _.fromPairs(
-  _.map(reducersReadyToBeCreated, (reducerConfig, reducerName) => {
+const createdReducers =  fromPairs(
+   map(reducersReadyToBeCreated, (reducerConfig, reducerName) => {
     return [reducerName, createReducer(reducerConfig.state || {}, reducerConfig.actions)]
   })
 );

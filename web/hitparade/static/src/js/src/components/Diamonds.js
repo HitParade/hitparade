@@ -1,6 +1,6 @@
 import React from 'react'; 
 import PropTypes from 'prop-types';
-import {times} from 'lodash';
+import times from 'lodash/times';
 
 const Diamonds = props => {
     const elements = []

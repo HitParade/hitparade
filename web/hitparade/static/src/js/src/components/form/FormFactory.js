@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import _ from 'lodash';
+import get from 'lodash/get';
 import Input from './Input';
 import SubmitButton from './SubmitButton';
 import Link from './Link';
@@ -292,9 +292,9 @@ class FormFactory extends Component {
         // these props will get passed to all form elements
         props = {
           ...item,
-          error: errors && !!_.get(errors, item.name),
-          errorMessage: errors && _.get(errors, item.name),
-          value: values && _.get(values, item.name) || item.value || '',
+          error: errors && !!get(errors, item.name),
+          errorMessage: errors && get(errors, item.name),
+          value: values && get(values, item.name) || item.value || '',
           key: i,
           onChange: (value) => this.childOnChange(item.name, value),
         }

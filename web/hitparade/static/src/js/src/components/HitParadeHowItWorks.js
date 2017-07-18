@@ -1,6 +1,6 @@
 import React from 'react'; 
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import map from 'lodash/map';
 import HitParadeHowToPanel from './HitParadeHowToPanel';
 import HowItWorksStepsPanel from './HowItWorksStepsPanel';
 import siteContent from '../../siteContent.js';
@@ -39,7 +39,7 @@ const HitParadeHowItWorks = props => {
                         <section className="hp-section-how-graphics-panel-container">
                         <section className="hp-section-how-graphics-panel">
                         {
-                              _.map(panels, (panel) => 
+                               map(panels, (panel) => 
                                     (<HitParadeHowToPanel
                                           key={panel.h1Text}
                                           { ...panel }
@@ -58,7 +58,7 @@ const HitParadeHowItWorks = props => {
             </section>
                   <section className="how-it-works-steps-container">
                         {
-                              _.map(howItWorksSteps.steps, (panel, i) => 
+                               map(howItWorksSteps.steps, (panel, i) => 
                                     (<HowItWorksStepsPanel 
                                           key={panel.title}
                                           reverse={i % 2 !== 0}

@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import _ from 'lodash';
 import createReducer from '../../utils/createReducer';
 import Immute from 'object-path-immutable';
 

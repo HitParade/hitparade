@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import isArray from 'lodash/isArray';
+import keyBy from 'lodash/keyBy';
+import isObject from 'lodash/isObject';
 import Immute from 'object-path-immutable';
 import {
   _DELETE,
@@ -18,9 +20,9 @@ const DELETE = `${reducerName.toUpperCase()}${_DELETE}`;
     actions: {
       [`${reducerName.toUpperCase()}${_CREATE_OR_UPDATE}`]: (state, action) => {
         // will merge an array of items or an individual object
-        if (_.isArray(action.data)) {
-          state = Immute.set(state, _.keyBy(action.data, 'id'))
-        } else if (_.isObject(action.data)) {
+        if ( isArray(action.data)) {
+          state = Immute.set(state,  keyBy(action.data, 'id'))
+        } else if ( isObject(action.data)) {
 
           let val = {};
           val[action.data.id] = action.data;
@@ -33,7 +35,7 @@ const DELETE = `${reducerName.toUpperCase()}${_DELETE}`;
       [DELETE]: (state, action) => {
         state = Immute.set(state);
         // will merge an array of items or an individual object
-        if (_.isArray(action.data)) {
+        if ( isArray(action.data)) {
           action.data.forEach((key) => {
             delete state[key] ;
           });

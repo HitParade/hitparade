@@ -1,4 +1,8 @@
-import _ from 'lodash';
+import fromPairs from 'lodash/fromPairs';
+import map from 'lodash/map';
+import camelCase from 'lodash/camelCase';
+import merge from 'lodash/merge';
+import reduce from 'lodash/reduce';
 import * as ActionTypes from '../constants/ActionTypes';
 import * as ActionPartials from '../constants/ActionPartials';
 import * as Reducers from '../constants/Reducers';
@@ -20,22 +24,22 @@ const createAction = (type) => {
     }
 }
 
-const actionTypsActionCreators = _.fromPairs(
-    _.map(ActionTypes, (type) =>  [_.camelCase(type), createAction(type)])
+const actionTypsActionCreators =  fromPairs(
+     map(ActionTypes, (type) =>  [ camelCase(type), createAction(type)])
 );
 
-const actionPartialsActionCreators = _.fromPairs(
-    _.reduce(Reducers, (arr, type) =>  {
+const actionPartialsActionCreators =  fromPairs(
+     reduce(Reducers, (arr, type) =>  {
         let upperCaseType = type.toUpperCase()
         let updateAction = `${upperCaseType}${ActionPartials._CREATE_OR_UPDATE}`;
         let deleteAction = `${upperCaseType}${ActionPartials._DELETE}`;
-       arr.push([_.camelCase(updateAction), createAction(updateAction)]);
-       arr.push([_.camelCase(deleteAction), createAction(deleteAction)]);
+       arr.push([ camelCase(updateAction), createAction(updateAction)]);
+       arr.push([ camelCase(deleteAction), createAction(deleteAction)]);
 
        return arr;
     },[])
 );
 
-const actionCreators = _.merge(actionTypsActionCreators, actionPartialsActionCreators);
+const actionCreators =  merge(actionTypsActionCreators, actionPartialsActionCreators);
 
 export default actionCreators;
