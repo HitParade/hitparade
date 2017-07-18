@@ -2,9 +2,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
+import configureStore from './src/store/configureStore';
 import { 
   syncHistoryWithStore, 
-  routerMiddleware 
 } from 'react-router-redux';
 
 import { 
@@ -12,34 +12,18 @@ import {
   browserHistory 
 } from 'react-router';
 
-import { 
-  createStore, 
-  combineReducers,
-  applyMiddleware 
-} from 'redux';
-
 import { routes } from './routes';
-import rootReducer from './src/reducers';
 import '../scss/site.scss';
 
-const router = routerMiddleware(browserHistory);
-
-let store = null;
-
-if (process.env.TIER === 'dev') {
-  store = createStore(
-    rootReducer,
-    applyMiddleware(thunk, router),
-    window.devToolsExtension && window.devToolsExtension()
-  );
-} else {
-  store = createStore(
-    rootReducer,
-    applyMiddleware(thunk, router),
-  );
-}
+const store = configureStore();
 
 const history = syncHistoryWithStore(browserHistory, store);
+
+const showDevToolsWindow = true;
+if (process.env.TIER === 'dev' && showDevToolsWindow) {
+  const createDevToolsWindow = require('./utils/createDevToolsWindow').default;
+  createDevToolsWindow(store);
+}
 
 render(
     <Provider store={store}>
