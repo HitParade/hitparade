@@ -17,9 +17,11 @@ services:
     build:
       dockerfile: Dockerfile.js
       context: ./web/
+    env_file: ./web/.env
     volumes:
       - ./web/hitparade/:/code/
     command: ["/usr/local/bin/npm", "run", "start"]
+
 
   web-db:
     image: mysql:latest

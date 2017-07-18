@@ -1,3 +1,5 @@
+require('dotenv').config({ path: '../.env', silent: true });
+
 var path = require('path');
 var fs = require('fs');
 var webpack = require('webpack');
@@ -6,7 +8,33 @@ var autoprefixer = require('autoprefixer');
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 var sourcePath = path.join(__dirname, './static/src');
+var files = fs.readdirSync(__dirname);
 
+
+
+let plugins = [];
+
+if (process.env.TIER === 'dev') {
+  plugins = [
+    /* run on dev build only */
+    new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        reportFilename: 'webpack_bundle_analyser_report.html',
+    }),
+  ]
+} else {
+  plugins = [
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        screw_ie8: true,
+        warnings: false
+      }
+    }),
+  ]
+}
+
+
+var tier = process.env.TIER;
 module.exports = {
   devtool: 'source-map',
   entry: './static/src/js/index.js',
@@ -41,19 +69,14 @@ module.exports = {
   externals: [
   ],
   plugins: [
+    ...plugins,
     new webpack.DefinePlugin({
       __DEV__: false,
       'process.env': {
-        NODE_ENV: JSON.stringify('development')
+        TIER: JSON.stringify(tier),
       }
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      // name: 'vendor',
-      // filename: 'js/vendor.js',
-      // minChunks(module) {
-      //   const context = module.context;
-      //   return context && context.indexOf('node_modules') >= 0;
-      // },
        name: 'vendor',
         minChunks: Infinity,
         filename: 'js/[name].js',
@@ -71,16 +94,6 @@ module.exports = {
         context: sourcePath,
       },
     }),
-    // new webpack.optimize.UglifyJsPlugin({
-    //   compressor: {
-    //     screw_ie8: true,
-    //     warnings: false
-    //   }
-    // }),
-    /* run on dev build only */
-    // new BundleAnalyzerPlugin({
-    //         analyzerMode: 'static'
-    // }),
     new ExtractTextPlugin('css/site.css')
   ],
 

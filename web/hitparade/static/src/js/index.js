@@ -24,11 +24,20 @@ import '../scss/site.scss';
 
 const router = routerMiddleware(browserHistory);
 
-const store = createStore(
-  rootReducer,
-  applyMiddleware(thunk, router),
-  // window.devToolsExtension && window.devToolsExtension()
-);
+let store = null;
+
+if (process.env.TIER === 'dev') {
+  store = createStore(
+    rootReducer,
+    applyMiddleware(thunk, router),
+    window.devToolsExtension && window.devToolsExtension()
+  );
+} else {
+  store = createStore(
+    rootReducer,
+    applyMiddleware(thunk, router),
+  );
+}
 
 const history = syncHistoryWithStore(browserHistory, store);
 
