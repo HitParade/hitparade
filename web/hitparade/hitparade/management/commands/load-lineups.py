@@ -74,7 +74,7 @@ def scrapeRotowire():
     matchups = [createTeam(htmlMatch) for htmlMatch in htmlMatches]
 
     for matchup in matchups:
-        comeplete = (matchup["Official"]
+        complete = (matchup["Official"]
             and matchup["HomePitcher"]
             and matchup["AwayPitcher"]
             and matchup["AwayLineup"]
@@ -123,7 +123,7 @@ def scrapeRotowire():
                 position=person['Pos'],
                 handedness=person['Handedness'],
                 order=person['Order'])
-    return True
+    return complete
 
 class Command(BaseCommand):
     help = 'Grabs lineup data from Rotowire.'

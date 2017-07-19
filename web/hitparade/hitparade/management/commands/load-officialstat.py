@@ -46,14 +46,14 @@ class Command(BaseCommand):
                 dbOff.innings = official["Innings"]
                 dbOff.strike_outs = official["K"]
                 dbOff.base_on_balls = official["BB"]
-                dbOff.runs_scored = official["K/9"]
-                dbOff.strikes_per_inning = official["BB/9"]
-                dbOff.base_on_balls_per_inning = official["AVG"]
-                dbOff.batting_average = official["R"]
+                dbOff.strikes_per_inning = official["K/9"]
+                dbOff.base_on_balls_per_inning = official["BB/9"]
+                dbOff.batting_average = official["AVG"]
+                dbOff.runs = official["R"]
                 dbOff.slugging_average = official["SLG"]
-                dbOff.runs = official["OBP"]
+                dbOff.on_base_percentage = official["OBP"]
                 dbOff.on_base_plus_slugging = official["OPS"]
-                dbOff.on_base_percentage = official["R/9"]
+                dbOff.runs_scored = official["R/9"]
         
         #pprint.pprint(officials)
         return True #don't know if this would ever be false
