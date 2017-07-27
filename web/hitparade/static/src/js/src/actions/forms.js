@@ -1,5 +1,5 @@
 import actions from './ActionCreators';
-
+import _ from 'lodash';
 /**
  * Form validation
  */
