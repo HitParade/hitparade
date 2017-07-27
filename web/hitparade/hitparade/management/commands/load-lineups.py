@@ -140,9 +140,9 @@ class Command(BaseCommand):
             if not wasScraped:
                 wasScrapeFull = scrapeRotowire()
                 wasScraped = True;
-        except:
-            errorText = "Unexpected error:", sys.exc_info()[0]
-            pprint.pprint(sys.exc_info())
+        except Exception, e:
+            errorText = "Unexpected error: '" + str(e) + " at #" + str(sys.exc_info()[2].tb_lineno)
+            pprint.pprint(errorText)
 
         end = timezone.now()
 

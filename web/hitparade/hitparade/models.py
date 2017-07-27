@@ -188,14 +188,14 @@ class Official(HitparadeModel):
     innings = models.IntegerField(blank=True, null=True) #innings
     strike_outs = models.IntegerField(blank=True, null=True) #k
     base_on_balls = models.IntegerField(blank=True, null=True) #bb
-    runs_scored = models.DecimalField(blank=True, null=True) #r/9
+    runs_scored = models.DecimalField(blank=True, null=True, max_digits=4, decimal_places=2) #r/9
     strikes_per_inning = models.DecimalField(blank=True, null=True, max_digits=4, decimal_places=2) #k/9
     base_on_balls_per_inning = models.DecimalField(blank=True, null=True, max_digits=4, decimal_places=2) #bb/9
-    batting_average = models.DecimalField(blank=True, null=True) #avg
-    slugging_average = models.DecimalField(blank=True, null=True) #slg
+    batting_average = models.DecimalField(blank=True, null=True, max_digits=4, decimal_places=3) #avg
+    slugging_average = models.DecimalField(blank=True, null=True, max_digits=4, decimal_places=3) #slg
     runs = models.IntegerField(blank=True, null=True) #r
-    on_base_plus_slugging  = models.DecimalField(blank=True, null=True) #ops
-    on_base_percentage = models.DecimalField(blank=True, null=True) #obp
+    on_base_plus_slugging  = models.DecimalField(blank=True, null=True, max_digits=4, decimal_places=3) #ops
+    on_base_percentage = models.DecimalField(blank=True, null=True, max_digits=4, decimal_places=3) #obp
 
 
     @classmethod
