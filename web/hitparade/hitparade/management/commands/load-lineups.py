@@ -2,6 +2,7 @@ import pprint
 
 import requests
 import sys
+import traceback 
 from bs4 import BeautifulSoup
 from datetime import datetime
 from django.utils import timezone
@@ -10,6 +11,11 @@ from hitparade.models import Team, Official, Game, GameStat, GameBattingLineup, 
 
 def findNpop(data, select, contentIndex, arrayIndex = 0):
     item = data.select(select)
+
+    if not len(item) > arrayIndex \
+        or not item[arrayIndex].contents \
+        or not len(item[arrayIndex].contents) > contentIndex:
+        return None
 
     return item[arrayIndex].contents[contentIndex].strip()
 
@@ -38,8 +44,10 @@ def findGameFromRotoWire(matchup, now, index):
         home_team = matchup["Home"],
         away_team = matchup["Away"])
 
-    return games[index]
+    if not len(games) > index:
+        return None
 
+    return games[index]
 
 def rotoWireGamesMatch(matchup1, matchup2):
     return matchup1['AwayTeam'] == matchup2["AwayTeam"] and matchup1['HomeTeam'] == matchup2["HomeTeam"]
@@ -92,6 +100,10 @@ def scrapeRotowire():
 
         matchup['Game'] = findGameFromRotoWire(matchup, now, matchupIndex)
 
+        if not matchup['Game']:
+            complete = False
+            continue
+
         if (matchup['Game'].official is None
             and matchup['StartingOfficial']):
             matchup['Game'].official = matchup['StartingOfficial']
@@ -107,6 +119,9 @@ def scrapeRotowire():
         for person in matchup["AwayLineup"]:
             person["Player"] = GameStat.get_player_ref('player', person["Name"])[1]
 
+            if not person["Player"]:
+                continue;
+
             gbl = GameBattingLineup.objects.get_or_create(game=matchup['Game'], 
                 team=matchup['Away'], 
                 player= person['Player'],
@@ -117,12 +132,16 @@ def scrapeRotowire():
         for person in matchup["HomeLineup"]:
             person["Player"] = GameStat.get_player_ref('player', person["Name"])[1]
 
+            if not person["Player"]:
+                continue;
+                
             gbl = GameBattingLineup.objects.get_or_create(game=matchup['Game'], 
                 team=matchup['Home'], 
                 player= person['Player'],
                 position=person['Pos'],
                 handedness=person['Handedness'],
                 order=person['Order'])
+
     return complete
 
 class Command(BaseCommand):
@@ -141,7 +160,7 @@ class Command(BaseCommand):
                 wasScrapeFull = scrapeRotowire()
                 wasScraped = True;
         except Exception, e:
-            errorText = "Unexpected error: '" + str(e) + " at #" + str(sys.exc_info()[2].tb_lineno)
+            errorText = traceback.format_exc()
             pprint.pprint(errorText)
 
         end = timezone.now()

@@ -2,6 +2,7 @@ import pprint
 
 import requests
 import sys
+import traceback 
 from bs4 import BeautifulSoup
 from django.utils import timezone
 from django.core.management.base import BaseCommand
@@ -71,9 +72,9 @@ class Command(BaseCommand):
             if not wasScraped:
                 wasScrapeFull = self.scrapeRotowire()
                 wasScraped = True;
-        except:
-            errorText = "Unexpected error:", sys.exc_info()[0]
-            pprint.pprint(sys.exc_info())
+        except Exception, e:
+            errorText = traceback.format_exc()
+            pprint.pprint(errorText)
 
         end = timezone.now()
 
