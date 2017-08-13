@@ -161,7 +161,7 @@ class OfficialAdmin(TimeStampedAdmin):
 
 class OfficialAdmin(TimeStampedAdmin):
     status = None
-    list_display = ('__unicode__', 'first_name', 'last_name')
+    list_display = ('__unicode__', 'uniform_number', 'games', 'innings', 'strike_outs', 'base_on_balls', 'runs_scored', 'strikes_per_inning', 'base_on_balls_per_inning', 'batting_average', 'slugging_average', 'runs', 'on_base_plus_slugging', 'on_base_percentage',)
 
 class RotowireScrapeLineupLogAdmin(TimeStampedAdmin):
     status = None
