@@ -44,7 +44,7 @@ class Command(BaseCommand):
 
             if dbOff is not None:
                 dbOff.games = official["Game"]
-                dbOff.innings = official["Innings"]
+                dbOff.innings = int(official["Innings"].split('.')[0])
                 dbOff.strike_outs = official["K"]
                 dbOff.base_on_balls = official["BB"]
                 dbOff.strikes_per_inning = official["K/9"]
@@ -55,6 +55,9 @@ class Command(BaseCommand):
                 dbOff.on_base_percentage = official["OBP"]
                 dbOff.on_base_plus_slugging = official["OPS"]
                 dbOff.runs_scored = official["R/9"]
+                dbOff.save()
+                pprint.pprint(dbOff)
+
         
         #pprint.pprint(officials)
         return True #don't know if this would ever be false
@@ -68,13 +71,15 @@ class Command(BaseCommand):
 
         try:
             wasScraped = GameStat.wasRotowireOfficialScraped(start)
-
+            
             if not wasScraped:
                 wasScrapeFull = self.scrapeRotowire()
                 wasScraped = True;
         except Exception, e:
             errorText = traceback.format_exc()
             pprint.pprint(errorText)
+            wasScrapeFull = False
+            wasScraped = False
 
         end = timezone.now()
 
@@ -84,3 +89,10 @@ class Command(BaseCommand):
             was_rotowire_scraped=wasScraped,
             was_data_complete=wasScrapeFull,
             error_text=errorText)
+
+        pprint.pprint(vars(log))
+
+        log.save()
+
+
+

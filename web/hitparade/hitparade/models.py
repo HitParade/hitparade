@@ -317,6 +317,9 @@ class RotowireScrapeLineupLog(HitparadeModel):
     was_data_complete = models.BooleanField(blank=True, null=False)
     error_text = models.CharField(max_length=2000, blank=True, null=True)
 
+    def __unicode__(self):
+        return str(self.id)
+
 class RotowireScrapeOfficialLog(HitparadeModel):
     __name__ = "RotowireScrapeOfficialLog"
 
@@ -325,6 +328,9 @@ class RotowireScrapeOfficialLog(HitparadeModel):
     was_rotowire_scraped = models.BooleanField(blank=True, null=False)
     was_data_complete = models.BooleanField(blank=True, null=False)
     error_text = models.CharField(max_length=2000, blank=True, null=True)
+
+    def __unicode__(self):
+        return str(self.id)
 
 class GameStat(HitparadeModel):
     __name__ = "GameStat"

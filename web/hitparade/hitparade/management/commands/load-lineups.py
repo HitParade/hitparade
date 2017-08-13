@@ -86,7 +86,7 @@ def scrapeRotowire():
             and matchup["HomePitcher"]
             and matchup["AwayPitcher"]
             and matchup["AwayLineup"]
-            and matchup["HomeLineup"])
+            and matchup["HomeLineup"]) != None
 
         matchup["Away"] = GameStat.get_team_ref('code', matchup["AwayTeam"])[1]
         matchup["Home"] = GameStat.get_team_ref('code', matchup["HomeTeam"])[1]
@@ -104,6 +104,8 @@ def scrapeRotowire():
             complete = False
             continue
 
+        matchup['Game'].weather_conditions = matchup['Weather']
+
         if (matchup['Game'].official is None
             and matchup['StartingOfficial']):
             matchup['Game'].official = matchup['StartingOfficial']
@@ -120,6 +122,7 @@ def scrapeRotowire():
             person["Player"] = GameStat.get_player_ref('player', person["Name"])[1]
 
             if not person["Player"]:
+                complete=False
                 continue;
 
             gbl = GameBattingLineup.objects.get_or_create(game=matchup['Game'], 
@@ -127,20 +130,27 @@ def scrapeRotowire():
                 player= person['Player'],
                 position=person['Pos'],
                 handedness=person['Handedness'],
-                order=person['Order'])
+                order=person['Order'])[0]
+            gbl.save()
 
         for person in matchup["HomeLineup"]:
             person["Player"] = GameStat.get_player_ref('player', person["Name"])[1]
 
             if not person["Player"]:
+                complete = False
                 continue;
-                
+
             gbl = GameBattingLineup.objects.get_or_create(game=matchup['Game'], 
                 team=matchup['Home'], 
                 player= person['Player'],
                 position=person['Pos'],
                 handedness=person['Handedness'],
-                order=person['Order'])
+                order=person['Order'])[0]
+
+            gbl.save()
+
+        matchup['Game'].save()
+        pprint.pprint(matchup['Game'])
 
     return complete
 
@@ -162,6 +172,8 @@ class Command(BaseCommand):
         except Exception, e:
             errorText = traceback.format_exc()
             pprint.pprint(errorText)
+            wasScrapeFull = False
+            wasScraped = False
 
         end = timezone.now()
 
@@ -171,5 +183,9 @@ class Command(BaseCommand):
             was_rotowire_scraped=wasScraped,
             was_data_complete=wasScrapeFull,
             error_text=errorText)
+
+        pprint.pprint(vars(log))
+
+        log.save()
 
         
