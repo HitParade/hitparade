@@ -37,7 +37,7 @@ export default {
                     imgRoot: root,
                     svg: "/predictiveEngine.svg",
                     h1Text: "Predictive Engine",
-                    descText: "HitParade uses a custom predictive engine to predict if a player will get a hit in an upcoming game."
+                    descText: "Hit Parade uses AI to predict player performance in upcoming games."
                 },
                 {
                     imgRoot: root,
@@ -52,18 +52,18 @@ export default {
             steps: [
                 {
                     imgSrc: `${root}/howItWorks1.png`,
-                    title: "STEP 1:",
-                    body: "Choose a player from our database."
+                    title: "Simple",
+                    body: "Data is easy to navigate and understand."
                 },
                 {
                     imgSrc: `${root}/howItWorks2.png`,
-                    title: "STEP 2:",
-                    body: "View detailed analytics, stats for all of the chosen players history and view our predictions as to whether the player will get a hit."
+                    title: "Efficient",
+                    body: "All information visualized in one place."
                 },
                 {
                     imgSrc: `${root}/howItWorks3.png`,
-                    title: "STEP 3:",
-                    body: "Choose the most probable player(s) to get a hit to Beat the Streak and WIN $5.6 million!"
+                    title: "Advanced",
+                    body: "AI Algorithms find hidden value in player performance."
                 }
             ]
         },
