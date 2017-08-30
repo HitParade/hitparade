@@ -24,10 +24,9 @@ const HitParadeHeroImage = props => {
                         </div>
                     </section>
                     <section className="hp-hero-overlay-text hp-hero-overlay-large-text niveau-grotesk-black">
-                        <div className="hp-hero-text-elem hp-hero-text-elm-large">WIN THE  </div>
-                        <img src={siteContent.assets.winNumber} className="hp-hero-millions-number"/>
+                        <div className="hp-hero-text-elem hp-hero-text-elm-large">WIN YOUR FAVORITE</div>
                     </section>
-                    <section className="hp-hero-overlay-text hp-hero-overlay-medium-text niveau-grotesk-black"><div className="hp-hero-text-elem">MILLION PRIZE</div></section>
+                    <section className="hp-hero-overlay-text hp-hero-overlay-medium-text niveau-grotesk-black"><div className="hp-hero-text-elem">FANTASY GAME TODAY!</div></section>
                     <section className="hp-hero-overlay-text hp-hero-bottom-overlay extra-bottom-space">
                     <HitParadeButton
                         className="hp-homepage-button niveau-grotesk-black"

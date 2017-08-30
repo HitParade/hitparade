@@ -21,17 +21,13 @@ const HitParadeSectionWhy = props => {
 					<img src={props.imgRoot + 'coins.svg'}  className="hp-why-coin-image" />
 				</div>
 				<section className="hp-why-main-content">
-					<section className="hp-why-header-top niveau-grotesk-black">
-						BEAT THE STREAK FOR THE COST OF YOUR MORNING COFFEE
-					</section>
 					<section className="hp-why-header-bottom">
 						<section className="hp-why-header-bottom-text proxima-nova-regular">
-							Hit Parade provides detailed statistics in order to predict whether or not a player will get a hit in the upcoming games.
+							Using more than 40 relevant data points per player, Hit Parade's artificial intelligence capabilities provide a new level of insight for professional and fantasy managers.
 						</section>
 						<section className="hp-why-header-bottom-panel-main">
 							<section className="hp-why-header-bottom-panel">
 									<section className="hp-why-register-text  niveau-grotesk-black">REGISTER FOR EARLY ACCESS</section>
-									<section className="hp-why-register-text-desc proxima-nova-regular">Get Free Access for 1 week.</section>
 							</section>
 							<section className="hp-why-header-bottom-panel-right">
 								<HitParadeButton 
