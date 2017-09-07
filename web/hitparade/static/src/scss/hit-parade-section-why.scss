@@ -31,8 +31,10 @@ section.hp-why-header-bottom-panel-main {
 	height: 24px;
 }
 .hp-why-coin-image {
-	max-width: 400px;
-	width:100%;
+	max-width: 200px;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid black;
 
 	@include responsive('mobile') {
 		max-width: 171px;
