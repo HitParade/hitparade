@@ -70,20 +70,34 @@ class Division(HitparadeModel):
 class Venue(HitparadeModel):
     __name__ = "Venue"
 
-
     ss_id = models.CharField(max_length=36, unique=True)
+    sr_id = models.CharField(max_length=36, blank=True, null=True)
     abbreviation = models.CharField(max_length=64)
     capacity = models.IntegerField(blank=True, null=True)
     city = models.CharField(max_length=32, null=True)
     field_type = models.CharField(max_length=16, null=True)
     name = models.CharField(max_length=64, null=True)
+    market = models.CharField(max_length=64, null=True)
+    surface = models.CharField(max_length=64, null=True)
+    address = models.CharField(max_length=128, null=True)
+    city = models.CharField(max_length=128, null=True)
+    zipcode = models.CharField(max_length=16, null=True)
+    country = models.CharField(max_length=16, null=True)
     slug = models.CharField(max_length=32, null=True)
     state = models.CharField(max_length=2, null=True)
     stadium_type = models.CharField(max_length=32, null=True)
     time_zone = models.CharField(max_length=32, null=True)
     longitude = models.FloatField(null=True)
     latitude = models.FloatField(null=True)
-
+    distances_lf = models.IntegerField(blank=True, null=True)
+    distances_lcf = models.IntegerField(blank=True, null=True)
+    distances_cf = models.IntegerField(blank=True, null=True)
+    distances_rcf = models.IntegerField(blank=True, null=True)
+    distances_rf = models.IntegerField(blank=True, null=True)
+    distances_mlf = models.IntegerField(blank=True, null=True)
+    distances_mlcf = models.IntegerField(blank=True, null=True)
+    distances_mrcf = models.IntegerField(blank=True, null=True)
+    distances_mrf = models.IntegerField(blank=True, null=True)
 
     @classmethod
     def clean_ss_data(cls, data):
@@ -95,6 +109,7 @@ class Team(HitparadeModel):
 
 
     ss_id = models.CharField(max_length=36, unique=True)
+    sr_id = models.CharField(max_length=64, unique=False, null=True)
     venue = models.OneToOneField(Venue, null=True)
     division = models.ForeignKey(Division, null=True)
     name = models.CharField(max_length=64)

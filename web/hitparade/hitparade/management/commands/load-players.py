@@ -5,8 +5,8 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 
 from hitparade.models import Team, Player
-from hitparade.utils import get_stattleship_client, move_ssid
-
+from hitparade.utils import get_stattleship_client, move_ssid, get_redis, get_redis_object, set_redis_object
+redis_connection = get_redis()
 
 class Command(BaseCommand):
     help = 'Parses application looking for mixpanel events.'
@@ -36,16 +36,19 @@ class Command(BaseCommand):
             len_players = 1
 
             while len_players != 0:
-
-                result = s.ss_get_results(sport='baseball',
-                                        league='mlb',
-                                        ep='players',
-                                        team_id=t.slug,
-                                        page=page,
-                                        per_page=40,
-                                        verbose=True,
-                                        active=True
-                                    )
+                key_ = t.slug + str(page) + str(40) + 'players'
+                result = get_redis_object(redis_connection, key_)
+                if result is None:
+                    result = s.ss_get_results(sport='baseball',
+                                              league='mlb',
+                                              ep='players',
+                                              team_id=t.slug,
+                                              page=page,
+                                              per_page=40,
+                                              verbose=True,
+                                              active=True
+                                              )
+                    set_redis_object(redis_connection, key_, result)
                 len_players = len(result[0]['players'])
 
 

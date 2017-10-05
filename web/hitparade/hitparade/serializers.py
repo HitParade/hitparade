@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from hitparade.models import Team, Game, Player
+from hitparade.models import Team, Game, Player, GameStat
 
 class TeamSerializerV1(serializers.ModelSerializer):
     class Meta:
@@ -16,4 +16,11 @@ class GameSerializerV1(serializers.ModelSerializer):
 class PlayerSerializerV1(serializers.ModelSerializer):
     class Meta:
         model = Player
+        fields = '__all__'
+
+
+class GameStatSerializerV1(serializers.ModelSerializer):
+    team = TeamSerializerV1()
+    class Meta:
+        model = GameStat
         fields = '__all__'
