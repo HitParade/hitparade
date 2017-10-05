@@ -7,8 +7,8 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 
 from hitparade.models import Team, Official, Venue, Game, get_games_to_update
-from hitparade.utils import get_stattleship_client
-
+from hitparade.utils import get_stattleship_client, get_redis, get_redis_object, set_redis_object
+redis_connection = get_redis()
 
 class Command(BaseCommand):
     help = 'Updates game tables with data for games that have finished'
@@ -31,12 +31,15 @@ class Command(BaseCommand):
         on_date = oldest_closed_game.started_at
 
         while on_date < timezone.now() + datetime.timedelta(1):
-
-            result = s.ss_get_results(sport='baseball',
-                                    league='mlb',
-                                    ep='games',
-                                    on=on_date.strftime("%Y-%m-%d")
-                                )
+            key_ = 'mlbgames40' + on_date.strftime("%Y-%m-%d")
+            result = get_redis_object(redis_connection, key_)
+            if result is None:
+                result = s.ss_get_results(sport='baseball',
+                                        league='mlb',
+                                        ep='games',
+                                        on=on_date.strftime("%Y-%m-%d")
+                                    )
+                set_redis_object(redis_connection, key_, result)
 
             # Load conferences
             for o in result[0]['officials']:

@@ -4,7 +4,9 @@ from celery import shared_task
 import pprint
 import datetime
 from hitparade.models import *
-from hitparade.utils import get_stattleship_client, move_ssid
+from hitparade.utils import get_stattleship_client, move_ssid, get_redis, get_redis_object, set_redis_object
+
+redis_connection = get_redis()
 
 @shared_task
 def debug_task(x, y):
@@ -30,16 +32,18 @@ def load_at_bats(game_id):
     while len_atbats != 0:
 
         print "%s : %i" % (str(game.id), int(page))
-
-
-        result = s.ss_get_results(sport='baseball',
-                                league='mlb',
-                                ep='at_bats',
-                                game_id=game.slug,
-                                page=page,
-                                per_page=40,
-                                verbose=False
-                            )
+        key_ = game.slug + str(page) + str(40)
+        result = get_redis_object(redis_connection, key_)
+        if result is None:
+            result = s.ss_get_results(sport='baseball',
+                                    league='mlb',
+                                    ep='at_bats',
+                                    game_id=game.slug,
+                                    page=page,
+                                    per_page=40,
+                                    verbose=False
+                                )
+            set_redis_object(redis_connection, key_, result)
 
         # print result[0].keys()
         # pp.pprint(result[0]['at_bats'][0])
