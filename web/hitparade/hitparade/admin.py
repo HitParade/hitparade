@@ -99,17 +99,29 @@ class WinningTeamFilter(TeamFilter):
 class TimeStampedAdmin(admin.ModelAdmin):
     readonly_fields = ('created','modified')
 
-
 class PlayerAdmin(TimeStampedAdmin):
     list_display = ('name', 'team', 'position_name',)
     search_fields = ('name', 'first_name', 'last_name', 'nickname',)
     list_filter = (TeamFilter, 'active',)
+
+class GameBattingLineupAdmin(admin.TabularInline):
+    model = GameBattingLineup
+    fields = ('team_nickname', 'order', 'player_name', 'position', 'handedness',)
+    readonly_fields = ('team_nickname','player_name',)
+    ordering = ('team', 'order',)
+
+    def team_nickname(self, instance):
+        return instance.team.nickname
+
+    def player_name(self, instance):
+        return instance.player.name
 
 
 class GameAdmin(TimeStampedAdmin):
     list_display = ('title', 'started_at', 'status', )
     list_filter = (GameStatusFilter, AwayTeamFilter, HomeTeamFilter, WinningTeamFilter)
     ordering = ('started_at',)
+    inlines = [GameBattingLineupAdmin]
 
 
 class GameStatAdmin(TimeStampedAdmin):
@@ -143,6 +155,23 @@ class VenueAdmin(TimeStampedAdmin):
 class TeamAdmin(TimeStampedAdmin):
     list_display = ('__unicode__', 'name', 'location',)
 
+class OfficialAdmin(TimeStampedAdmin):
+    status = None
+    list_display = ('__unicode__', 'first_name', 'last_name')
+
+class OfficialAdmin(TimeStampedAdmin):
+    status = None
+    list_display = ('__unicode__', 'uniform_number', 'games', 'innings', 'strike_outs', 'base_on_balls', 'runs_scored', 'strikes_per_inning', 'base_on_balls_per_inning', 'batting_average', 'slugging_average', 'runs', 'on_base_plus_slugging', 'on_base_percentage',)
+
+class RotowireScrapeLineupLogAdmin(TimeStampedAdmin):
+    status = None
+    list_display = ('__unicode__', 'started_at', 'ended_at', 'was_rotowire_scraped', 'was_data_complete', 'error_text',)
+    ordering = ('-started_at',)
+
+class RotowireScrapeOfficialLogAdmin(TimeStampedAdmin):
+    status = None
+    list_display = ('__unicode__', 'started_at', 'ended_at', 'was_rotowire_scraped', 'was_data_complete', 'error_text',)
+    ordering = ('-started_at',)
 
 admin.site.register(Player, PlayerAdmin)
 admin.site.register(Game, GameAdmin)
@@ -151,3 +180,6 @@ admin.site.register(AtBat, AtBatAdmin)
 admin.site.register(Pitch, PitchAdmin)
 admin.site.register(Venue, VenueAdmin)
 admin.site.register(Team, TeamAdmin)
+admin.site.register(Official, OfficialAdmin)
+admin.site.register(RotowireScrapeLineupLog, RotowireScrapeLineupLogAdmin)
+admin.site.register(RotowireScrapeOfficialLog, RotowireScrapeOfficialLogAdmin)

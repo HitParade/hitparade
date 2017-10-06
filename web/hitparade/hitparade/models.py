@@ -3,6 +3,7 @@ import dateutil.parser
 import datetime
 import pytz
 
+from datetime import datetime as dt
 from django.db import models
 from django_mysql.models import Model
 from django_mysql.models.fields.json import JSONField
@@ -377,6 +378,18 @@ class Official(HitparadeModel):
     last_name = models.CharField(max_length=32)
     name = models.CharField(max_length=64)
     uniform_number = models.IntegerField(blank=True, null=True)
+    games = models.IntegerField(blank=True, null=True) #games
+    innings = models.IntegerField(blank=True, null=True) #innings
+    strike_outs = models.IntegerField(blank=True, null=True) #k
+    base_on_balls = models.IntegerField(blank=True, null=True) #bb
+    runs_scored = models.DecimalField(blank=True, null=True, max_digits=4, decimal_places=2) #r/9
+    strikes_per_inning = models.DecimalField(blank=True, null=True, max_digits=4, decimal_places=2) #k/9
+    base_on_balls_per_inning = models.DecimalField(blank=True, null=True, max_digits=4, decimal_places=2) #bb/9
+    batting_average = models.DecimalField(blank=True, null=True, max_digits=4, decimal_places=3) #avg
+    slugging_average = models.DecimalField(blank=True, null=True, max_digits=4, decimal_places=3) #slg
+    runs = models.IntegerField(blank=True, null=True) #r
+    on_base_plus_slugging  = models.DecimalField(blank=True, null=True, max_digits=4, decimal_places=3) #ops
+    on_base_percentage = models.DecimalField(blank=True, null=True, max_digits=4, decimal_places=3) #obp
 
 
     @classmethod
@@ -404,6 +417,9 @@ class Game(HitparadeModel):
     away_team = models.ForeignKey(Team, related_name='away_game', null=True)
     winning_team = models.ForeignKey(Team, related_name='winning_game', null=True)
     venue = models.ForeignKey(Venue, null=True)
+    starting_home_pitcher = models.ForeignKey(Player, related_name='home_pitcher', null=True)
+    starting_away_pitcher = models.ForeignKey(Player, related_name='away_pitcher', null=True)
+    official = models.ForeignKey(Official, null=True)
 
     ss_id = models.CharField(max_length=36, unique=True)
     season = models.IntegerField(blank=True, null=True)
@@ -463,6 +479,52 @@ class Game(HitparadeModel):
 
         return data
 
+class GameBattingLineup(HitparadeModel):
+    __name__ = "GameBattingLineup"
+
+    HANDEDNESS_SWITCH = 'S'
+    HANDEDNESS_LEFT = 'L'
+    HANDEDNESS_RIGHT = 'R'
+
+    HANDEDNESS_CHOICES = [
+        HANDEDNESS_LEFT,
+        HANDEDNESS_RIGHT,
+        HANDEDNESS_SWITCH
+    ]
+
+    game = models.ForeignKey(Game, null=True)
+    player = models.ForeignKey(Player, null=True)
+    team = models.ForeignKey(Team, null=True)
+    position = models.CharField(max_length=4, null=True)
+    handedness = models.CharField(max_length=4, null=True)
+    order = models.IntegerField(blank=True, null=True)
+
+    def __unicode__(self):
+        return str(self.id)
+
+class RotowireScrapeLineupLog(HitparadeModel):
+    __name__ = "RotowireScrapeLineupLog"
+
+    started_at = models.DateTimeField(blank=True, null=True)
+    ended_at = models.DateTimeField(blank=True, null=True)
+    was_rotowire_scraped = models.BooleanField(blank=True, null=False)
+    was_data_complete = models.BooleanField(blank=True, null=False)
+    error_text = models.CharField(max_length=2000, blank=True, null=True)
+
+    def __unicode__(self):
+        return str(self.id)
+
+class RotowireScrapeOfficialLog(HitparadeModel):
+    __name__ = "RotowireScrapeOfficialLog"
+
+    started_at = models.DateTimeField(blank=True, null=True)
+    ended_at = models.DateTimeField(blank=True, null=True)
+    was_rotowire_scraped = models.BooleanField(blank=True, null=False)
+    was_data_complete = models.BooleanField(blank=True, null=False)
+    error_text = models.CharField(max_length=2000, blank=True, null=True)
+
+    def __unicode__(self):
+        return str(self.id)
 
 class GameStat(HitparadeModel):
     __name__ = "GameStat"
@@ -491,7 +553,7 @@ class GameStat(HitparadeModel):
             player = Player.objects.get_or_none(name=value)
 
             # Try the nickname
-            if value:
+            if player:
                 split_name = value.split(" ")
                 if player is None and len(split_name) > 1:
                     player = Player.objects.get_or_none(nickname=split_name[0], last_name=split_name[1])
@@ -519,6 +581,13 @@ class GameStat(HitparadeModel):
         else:
             return key, official
 
+    @staticmethod
+    def get_venue_by_city(city):
+        return Venue.objects.get_or_none(city=city)
+    
+    @staticmethod
+    def get_venue_by_lat_long(lat, long):
+        return Venue.objects.get_or_none(latitude=lat,longitude=long)
 
     @staticmethod
     def get_venue_ref(key, venue_name):
@@ -545,6 +614,9 @@ class GameStat(HitparadeModel):
         else:
             return key, date
 
+    @staticmethod
+    def get_game_by_slug(slug):
+        return Game.objects.filter(slug = slug)
 
     @staticmethod
     def denaive_date(key, date):
@@ -559,6 +631,17 @@ class GameStat(HitparadeModel):
         else:
             return key, date
 
+    @staticmethod
+    def wasRotowireLineupScraped(datetime = dt.now()):
+        return RotowireScrapeLineupLog.objects.filter(
+            was_data_complete = True,
+            started_at__date = datetime.date()).exists()
+
+    @staticmethod
+    def wasRotowireOfficialScraped(datetime = dt.now()):
+        return RotowireScrapeOfficialLog.objects.filter(
+            was_data_complete = True,
+            started_at__date = datetime.date()).exists()
 
     # Both of these are here so we can continue to support older files that
     #    don't have mlbam_id
@@ -655,6 +738,8 @@ class GameStat(HitparadeModel):
         u"BOS": "BOS",
         u"CHA": "CHW",
         u"CHN": "CHC",
+        u"CHC": "CHC",
+        u"CWS": "CHW",
         u"CIN": "CIN",
         u"CLE": "CLE",
         u"COL": "COL",
@@ -664,6 +749,7 @@ class GameStat(HitparadeModel):
         u"KC": "KC",
         u"LA": "LA",
         u"LAN": "LA",
+        u"LAD": "LA",
         u"LAA": "LAA",
         u"MIA": "MIA",
         u"MIL": "MIL",
@@ -672,9 +758,11 @@ class GameStat(HitparadeModel):
         # u"MON": "",
         u"NYA": "NYY",
         u"NYN": "NYM",
+        u"NYY": "NYY",
+        u"NYM": "NYM",
         u"OAK": "OAK",
         u"PHI": "PHI",
-        u"PIT": "PHI",
+        u"PIT": "PIT",
         u"SD": "SD",
         u"SEA": "SEA",
         u"SF": "SF",
