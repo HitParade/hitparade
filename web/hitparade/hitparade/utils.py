@@ -18,7 +18,7 @@ from django.conf import settings
 import redis
 import pickle
 import requests
-
+PLAYER_PROFILES = {}
 def get_redis():
     try:
         conn = redis.StrictRedis(
@@ -166,18 +166,46 @@ def format_number(n):
 
 
 def get_player_profile(conn_redis,player_id):
-    r = requests.get( + '/summary.json?api_key=retmw8bx9vxzw5ks5t2supz5')
-    json_object = r.json()
+    player_profile = get_key_or_null(PLAYER_PROFILES,player_id)
+    if player_profile is None:
+        r = requests.get( 'http://api.sportradar.us/mlb-p6/players/' + player_id + '/profile.json?api_key=retmw8bx9vxzw5ks5t2supz5')
+        player_profile = r.json()
+        PLAYER_PROFILES[player_id] = player_profile
+    return player_profile
 
 
 def get_game_summary(conn_redis, y_,m_,d_):
     r = requests.get('http://api.sportradar.us/mlb-p6/games/'+str(y_)+'/'+format_number(m_)+'/'+format_number(d_)+'/summary.json?api_key=retmw8bx9vxzw5ks5t2supz5')
     json_object = r.json()
-    pp = pprint.PrettyPrinter(indent=2)
     all_games = []
     for g in json_object['league']['games']:
         game_details = {}
         game = g['game']
+        game_details['sr_id'] = game['id']
+        game_details['venue_market'] = game['venue']['market']
+        game_details['venue_capacity'] = game['venue']['capacity']
+        game_details['venue_name'] = game['venue']['name']
+        game_details['venue_sr_id'] = game['venue']['id']
+        game_details['home_team_name'] = game['home']['name']
+        game_details['home_team_market'] = game['home']['market']
+        game_details['home_team_abbr'] = game['home']['abbr']
+        game_details['away_team_name'] = game['away']['name']
+        game_details['away_team_market'] = game['away']['market']
+        game_details['away_team_abbr'] = game['away']['abbr']
+        game_details['innings'] = game['final']['inning']
+        game_details['inning_end'] = game['final']['inning_half']
+        game_details['home_team_runs'] = game['home']['runs']
+        game_details['home_team_hits'] = game['home']['hits']
+        game_details['home_team_errors'] = game['home']['errors']
+        game_details['away_team_runs'] = game['away']['runs']
+        game_details['away_team_hits'] = game['away']['hits']
+        game_details['away_team_errors'] = game['away']['errors']
+        game_details['away_team_wins'] = game['away']['win']
+        game_details['away_team_losses'] = game['away']['loss']
+        game_details['home_team_wins'] = game['home']['win']
+        game_details['home_team_losses'] = game['home']['loss']
+        game_details['home_team_sr_id'] = game['home']['id']
+        game_details['away_team_sr_id'] = game['away']['id']
         game_details['attendance'] = game['attendance']
         game_details['duration_mins'] = (60 * int(game['duration'].split(':')[0])) + int(game['duration'].split(':')[1])
         game_details['duration'] = game['duration']
@@ -195,6 +223,12 @@ def get_game_summary(conn_redis, y_,m_,d_):
                 away_lineup[ah['order']] = ah
         game_details['lineup_home'] = home_lineup
         game_details['lineup_away'] = away_lineup
+        for p in  game_details['lineup_away']:
+            player_profile = get_player_profile(conn_redis, game_details['lineup_away'][p]['id'])
+            game_details['lineup_away'][p]['profile'] = player_profile
+        for p in  game_details['lineup_home']:
+            player_profile = get_player_profile(conn_redis, game_details['lineup_away'][p]['id'])
+            game_details['lineup_away'][p]['profile'] = player_profile
         all_games.append(game_details)
     return all_games
 
