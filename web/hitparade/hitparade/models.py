@@ -50,6 +50,183 @@ class HitparadeModel(Model, TimeStampedModel):
 
     def __unicode__(self):
         return self.name
+#
+# class Season(HitparadeModel):
+#     __name__ = 'Season'
+#     sr_id = models.CharField(max_length=64, blank=True, null=True)
+#     year = models.IntegerField(null=True)
+#     type= models.CharField(max_length=32, blank=True, null=True)
+#     hitting_statistics = models.ManyToOneField(HittingOverall, null=True)
+#     fielding_statistics = models.ManyToOneField(FieldingOverall, null=True)
+#
+#
+# class HittingOverall(HitparadeModel):
+#     __name__ = "HittingOverall"
+#     ab = models.IntegerField(null=True)
+#     lob = models.IntegerField(null=True)
+#     rbi  = models.IntegerField(null=True)
+#     abhr = models.FloatField(null=True)
+#     abk = models.FloatField(null=True)
+#     bip = models.IntegerField(null=True)
+#     babip = models.FloatField(null=True)
+#     bbk = models.FloatField(null=True)
+#     bbpa = models.FloatField(null=True)
+#     iso =  models.FloatField(null=True)
+#     obp =  models.FloatField(null=True)
+#     ops =  models.FloatField(null=True)
+#     seca =  models.FloatField(null=True)
+#     slg =  models.FloatField(null=True)
+#     xbh =  models.FloatField(null=True)
+#     pitch_count =  models.IntegerField(null=True)
+#     lob_risp_2out =  models.IntegerField(null=True)
+#     team_lob =  models.IntegerField(null=True)
+#     ab_risp =  models.IntegerField(null=True)
+#     hit_risp =  models.IntegerField(null=True)
+#     rbi_2out =  models.IntegerField(null=True)
+#     linedrive =  models.IntegerField(null=True)
+#     groundball =  models.IntegerField(null=True)
+#     popup =  models.IntegerField(null=True)
+#     flyball =  models.IntegerField(null=True)
+#     ap =  models.IntegerField(null=True)
+#     avg =  models.FloatField(null=True)
+#     gofo = models.FloatField(null=True)
+#     #from the 'runs' field
+#     runs = models.IntegerField(null=True)
+#     onbase = models.OneToOneField(OnBaseOverall, null=True)
+#     outcome = models.OneToOneField(OutcomeOverall, null=True)
+#     outs = models.OneToOneField(OutsOverall, null=True)
+#     steal = models.OneToOneField(StealOverall, null=True)
+#     games = models.OneToOneField(GamesOverall, null=True)
+#     hitting_overall_split = models.OneToOneField(Split, null=True)
+#     day_split = models.OneToOneField(Split, null=True)
+#     night_split = models.OneToOneField(Split, null=True)
+#     grass_split = models.OneToOneField(Split, null=True)
+#     march_split = models.OneToOneField(Split, null=True)
+#     april_split = models.OneToOneField(Split, null=True)
+#     may_split = models.OneToOneField(Split, null=True)
+#     june_split = models.OneToOneField(Split, null=True)
+#     july_split = models.OneToOneField(Split, null=True)
+#     august_split = models.OneToOneField(Split, null=True)
+#     september_split = models.OneToOneField(Split, null=True)
+#     october_split = models.OneToOneField(Split, null=True)
+#     november_split = models.OneToOneField(Split, null=True)
+#     home_split = models.OneToOneField(Split, null=True)
+#     right_split = models.OneToOneField(Split, null=True)
+#     left_split = models.OneToOneField(Split, null=True)
+#     team = models.OneToOneField(Team, null=True)
+#     opponent_offense_split = models.ManyToOneRel(TeamSplit, null=True)
+#
+# class OnBaseOverall(HitparadeModel):
+#     __name__ = "OnBaseOverall"
+#     s = models.IntegerField(null=True)
+#     d = models.IntegerField(null=True)
+#     t  = models.IntegerField(null=True)
+#     hr = models.IntegerField(null=True)
+#     tb = models.IntegerField(null=True)
+#     bb = models.IntegerField(null=True)
+#     ibb = models.IntegerField(null=True)
+#     hbp = models.IntegerField(null=True)
+#     hbp = models.IntegerField(null=True)
+#     fc =  models.IntegerField(null=True)
+#     roe =  models.IntegerField(null=True)
+#     cycle =  models.IntegerField(null=True)
+#
+#
+# class OutcomeOverall(HitparadeModel):
+#     __name__ = "OutcomeOverall"
+#     klook = models.IntegerField(null=True)
+#     kswing =  models.IntegerField(null=True)
+#     ktotal = models.IntegerField(null=True)
+#     ball = models.IntegerField(null=True)
+#     iball = models.IntegerField(null=True)
+#     dirtball = models.IntegerField(null=True)
+#     foul = models.IntegerField(null=True)
+#
+#
+# class OutsOverall(HitparadeModel):
+#     __name__ = "OutsOverall"
+#     po =  models.IntegerField(null=True)
+#     fo =  models.IntegerField(null=True)
+#     fidp = models.IntegerField(null=True)
+#     lo = models.IntegerField(null=True)
+#     lidp =  models.IntegerField(null=True)
+#     go =  models.IntegerField(null=True)
+#     gidp = models.IntegerField(null=True)
+#     klook = models.IntegerField(null=True)
+#     kswing = models.IntegerField(null=True)
+#     ktotal = models.IntegerField(null=True)
+#     sacfly = models.IntegerField(null=True)
+#     sachit = models.IntegerField(null=True)
+#
+#
+# class StealOverall(HitparadeModel):
+#     __name__ = "OutsOverall"
+#     caught = models.IntegerField(null=True)
+#     stolen = models.IntegerField(null=True)
+#     pct = models.IntegerField(null=True)
+#     pickoff = models.IntegerField(null=True)
+#
+#
+# class GamesOverall(HitparadeModel):
+#     __name__ = "OutsOverall"
+#     start = models.IntegerField(null=True)
+#     play = models.IntegerField(null=True)
+#     finish = models.IntegerField(null=True)
+#     complete = models.IntegerField(null=True)
+#
+# class FieldingOverall(HitparadeModel):
+#     __name__ = "OutsOverall"
+#     po = models.IntegerField(null=True)
+#     a = models.IntegerField(null=True)
+#     dp = models.IntegerField(null=True)
+#     tp = models.IntegerField(null=True)
+#     error = models.IntegerField(null=True)
+#     tc = models.IntegerField(null=True)
+#     fpct = models.IntegerField(null=True)
+#     c_wp = models.IntegerField(null=True)
+#     pb = models.IntegerField(null=True)
+#     rf = models.FloatField(null=True)
+#     errors = models.OneToOneField(ErrorsOverall, null=True)
+#     games = models.OneToOneField(GamesOverall, null=True)
+#
+#
+# class ErrorsOverall(HitparadeModel):
+#     __name__ = "OutsOverall"
+#     throwing = models.IntegerField(null=True)
+#     fielding = models.IntegerField(null=True)
+#     interference = models.IntegerField(null=True)
+#     total = models.IntegerField(null=True)
+#
+#
+# class Split(HitparadeModel):
+#     __name__ = "Split"
+#     ab = models.IntegerField(null=True)
+#     runs = models.IntegerField(null=True)
+#     s = models.IntegerField(null=True)
+#     t = models.IntegerField(null=True)
+#     hr = models.IntegerField(null=True)
+#     rbi = models.IntegerField(null=True)
+#     bb = models.IntegerField(null=True)
+#     ibb = models.IntegerField(null=True)
+#     hbp = models.IntegerField(null=True)
+#     sb = models.IntegerField(null=True)
+#     cs = models.IntegerField(null=True)
+#     obp = models.IntegerField(null=True)
+#     slg = models.FloatField(null=True)
+#     ops = models.FloatField(null=True)
+#     h = models.IntegerField(null=True)
+#     ktotal = models.IntegerField(null=True)
+#     h = models.IntegerField(null=True)
+#     avg = models.FloatField(null=True)
+#
+# class TeamSplit(Split):
+#     __name__ = 'TeamSplit'
+#     sr_id = models.CharField(max_length=36, blank=True, null=True)
+#     name = models.CharField(max_length=64, blank=True, null=True)
+#     market = models.CharField(max_length=64, blank=True, null=True)
+#     abbr = models.CharField(max_length=64, blank=True, null=True)
+#     split = models.OneToOneField(Split, null=True)
+#
 
 
 class Conference(HitparadeModel):
@@ -126,6 +303,7 @@ class Team(HitparadeModel):
         return self.nickname
 
 
+
 class Player(HitparadeModel):
     __name__ = "Player"
 
@@ -165,6 +343,17 @@ class Player(HitparadeModel):
     unit_of_weight = models.CharField(max_length=16, null=True)
     weight = models.IntegerField(blank=True, null=True)
     years_of_experience = models.IntegerField(blank=True, null=True)
+
+    #Sports Radar Data
+    full_name = models.CharField(max_length=128, unique=False, null=True)
+    position = models.CharField(max_length=8, unique=False, null=True)
+    primary_position = models.CharField(max_length=8, unique=False, null=True)
+    preferred_name = models.CharField(max_length=8, unique=False, null=True)
+    jersey_number = models.CharField(max_length=4, unique=False, null=True)
+    sr_id = models.CharField(max_length=64, unique=False, null=True)
+    sr_status = models.CharField(max_length=8, unique=False, null=True)
+    birth_city = models.CharField(max_length=256, unique=False, null=True)
+    birth_country = models.CharField(max_length=256, unique=False, null=True)
 
 
     class Meta:

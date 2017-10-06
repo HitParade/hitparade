@@ -154,6 +154,51 @@ def get_venues():
     set_redis_object(redis_conn, 'venues', venues)
     return venues, city_dict, name_dict
 
+
+def format_number(n):
+    if n is None:
+        return '00'
+    else:
+        if n < 10:
+            return str('0') + str(n)
+        else:
+            return str(n)
+
+
+def get_player_profile(conn_redis,player_id):
+    r = requests.get( + '/summary.json?api_key=retmw8bx9vxzw5ks5t2supz5')
+    json_object = r.json()
+
+
+def get_game_summary(conn_redis, y_,m_,d_):
+    r = requests.get('http://api.sportradar.us/mlb-p6/games/'+str(y_)+'/'+format_number(m_)+'/'+format_number(d_)+'/summary.json?api_key=retmw8bx9vxzw5ks5t2supz5')
+    json_object = r.json()
+    pp = pprint.PrettyPrinter(indent=2)
+    all_games = []
+    for g in json_object['league']['games']:
+        game_details = {}
+        game = g['game']
+        game_details['attendance'] = game['attendance']
+        game_details['duration_mins'] = (60 * int(game['duration'].split(':')[0])) + int(game['duration'].split(':')[1])
+        game_details['duration'] = game['duration']
+        game_details['day_night'] = game['day_night']
+        game_details['scheduled'] = game['scheduled']
+        lineup_home = game['home']['lineup']
+        lineup_away = game['away']['lineup']
+        home_lineup = {}
+        away_lineup = {}
+        for lh in lineup_home:
+            if lh['inning'] == 0:
+                home_lineup[lh['order']] = lh
+        for ah in lineup_away:
+            if ah['inning'] == 0:
+                away_lineup[ah['order']] = ah
+        game_details['lineup_home'] = home_lineup
+        game_details['lineup_away'] = away_lineup
+        all_games.append(game_details)
+    return all_games
+
+
 def get_random_num_excluding(range_, exclude):
 
     # If a tuple is passed, expand it to full range (list)
