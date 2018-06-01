@@ -15,7 +15,7 @@ const HitParadeFooter = props => {
     justifyContent: 'center',
     alignItems: 'center'
 }}>
-    <div className="site-content-max-width footer-content">
+    <div className="site-content-max-width footer-content" style={{display: 'flex', justifyContent: 'center'}}>
       <img src="/static/dist/images/real-time-stats-provided-by-sportradar-reversed-300w.png" />
     </div>
       <div className="site-content-max-width footer-content">
