@@ -10,7 +10,7 @@ const HitParadeFooter = props => {
   return (
     <footer className="footer">
     <div className="site-content-max-width footer-content">
-      <img src="/static/dist/images/real-time-stats-provided-by-sportradar-reversed-300w.png">
+      <img src="/static/dist/images/real-time-stats-provided-by-sportradar-reversed-300w.png" />
     </div>
       <div className="site-content-max-width footer-content">
         <HitParadeLogo logoColor="#FFFFFF" className="hp-footer-logo-ph" logoWidth="126px" logoHeight="43px" logoViewBox="0 0 126 43"/>
