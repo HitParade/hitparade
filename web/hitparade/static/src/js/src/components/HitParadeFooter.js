@@ -8,7 +8,13 @@ const HitParadeFooter = props => {
   var d = new Date();
   var fullYear = d.getFullYear();
   return (
-    <footer className="footer">
+    <footer className="footer" style={{
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '15px',
+    justifyContent: 'center',
+    alignItems: 'center'
+}}>
     <div className="site-content-max-width footer-content">
       <img src="/static/dist/images/real-time-stats-provided-by-sportradar-reversed-300w.png" />
     </div>
