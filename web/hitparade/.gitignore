@@ -2,3 +2,4 @@
 node_modules/
 dev.db
 site_media/
+webpack_bundle_analyser_report.html

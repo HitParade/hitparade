@@ -1,4 +1,19 @@
-import * as HitParadeActionTypes from '../actiontypes/hitparade';
+import {
+	NAV_FAQ,
+	TERMS_OF_USE,
+	NAV_CLOSE_MODAL,
+	NAV_SIGNUP,
+	NAV_LOGIN,
+	NAV_CONTACT,
+	SELECT_PLAYER,
+	REMOVE_PLAYER,
+	NAV_SELECT_PLAYERS,
+	CART,
+	NAV_SHARE,
+	NAV_PRIVACY_STATEMENT,
+	TOGGLE_HAMBRUGER,
+} from '../actiontypes/hitparade';
+
 const svgShare = {
   	img: 'share.svg',
   	width: '15px',
@@ -31,71 +46,59 @@ const initialState = {
 		svgCart: svgCart,
 	},
 };
-export default function HitParade(state=initialState, action) {
-	switch(action.type) {
-	case HitParadeActionTypes.NAV_SELECT_PLAYERS:
-		return {
-			...state,
-		};
-	case HitParadeActionTypes.NAV_FAQ:
-		return {
-			...state,
-		};
-	case HitParadeActionTypes.NAV_CONTACT:
-		return {
-			...state,
-		};
-	case HitParadeActionTypes.TERMS_OF_USE:
-		return {
-			...state,
-		};
-	case HitParadeActionTypes.NAV_CLOSE_MODAL:
+
+const HitParade = {
+  state: initialState, 
+  actions: {
+	[NAV_CLOSE_MODAL]: (state, action) => {
 		return {
 			...state,
 			showModal: false,
 		};
-	case HitParadeActionTypes.NAV_SIGNUP:
+	},
+	[NAV_SIGNUP]: (state, action) => {
 		return {
 			...state,
 			showModal: true,
 			modalData: 'signUp'
 		};
-	case HitParadeActionTypes.NAV_LOGIN:
+	},
+	[SELECT_PLAYER]: (state, action) => {
 		return {
 			...state,
-		};
-	case HitParadeActionTypes.NAV_CONTACT:
-		return {
-			...state,
-		};
-	case HitParadeActionTypes.SELECT_PLAYER:
-		state.playersInCart += 1;
-		return state;
-	case HitParadeActionTypes.REMOVE_PLAYER:
+			playersInCart: state.playersInCart += 1
+		}
+	},
+	[REMOVE_PLAYER]: (state, action) => {
 		return {
 			...state,
 			playersInCart: (state.playersInCart-1),
 		};
-	case HitParadeActionTypes.CART:
+
+	},
+	[TOGGLE_HAMBRUGER]: (state, action) => {
 		return {
 			...state,
+			showDrawer: !state.showDrawer
 		};
-	case HitParadeActionTypes.NAV_SHARE:
+
+	},
+	[NAV_LOGIN]: (state, action) => state,
+	[NAV_SELECT_PLAYERS]: (staet, action) => state,
+	[NAV_FAQ]: (state, action) => state,
+	[NAV_CONTACT]: (state, action) => state,
+	[TERMS_OF_USE]: (state, action) => state,
+	[CART]: (state, action) => state,
+	[NAV_SHARE]: (state, action) => {
 		return {
 			...state,
 			showModal: true,
 			modalData: 'share'
 		}
-	case HitParadeActionTypes.NAV_PRIVACY_STATEMENT:
-		return {
-			...state,
-		}
-	case HitParadeActionTypes.TOGGLE_HAMBRUGER:
-		return {
-			...state,
-			showDrawer: !state.showDrawer
-		}
-	default:
-		return state;
-	}
-}
+	},
+	[NAV_PRIVACY_STATEMENT]: (state, action) => state,
+  }
+};
+
+export default HitParade;
+

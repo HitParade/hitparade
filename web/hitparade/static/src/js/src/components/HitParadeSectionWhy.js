@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 import HitParadeButton from './HitParadeButton';
 import Diamonds from './Diamonds';
 import { responsive }   from '../../responsive';
@@ -9,7 +10,7 @@ const HitParadeSectionWhy = props => {
 		<div className="hp-why-content">
 			<Diamonds 
 				className="hp-section-why-header"
-				count={isMobile ? "5" : "11"}
+				count={isMobile ? 5 : 11}
 				src={props.imgRoot +'diamond.svg'}
 			/>
 		
@@ -42,7 +43,7 @@ const HitParadeSectionWhy = props => {
 			</div>
 		<Diamonds 
 			className="hp-section-why-footer"
-			count={isMobile ? "5" : "11"}
+			count={isMobile ? 5 : 11}
 			src={props.imgRoot +'diamond.svg'}
 		/>
 	</div>

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react'; 
+import PropTypes from 'prop-types';
 
 const HitParadeButton = props => {
   return (
@@ -10,7 +11,7 @@ const HitParadeButton = props => {
 HitParadeButton.propTypes = {
 	className: PropTypes.string.isRequired,
 	buttonText: PropTypes.string.isRequired,
-	onClick: PropTypes.func.isRequired,
+	clickMethod: PropTypes.func.isRequired,
 };
 
 export default HitParadeButton;
